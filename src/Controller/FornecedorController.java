@@ -9,7 +9,7 @@ public class FornecedorController {
    
      public String salvarFornecedor( String cnpjFornecedor, String nomeFornecedor, 
             String emailFornecedor, String representanteFornecedor, String emailRepresentante, 
-            String ramoFornecedor, String telFornecedor, String celFornecedor, int fkEnderecoFornecedor){
+            String ramoFornecedor, String telFornecedor, String celFornecedor){
         DAO dao = new DAO();
         dao.fornecedor.setCnpjFornecedor(cnpjFornecedor);
         dao.fornecedor.setNomeFornecedor(nomeFornecedor);
@@ -19,7 +19,6 @@ public class FornecedorController {
         dao.fornecedor.setRamoFornecedor(ramoFornecedor);
         dao.fornecedor.setTelFornecedor(telFornecedor);
         dao.fornecedor.setCelFornecedor(celFornecedor);
-        dao.fornecedor.setFkEnderecoFornecedor(fkEnderecoFornecedor);
     
         String msgInclusao = dao.atualizar(DAO.INCLUSAOFORNECEDOR);
         return msgInclusao;

@@ -109,7 +109,7 @@ public class DAO {
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, endereco.getCep());
-                    
+
                     ResultSet fk = statement.executeQuery(sql);
 
                     if (fk.next()) {
@@ -186,7 +186,97 @@ public class DAO {
     }
 //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
+    public String AtualizarFornecedor(int operacao) {
+        men = "Operação realizada com sucesso!";
+
+        try {
+            switch (operacao) {
+
+                case INCLUSAOFORNECEDOR:
+                    
+                       sql = "select * from endereco where cep = ?";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, endereco.getCep());
+
+                    ResultSet fk = statement.executeQuery(sql);
+
+                    if (fk.next()) {
+                        fk.first();
+                        int FK = fk.getInt("idendereco");
+                        if (fk.wasNull()) {
+
+                            sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
+                                    + "cidade, estado) values(?,?,?,?,?,?,?)";
+
+                            bd.getConnection();
+                            statement = bd.connection.prepareStatement(sql);
+                            statement.setString(1, endereco.getCep());
+                            statement.setString(2, endereco.getBairro());
+                            statement.setString(3, endereco.getLogradouro());
+                            statement.setString(4, endereco.getComplemento());
+                            statement.setString(5, endereco.getNumero());
+                            statement.setString(6, endereco.getCidade());
+                            statement.setString(7, endereco.getEstado());
+                            statement.executeUpdate();
+
+                            sql = "select * from endereco where cep = ? and logradouro = ? and numero = ?";
+                            bd.getConnection();
+                            statement.setString(1, endereco.getCep());
+                            statement.setString(2, endereco.getLogradouro());
+                            statement.setString(3, endereco.getNumero());
+                            statement = bd.connection.prepareStatement(sql);
+                            fk = statement.executeQuery();
+                            FK = fk.getInt("idendereco");
+                        }
+                    }
+                    
+                    sql = "insert into fornecedor values(null,?,?,?,?,?,?,?,?,?)";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, fornecedor.getCnpjFornecedor());
+                    statement.setString(2, fornecedor.getNomeFornecedor());
+                    statement.setString(3, fornecedor.getEmailFornecedor());
+                    statement.setString(4, fornecedor.getRepresentanteFornecedor());
+                    statement.setString(5, fornecedor.getRamoFornecedor());
+                    statement.setString(6, fornecedor.getTelFornecedor());
+                    statement.setString(7, fornecedor.getCelFornecedor());
+                    statement.setString(8, fornecedor.getEmailRepresentante());
+                    statement.setInt(9, fornecedor.getFkEnderecoFornecedor());
+
+                    statement.executeUpdate();
+                    statement.close();
+                    break;
+                    
+                    
+                case ALTERACAOFORNECEDOR:
+                    sql = "update fornecedor set   = ?,  = ?,  = ?,  = ?,"
+                            + "   = ?,   = ?,   = ?, = ?,  = ? where = ?";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(10, fornecedor.getIdFornecedor());
+                    statement.setString(1, fornecedor.getCnpjFornecedor());
+                    statement.setString(2, fornecedor.getNomeFornecedor());
+                    statement.setString(3, fornecedor.getEmailFornecedor());
+                    statement.setString(4, fornecedor.getRepresentanteFornecedor());
+                    statement.setString(5, fornecedor.getRamoFornecedor());
+                    statement.setString(6, fornecedor.getTelFornecedor());
+                    statement.setString(7, fornecedor.getCelFornecedor());
+                    statement.setString(8, fornecedor.getEmailRepresentante());
+                    statement.setInt(9, fornecedor.getFkEnderecoFornecedor());
+                    statement.executeUpdate();
+                    statement.close();
+                    break;
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro);
+        }
+        return men;
+    }
+    //</editor-fold>
+
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
     public String atualizar(int operacao) {
         men = "Operação realizada com sucesso!";
         try {
