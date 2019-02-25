@@ -353,7 +353,115 @@ public class DAO {
     }
 //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FUNCIONARIO ">
+    public String atualizarFuncionario(int operacao) {
+        int FK;
+        men = "Operação realizada com sucesso!";
+        try {
+            switch (operacao) {
+                case INCLUSAOFUNCIONARIO:
+
+                    sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, endereco.getCep());
+                    statement.setString(2, endereco.getLogradouro());
+                    statement.setString(3, endereco.getNumero());
+                    ResultSet fk = statement.executeQuery();
+                    if (fk.next()) {
+                        FK = fk.getInt("idendereco");
+
+                    } else {
+
+                        sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
+                                + "cidade, estado) values(?,?,?,?,?,?,?)";
+
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, endereco.getCep());
+                        statement.setString(2, endereco.getBairro());
+                        statement.setString(3, endereco.getLogradouro());
+                        statement.setString(4, endereco.getComplemento());
+                        statement.setString(5, endereco.getNumero());
+                        statement.setString(6, endereco.getCidade());
+                        statement.setString(7, endereco.getEstado());
+                        statement.executeUpdate();
+
+                        sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
+                        bd.getConnection();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, endereco.getCep());
+                        statement.setString(2, endereco.getLogradouro());
+                        statement.setString(3, endereco.getNumero());
+                        fk = statement.executeQuery();
+                        fk.first();
+
+                        FK = fk.getInt("idendereco");
+
+                    }
+
+                    String x = Integer.toString(FK);
+
+                    sql = "insert into Funcionario values(null,?,?,?,?,?,?,?)";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, funcionario.getNomeFuncionario());
+                    statement.setString(2, funcionario.getCpfFuncionario());
+                    statement.setString(3, funcionario.getRgFuncionario());
+                    statement.setString(4, funcionario.getTelFuncionario());
+                    statement.setString(5, funcionario.getCelFuncionario());
+                    statement.setString(6, funcionario.getEmailFuncionario());
+                    statement.setDate(7, (Date) funcionario.getDataNascFuncionario());
+                    statement.setInt(8, FK);
+
+                    statement.executeUpdate();
+                    statement.close();
+                    break;
+
+                case ALTERACAOFUNCIONARIO:
+
+                    sql = "update Endereco set cep = ?, bairro = ?,  logradouro = ?"
+                            + ",  complemento = ?,  numero = ?,  cidade = ?,  estado = ?"
+                            + "where idendereco = ?";
+
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, endereco.getCep());
+                    statement.setString(2, endereco.getBairro());
+                    statement.setString(3, endereco.getLogradouro());
+                    statement.setString(4, endereco.getComplemento());
+                    statement.setString(5, endereco.getNumero());
+                    statement.setString(6, endereco.getCidade());
+                    statement.setString(7, endereco.getEstado());
+                    statement.setString(8, endereco.getIdendereco());
+                    statement.executeUpdate();
+
+                    sql = "update Funcionario set   = ?,  = ?,  = ?,  = ?,"
+                            + "   = ?,   = ?,   = ?,  = ? where = ?";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(9, funcionario.getIdFuncionario());
+                    statement.setString(1, funcionario.getNomeFuncionario());
+                    statement.setString(2, funcionario.getCpfFuncionario());
+                    statement.setString(3, funcionario.getRgFuncionario());
+                    statement.setString(4, funcionario.getTelFuncionario());
+                    statement.setString(5, funcionario.getCelFuncionario());
+                    statement.setString(6, funcionario.getEmailFuncionario());
+                    statement.setDate(7, (Date) funcionario.getDataNascFuncionario());
+                    statement.setInt(8, funcionario.getFkEnderecoFuncionario());
+                    statement.executeUpdate();
+                    statement.close();
+                    break;
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro);
+        }
+        return men;
+    }
+    //</editor-fold>
+    
+    
+    
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
+
     public String atualizar(int operacao) {
         men = "Operação realizada com sucesso!";
         try {

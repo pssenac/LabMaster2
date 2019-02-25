@@ -1,14 +1,16 @@
-
 package Controller;
 
 import Models.DAO;
 import java.util.Date;
 
 public class FuncionarioController {
-    
-    public String salvarFuncionario( String nomeFuncionario,  String cpfFuncionario,  
-            String rgFuncionario,  String telFuncionario,  String celFuncionario,  String emailFuncionario,  
-            Date dataNascFuncionario,  int fkEnderecoFuncionario ){
+
+    public String salvarFuncionario(String nomeFuncionario, String cpfFuncionario,
+            String rgFuncionario, String telFuncionario, String celFuncionario, String emailFuncionario,
+            Date dataNascFuncionario, String cep, String bairro, String logradouro, String complemento,
+            String numero, String cidade, String estado) {
+        
+        
         DAO dao = new DAO();
         dao.funcionario.setNomeFuncionario(nomeFuncionario);
         dao.funcionario.setCpfFuncionario(cpfFuncionario);
@@ -17,16 +19,25 @@ public class FuncionarioController {
         dao.funcionario.setCelFuncionario(celFuncionario);
         dao.funcionario.setEmailFuncionario(emailFuncionario);
         dao.funcionario.setDataNascFuncionario(dataNascFuncionario);
-        dao.funcionario.setFkEnderecoFuncionario(fkEnderecoFuncionario);
-       
+
+        dao.endereco.setBairro(bairro);
+        dao.endereco.setCep(cep);
+        dao.endereco.setCidade(cidade);
+        dao.endereco.setComplemento(complemento);
+        dao.endereco.setEstado(estado);
+        dao.endereco.setLogradouro(logradouro);
+        dao.endereco.setNumero(numero);
+
         String msgInclusao = dao.atualizar(DAO.INCLUSAOFUNCIONARIO);
         return msgInclusao;
     }
-     
-    public String alterarFuncionario(String idFuncionario,  String nomeFuncionario,  String cpfFuncionario,  
-            String rgFuncionario,  String telFuncionario,  String celFuncionario,  String emailFuncionario,  
-            Date dataNascFuncionario,  int fkEnderecoFuncionario ){
+
+    public String alterarFuncionario(String idFuncionario, String idEndereco, String nomeFuncionario, String cpfFuncionario,
+            String rgFuncionario, String telFuncionario, String celFuncionario, String emailFuncionario,
+            Date dataNascFuncionario, String cep, String bairro, String logradouro, String complemento,
+            String numero, String cidade, String estado) {
         DAO dao = new DAO();
+
         dao.funcionario.setIdFuncionario(idFuncionario);
         dao.funcionario.setNomeFuncionario(nomeFuncionario);
         dao.funcionario.setCpfFuncionario(cpfFuncionario);
@@ -35,11 +46,18 @@ public class FuncionarioController {
         dao.funcionario.setCelFuncionario(celFuncionario);
         dao.funcionario.setEmailFuncionario(emailFuncionario);
         dao.funcionario.setDataNascFuncionario(dataNascFuncionario);
-        dao.funcionario.setFkEnderecoFuncionario(fkEnderecoFuncionario);
-     
-       
+
+        dao.endereco.setIdendereco(idEndereco);
+        dao.endereco.setBairro(bairro);
+        dao.endereco.setCep(cep);
+        dao.endereco.setCidade(cidade);
+        dao.endereco.setComplemento(complemento);
+        dao.endereco.setEstado(estado);
+        dao.endereco.setLogradouro(logradouro);
+        dao.endereco.setNumero(numero);
+
         String msgInclusao = dao.atualizar(DAO.ALTERACAOFUNCIONARIO);
         return msgInclusao;
     }
-    
+
 }

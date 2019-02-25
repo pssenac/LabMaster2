@@ -20,7 +20,6 @@ public class FornecedorController {
         dao.fornecedor.setContatoCel(celRepresentante);
         dao.fornecedor.setEmailRepresentante(emailRepresenante);
 
-        dao.endereco.setIdendereco(cidade);
         dao.endereco.setBairro(bairro);
         dao.endereco.setCep(cep);
         dao.endereco.setCidade(cidade);
