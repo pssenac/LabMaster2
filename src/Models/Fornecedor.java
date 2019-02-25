@@ -1,101 +1,155 @@
-
 package Models;
 
-
 public class Fornecedor {
-    
-    private String IdFornecedor;
-    private String cnpjFornecedor;
-    private String nomeFornecedor;
-    private String emailFornecedor;
-    private String representanteFornecedor;
-    private String emailRepresentante;
-    private String ramoFornecedor;
-    private String telFornecedor;
-    private String celFornecedor;
-    private int fkEnderecoFornecedor;
 
+    /**
+     * @return the IdFornecedor
+     */
     public String getIdFornecedor() {
         return IdFornecedor;
     }
 
+    /**
+     * @param IdFornecedor the IdFornecedor to set
+     */
     public void setIdFornecedor(String IdFornecedor) {
         this.IdFornecedor = IdFornecedor;
     }
 
-    public String getCnpjFornecedor() {
-        return cnpjFornecedor;
+    /**
+     * @return the cnpjcpfFornecedor
+     */
+    public String getCnpjcpfFornecedor() {
+        return cnpjcpfFornecedor;
     }
 
-    public void setCnpjFornecedor(String cnpjFornecedor) {
-        this.cnpjFornecedor = cnpjFornecedor;
+    /**
+     * @param cnpjcpfFornecedor the cnpjcpfFornecedor to set
+     */
+    public void setCnpjcpfFornecedor(String cnpjcpfFornecedor) {
+        this.cnpjcpfFornecedor = cnpjcpfFornecedor;
     }
 
-    public String getNomeFornecedor() {
-        return nomeFornecedor;
+    /**
+     * @return the nomeEmpresa
+     */
+    public String getNomeEmpresa() {
+        return nomeEmpresa;
     }
 
-    public void setNomeFornecedor(String nomeFornecedor) {
-        this.nomeFornecedor = nomeFornecedor;
+    /**
+     * @param nomeEmpresa the nomeEmpresa to set
+     */
+    public void setNomeEmpresa(String nomeEmpresa) {
+        this.nomeEmpresa = nomeEmpresa;
     }
 
-    public String getEmailFornecedor() {
-        return emailFornecedor;
+    /**
+     * @return the nomeFantasia
+     */
+    public String getNomeFantasia() {
+        return nomeFantasia;
     }
 
-    public void setEmailFornecedor(String emailFornecedor) {
-        this.emailFornecedor = emailFornecedor;
+    /**
+     * @param nomeFantasia the nomeFantasia to set
+     */
+    public void setNomeFantasia(String nomeFantasia) {
+        this.nomeFantasia = nomeFantasia;
     }
 
-    public String getRepresentanteFornecedor() {
-        return representanteFornecedor;
+    /**
+     * @return the ramo
+     */
+    public String getRamo() {
+        return ramo;
     }
 
-    public void setRepresentanteFornecedor(String representanteFornecedor) {
-        this.representanteFornecedor = representanteFornecedor;
+    /**
+     * @param ramo the ramo to set
+     */
+    public void setRamo(String ramo) {
+        this.ramo = ramo;
     }
 
+    /**
+     * @return the nomeRepresentante
+     */
+    public String getNomeRepresentante() {
+        return nomeRepresentante;
+    }
+
+    /**
+     * @param nomeRepresentante the nomeRepresentante to set
+     */
+    public void setNomeRepresentante(String nomeRepresentante) {
+        this.nomeRepresentante = nomeRepresentante;
+    }
+
+    /**
+     * @return the emailRepresentante
+     */
     public String getEmailRepresentante() {
         return emailRepresentante;
     }
 
+    /**
+     * @param emailRepresentante the emailRepresentante to set
+     */
     public void setEmailRepresentante(String emailRepresentante) {
         this.emailRepresentante = emailRepresentante;
     }
 
-    public String getRamoFornecedor() {
-        return ramoFornecedor;
+    /**
+     * @return the contatoFixo
+     */
+    public String getContatoFixo() {
+        return contatoFixo;
     }
 
-    public void setRamoFornecedor(String ramoFornecedor) {
-        this.ramoFornecedor = ramoFornecedor;
+    /**
+     * @param contatoFixo the contatoFixo to set
+     */
+    public void setContatoFixo(String contatoFixo) {
+        this.contatoFixo = contatoFixo;
     }
 
-    public String getTelFornecedor() {
-        return telFornecedor;
+    /**
+     * @return the contatoCel
+     */
+    public String getContatoCel() {
+        return contatoCel;
     }
 
-    public void setTelFornecedor(String telFornecedor) {
-        this.telFornecedor = telFornecedor;
+    /**
+     * @param contatoCel the contatoCel to set
+     */
+    public void setContatoCel(String contatoCel) {
+        this.contatoCel = contatoCel;
     }
 
-    public String getCelFornecedor() {
-        return celFornecedor;
-    }
-
-    public void setCelFornecedor(String celFornecedor) {
-        this.celFornecedor = celFornecedor;
-    }
-
+    /**
+     * @return the fkEnderecoFornecedor
+     */
     public int getFkEnderecoFornecedor() {
         return fkEnderecoFornecedor;
     }
 
+    /**
+     * @param fkEnderecoFornecedor the fkEnderecoFornecedor to set
+     */
     public void setFkEnderecoFornecedor(int fkEnderecoFornecedor) {
         this.fkEnderecoFornecedor = fkEnderecoFornecedor;
     }
 
-   
-
-    
+    private String IdFornecedor;
+    private String cnpjcpfFornecedor;
+    private String nomeEmpresa;
+    private String nomeFantasia;
+    private String ramo;
+    private String nomeRepresentante;
+    private String emailRepresentante;
+    private String contatoFixo;
+    private String contatoCel;
+    private int fkEnderecoFornecedor;
 }
