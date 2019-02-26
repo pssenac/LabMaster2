@@ -1,6 +1,7 @@
 package Controller;
 
 import Models.DAO;
+import javax.swing.JOptionPane;
 
 public class FornecedorController {
 
@@ -27,12 +28,12 @@ public class FornecedorController {
         dao.endereco.setEstado(estado);
         dao.endereco.setLogradouro(logradouro);
         dao.endereco.setNumero(numero);
-
-        String msgInclusao = dao.atualizarFornecedor(DAO.INCLUSAOFORNECEDOR);
+         JOptionPane.showMessageDialog(null, dao.atualizarFornecedor(DAO.INCLUSAOFORNECEDOR));
+        String msgInclusao = "";
         return msgInclusao;
     }
 
-    public String alterarFornecedor(String idfornecedor,String idendereco, String cnpjFornecedor, String nomeEmpresa, String nomeFantasia,
+    public String alterarFornecedor(String idfornecedor, String idendereco, String cnpjFornecedor, String nomeEmpresa, String nomeFantasia,
             String ramoRepresentante, String telRepresentante, String nomeRepresentante,
             String celRepresentante, String emailRepresenante,
             String cep, String bairro, String logradouro, String complemento,
@@ -58,7 +59,8 @@ public class FornecedorController {
         dao.endereco.setLogradouro(logradouro);
         dao.endereco.setNumero(numero);
 
-        String msgInclusao = dao.atualizarFornecedor(DAO.ALTERACAOFORNECEDOR);
+         JOptionPane.showMessageDialog(null, dao.atualizarFornecedor(DAO.ALTERACAOFORNECEDOR));
+         String msgInclusao = "";
         return msgInclusao;
     }
 

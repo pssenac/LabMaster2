@@ -1,5 +1,7 @@
 package View;
 
+import Controller.ProdutoController;
+
 
 public class TelaProduto extends javax.swing.JInternalFrame {
 
@@ -391,7 +393,8 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
         
-        
+        ProdutoController prodcontrol =  new ProdutoController();
+        prodcontrol.salvarProduto(txtNomeProduto, txtaDescricao, txtLocal, txt, title, title, title, title, IS_SELECTED_PROPERTY);
         AtivarCampos(false, false, false, false, false, false, false, false, false, false, false, false);
         AtivarBotao(true, true, false, false, false);
     }//GEN-LAST:event_btnGravarActionPerformed
