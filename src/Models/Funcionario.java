@@ -89,6 +89,10 @@ public class Funcionario {
         this.fkEnderecoFuncionario = fkEnderecoFuncionario;
     }
 
+    public void setDataNascFuncionario(String dataC) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     
     

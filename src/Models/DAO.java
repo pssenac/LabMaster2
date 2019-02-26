@@ -115,6 +115,8 @@ public class DAO {
     }
 
     //</editor-fold>
+    
+    
     //<editor-fold defaultstate="collapsed" desc=" EXECUTAR SQL "> 
     public void executaSQL(String sql) {
         try {
@@ -780,4 +782,9 @@ public class DAO {
         return men;
     }
     //</editor-fold>
+
+    
+    public ResultSet RunSQL(String sql) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
