@@ -1,126 +1,158 @@
-
 package Models;
 
 import java.util.Date;
 
-
 public class Produto {
-  
-   private String idProduto;
-   private String  nomeProduto;
-   private String  fabricanteProduto;
-   private String marcaProduto;
-   private String descricaoProduto;
-   private Date dataCompraProduto;
-   private int qtdEstoqueProduto;
-   private Double valorCustoProduto;
-   private Double valorVendaProduto;
-   private int situaçaoProduto;
-   private String armazemLocalProduto;
-   private int fkFornecedorProduto;
 
-   
-   
+    /**
+     * @return the idProduto
+     */
     public String getIdProduto() {
         return idProduto;
     }
 
+    /**
+     * @param idProduto the idProduto to set
+     */
     public void setIdProduto(String idProduto) {
         this.idProduto = idProduto;
     }
 
+    /**
+     * @return the nomeProduto
+     */
     public String getNomeProduto() {
         return nomeProduto;
     }
 
+    /**
+     * @param nomeProduto the nomeProduto to set
+     */
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
     }
 
-    public String getFabricanteProduto() {
-        return fabricanteProduto;
+    /**
+     * @return the descricao
+     */
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setFabricanteProduto(String fabricanteProduto) {
-        this.fabricanteProduto = fabricanteProduto;
+    /**
+     * @param descricao the descricao to set
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getMarcaProduto() {
-        return marcaProduto;
+    /**
+     * @return the armazemLocal
+     */
+    public String getArmazemLocal() {
+        return armazemLocal;
     }
 
-    public void setMarcaProduto(String marcaProduto) {
-        this.marcaProduto = marcaProduto;
+    /**
+     * @param armazemLocal the armazemLocal to set
+     */
+    public void setArmazemLocal(String armazemLocal) {
+        this.armazemLocal = armazemLocal;
     }
 
-    public String getDescricaoProduto() {
-        return descricaoProduto;
+    /**
+     * @return the tipoProduto
+     */
+    public String getTipoProduto() {
+        return tipoProduto;
     }
 
-    public void setDescricaoProduto(String descricaoProduto) {
-        this.descricaoProduto = descricaoProduto;
+    /**
+     * @param tipoProduto the tipoProduto to set
+     */
+    public void setTipoProduto(String tipoProduto) {
+        this.tipoProduto = tipoProduto;
     }
 
-    public Date getDataCompraProduto() {
-        return dataCompraProduto;
+    /**
+     * @return the totalImposto
+     */
+    public String getTotalImposto() {
+        return totalImposto;
     }
 
-    public void setDataCompraProduto(Date dataCompraProduto) {
-        this.dataCompraProduto = dataCompraProduto;
+    /**
+     * @param totalImposto the totalImposto to set
+     */
+    public void setTotalImposto(String totalImposto) {
+        this.totalImposto = totalImposto;
     }
 
-    public int getQtdEstoqueProduto() {
-        return qtdEstoqueProduto;
+    /**
+     * @return the icms
+     */
+    public String getIcms() {
+        return icms;
     }
 
-    public void setQtdEstoqueProduto(int qtdEstoqueProduto) {
-        this.qtdEstoqueProduto = qtdEstoqueProduto;
+    /**
+     * @param icms the icms to set
+     */
+    public void setIcms(String icms) {
+        this.icms = icms;
     }
 
-    public Double getValorCustoProduto() {
-        return valorCustoProduto;
+    /**
+     * @return the iss
+     */
+    public String getIss() {
+        return iss;
     }
 
-    public void setValorCustoProduto(Double valorCustoProduto) {
-        this.valorCustoProduto = valorCustoProduto;
+    /**
+     * @param iss the iss to set
+     */
+    public void setIss(String iss) {
+        this.iss = iss;
     }
 
-    public Double getValorVendaProduto() {
-        return valorVendaProduto;
+    /**
+     * @return the ipi
+     */
+    public String getIpi() {
+        return ipi;
     }
 
-    public void setValorVendaProduto(Double valorVendaProduto) {
-        this.valorVendaProduto = valorVendaProduto;
+    /**
+     * @param ipi the ipi to set
+     */
+    public void setIpi(String ipi) {
+        this.ipi = ipi;
     }
 
-    public int getSituaçaoProduto() {
-        return situaçaoProduto;
+    /**
+     * @return the FKfornecedor
+     */
+    public String getFKfornecedor() {
+        return FKfornecedor;
     }
 
-    public void setSituaçaoProduto(int situaçaoProduto) {
-        this.situaçaoProduto = situaçaoProduto;
+    /**
+     * @param FKfornecedor the FKfornecedor to set
+     */
+    public void setFKfornecedor(String FKfornecedor) {
+        this.FKfornecedor = FKfornecedor;
     }
 
-    public String getArmazemLocalProduto() {
-        return armazemLocalProduto;
-    }
+    private String idProduto;
+    private String nomeProduto;
+    private String descricao;
+    private String armazemLocal;
+    private String tipoProduto;
+    private String totalImposto;
+    private String icms;
+    private String iss;
+    private String ipi;
+    private String FKfornecedor;
 
-    public void setArmazemLocalProduto(String armazemLocalProduto) {
-        this.armazemLocalProduto = armazemLocalProduto;
-    }
-
-    public int getFkFornecedorProduto() {
-        return fkFornecedorProduto;
-    }
-
-    public void setFkFornecedorProduto(int fkFornecedorProduto) {
-        this.fkFornecedorProduto = fkFornecedorProduto;
-    }
-   
-   
-   
-   
-   
-   
-
-}  
+}

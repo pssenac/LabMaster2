@@ -206,7 +206,6 @@ public class DAO {
                     statement.setString(7, x);
                     statement.executeUpdate();
                     statement.close();
-                    JOptionPane.showMessageDialog(null, men);
                     break;
 
                 case ALTERACAOCLIENTE:
@@ -459,11 +458,75 @@ public class DAO {
         return men;
     }
     //</editor-fold>
-    
-    
-    
-    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
 
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR PRODUTO ">
+    public String atualizarProduto(int operacao) {
+        int FK;
+        men = "Operação realizada com sucesso!";
+        try {
+            switch (operacao) {
+                // CLIENTE 
+                case INCLUSAOFORNECEDOR:
+
+
+
+                    sql = "insert into produtos values(null,?,?,?,?,?)";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, produto.getNomeProduto());
+                    statement.setString(2, produto.getDescricao());
+                    statement.setString(3, produto.getArmazemLocal());
+                    statement.setString(4, produto.getTipoProduto());
+                    statement.setString(5, produto.getTotalImposto());
+                    statement.setString(6, produto.getIcms());
+                    statement.setString(7, produto.getIss());
+                    statement.setString(8, produto.getIpi());
+                    statement.setString(9,produto.getFKfornecedor());
+                    statement.executeUpdate();
+                    statement.close();
+                    break;
+                case ALTERACAOFORNECEDOR:
+
+                    sql = "update Endereco set cep = ?, bairro = ?,  logradouro = ?"
+                            + ",  complemento = ?,  numero = ?,  cidade = ?,  estado = ?"
+                            + "where idendereco = ?";
+
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, endereco.getCep());
+                    statement.setString(2, endereco.getBairro());
+                    statement.setString(3, endereco.getLogradouro());
+                    statement.setString(4, endereco.getComplemento());
+                    statement.setString(5, endereco.getNumero());
+                    statement.setString(6, endereco.getCidade());
+                    statement.setString(7, endereco.getEstado());
+                    statement.setString(8, endereco.getIdendereco());
+                    statement.executeUpdate();
+
+                    sql = "update fornecedor set cnpjCpf = ?, nomeEmpresa = ?, nomeFantasia = ?, ramo = ?,"
+                            + " representante = ?, contatoFixo  = ?, contatoCel  = ?,emailRep = ? where idfornecedor = ?";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, fornecedor.getCnpjcpfFornecedor());
+                    statement.setString(2, fornecedor.getNomeEmpresa());
+                    statement.setString(3, fornecedor.getNomeFantasia());
+                    statement.setString(4, fornecedor.getRamo());
+                    statement.setString(5, fornecedor.getNomeRepresentante());
+                    statement.setString(6, fornecedor.getContatoFixo());
+                    statement.setString(7, fornecedor.getContatoCel());
+                    statement.setString(8, fornecedor.getEmailRepresentante());
+                    statement.setString(9, fornecedor.getIdFornecedor());
+                    statement.executeUpdate();
+                    statement.close();
+                    break;
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro);
+        }
+        return men;
+    }
+
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
     public String atualizar(int operacao) {
         men = "Operação realizada com sucesso!";
         try {
@@ -572,47 +635,6 @@ public class DAO {
 
                 // FORNECEDOR
                 // PROODUTO
-                case INCLUSAOPRODUTO:
-                    sql = "insert into produtos values(null,?,?,?,?,?,?,?,?,?,?,?)";
-                    bd.getConnection();
-                    statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, produto.getNomeProduto());
-                    statement.setString(2, produto.getFabricanteProduto());
-                    statement.setString(3, produto.getMarcaProduto());
-                    statement.setString(4, produto.getDescricaoProduto());
-                    statement.setDate(5, (Date) produto.getDataCompraProduto());
-                    statement.setInt(6, produto.getQtdEstoqueProduto());
-                    statement.setDouble(7, produto.getValorCustoProduto());
-                    statement.setDouble(8, produto.getValorVendaProduto());
-                    statement.setInt(9, produto.getSituaçaoProduto());
-                    statement.setString(10, produto.getArmazemLocalProduto());
-                    statement.setInt(11, produto.getFkFornecedorProduto());
-
-                    statement.executeUpdate();
-                    statement.close();
-                    break;
-                case ALTERACAOPRODUTO:
-                    sql = "update produtos set   = ?,  = ?,  = ?,  = ?,  = ?,"
-                            + "   = ?,   = ?,   = ?, = ?,  = ? where = ?";
-                    bd.getConnection();
-                    statement = bd.connection.prepareStatement(sql);
-                    statement.setString(12, produto.getIdProduto());
-                    statement.setString(1, produto.getNomeProduto());
-                    statement.setString(2, produto.getFabricanteProduto());
-                    statement.setString(3, produto.getMarcaProduto());
-                    statement.setString(4, produto.getDescricaoProduto());
-                    statement.setDate(5, (Date) produto.getDataCompraProduto());
-                    statement.setInt(6, produto.getQtdEstoqueProduto());
-                    statement.setDouble(7, produto.getValorCustoProduto());
-                    statement.setDouble(8, produto.getValorVendaProduto());
-                    statement.setInt(9, produto.getSituaçaoProduto());
-                    statement.setString(10, produto.getArmazemLocalProduto());
-                    statement.setInt(11, produto.getFkFornecedorProduto());
-
-                    statement.executeUpdate();
-                    statement.close();
-                    break;
-
                 // VENDA
                 case INCLUSAOVENDA:
                     sql = "insert into Vendas values(null,?,?,?,?)";
