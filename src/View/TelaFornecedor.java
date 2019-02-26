@@ -736,7 +736,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
             dao.resultSet.first();
             do {
                 dados.add(new Object[]{dao.resultSet.getString("idfornecedor"), dao.resultSet.getString("cnpjCpf"), dao.resultSet.getString("nomeEmpresa"), dao.resultSet.getString("nomeFantasia"),
-                    dao.resultSet.getString("ramo"), dao.resultSet.getString("representante"), dao.resultSet.getString("contatoFixo"), dao.resultSet.getShort("ContatoCel"),
+                    dao.resultSet.getString("ramo"), dao.resultSet.getString("representante"), dao.resultSet.getString("contatoFixo"), dao.resultSet.getString("ContatoCel"),
                     dao.resultSet.getString("emailRep"), dao.resultSet.getString("FKendereco"), dao.resultSet.getString("idendereco"),
                     dao.resultSet.getString("FKendereco"), dao.resultSet.getString("cep"), dao.resultSet.getString("bairro"), dao.resultSet.getString("logradouro"),
                     dao.resultSet.getString("complemento"), dao.resultSet.getString("numero"), dao.resultSet.getString("cidade"),
