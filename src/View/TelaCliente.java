@@ -478,8 +478,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
 
         ClienteController clicontrol = new ClienteController();
-        boolean vf = clicontrol.verificarEnd(lblIdend.getText());
-        if (vf == true) {
+       
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(this, "Você tem certeza que deseja alterar"
                     + "o endereço?", "Enderço semelhante", dialogButton);
@@ -491,12 +490,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "Operação cancelada");
             }
-        } else {
-            clicontrol.editarCliente(lbIdCliente.getText(), lblIdend.getText(), txtNome.getText(), txtCpf1.getText(), txtCpf1.getText(), txtNumero.getText(),
-                    txtCel.getText(), txtEmail.getText(), txtCep.getText(), txtBairro.getText(),
-                    txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
-                    txtCidade.getText(), txtUf.getText());
-        }
+       
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 

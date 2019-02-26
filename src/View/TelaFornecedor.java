@@ -19,7 +19,9 @@ import javax.swing.ListSelectionModel;
  * @author 06729598107
  */
 public class TelaFornecedor extends javax.swing.JInternalFrame {
-boolean Cpfcnpj;
+
+    boolean Cpfcnpj;
+
     /**
      * Creates new form TelaFornecedor
      */
@@ -573,29 +575,20 @@ boolean Cpfcnpj;
         AtivarCampos(true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true, true);
         AtivarBotao(false, false, false, true, false, true);
         FornecedorController forcontrol = new FornecedorController();
-        boolean vf = forcontrol.verificarEndcliente(lblIdendereco.getText());
-        if (vf == true) {
-            int dialogButton = JOptionPane.YES_NO_OPTION;
-            int dialogResult = JOptionPane.showConfirmDialog(this, "Você tem certeza que deseja alterar"
-                    + "o endereço?", "Enderço semelhante", dialogButton);
-            if (dialogResult == 0) {
-                forcontrol.alterarFornecedor(lblIdFornecedor.getText(), lblIdendereco.getText(), txtCpfCnpj.getText(), txtNomeEmpresa.getText(), txtFantasia.getText(),
-                        txtRamo.getText(), txtRepresentante.getText(),
-                        txtContatoFixo.getText(), txtContatoCel.getText(), txtEmailRepresentante.getText(),
-                        txtCep.getText(), txtBairro.getText(),
-                        txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
-                        txtCidade.getText(), txtUf.getText());
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Operação cancelada");
-            }
-        } else {
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Você tem certeza que deseja alterar"
+                + "o endereço?", "Enderço semelhante", dialogButton);
+        if (dialogResult == 0) {
             forcontrol.alterarFornecedor(lblIdFornecedor.getText(), lblIdendereco.getText(), txtCpfCnpj.getText(), txtNomeEmpresa.getText(), txtFantasia.getText(),
                     txtRamo.getText(), txtRepresentante.getText(),
                     txtContatoFixo.getText(), txtContatoCel.getText(), txtEmailRepresentante.getText(),
                     txtCep.getText(), txtBairro.getText(),
                     txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
                     txtCidade.getText(), txtUf.getText());
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Operação cancelada");
         }
 
         Limpar();
@@ -610,9 +603,9 @@ boolean Cpfcnpj;
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-       if(Cpfcnpj){
-           
-       }
+        if (Cpfcnpj) {
+
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void rbCpfMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbCpfMouseClicked
