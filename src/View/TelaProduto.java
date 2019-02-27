@@ -1,19 +1,30 @@
 package View;
 
 import Controller.ProdutoController;
-
+import Models.ConexaoBD;
+import Models.DAO;
+import Models.Fornecedor;
+import javax.swing.JOptionPane;
 
 public class TelaProduto extends javax.swing.JInternalFrame {
+
+    public ConexaoBD bd;
 
     /**
      * Creates new form TelaProduto
      */
     public TelaProduto() {
         initComponents();
-    
+        bd = new ConexaoBD();
+        bd.getConnection();
+        DAO Dao = new DAO();
+        for (Fornecedor m : Dao.read()) {
+            cbFornecedor.addItem(m);
+        }
         LimparCampos();
         AtivarCampos(false, false, false, false, false, false, false, false, false, false, false, false);
         AtivarBotao(true, true, false, true, false);
+        bd.close();
     }
 
     /**
@@ -79,7 +90,6 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         jLabel1.setText("Código :");
 
         lblIdProduto.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        lblIdProduto.setText("12");
 
         jLabel2.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel2.setText("Tipo de Produto :");
@@ -117,8 +127,6 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel12.setText("Fornecedor :");
-
-        cbFornecedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel13.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
         jLabel13.setText("Marca :");
@@ -354,9 +362,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtCusto))))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGap(100, 100, 100)
-                                    .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(24, 24, 24)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel8)
@@ -390,7 +396,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                             .addComponent(btnAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnNovoProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
                             .addComponent(lblIdProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -427,7 +433,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                             .addComponent(jLabel8)
                             .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
@@ -436,20 +442,20 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel10)
                                     .addComponent(txtLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jpImposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(42, 101, Short.MAX_VALUE))))
+                        .addGap(42, 113, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 // <editor-fold defaultstate="collapsed" desc="Botões">
-    
+
     private void btnNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoProdutoActionPerformed
         AtivarCampos(true, true, true, true, true, true, true, true, true, true, true, true);
-        AtivarBotao(false, false, true, false, true);      
+        AtivarBotao(false, false, true, false, true);
     }//GEN-LAST:event_btnNovoProdutoActionPerformed
 
     private void btnNovoLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoLoteActionPerformed
@@ -462,24 +468,33 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        AtivarCampos(false, false, false,true, true, true, false, false, false, false, false, true);
+        AtivarCampos(false, false, false, true, true, true, false, false, false, false, false, true);
         AtivarBotao(false, false, false, false, true);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         AtivarCampos(false, false, false, false, false, false, false, false, false, false, false, false);
         AtivarBotao(true, true, false, false, false);
+        LimparCampos();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
-        
-        ProdutoController prodcontrol =  new ProdutoController();
+
+        ProdutoController prodcontrol = new ProdutoController();
+        Fornecedor f = (Fornecedor) cbFornecedor.getSelectedItem();
+        prodcontrol.salvarProduto(txtNomeProduto.getText(), txtaDescricao.getText(), txtLocal.getText(), cbTipoProduto.getSelectedItem().toString(),
+                txtTotalmposto.getText(), txtIcms.getText(), txtIss.getText(), txtIpi.getText(), f.getIdFornecedor(),
+                
+                txtDataCompra.getText(), txtQtd.getText(), txtCusto.getText(), txtVenda.getText(), cbSituacao.getSelectedItem().toString(),
+                txtMarca.getText(), txtLote.getText()  
+                
+        );
         
         AtivarCampos(false, false, false, false, false, false, false, false, false, false, false, false);
         AtivarBotao(true, true, false, false, false);
     }//GEN-LAST:event_btnGravarActionPerformed
 //</editor-fold>
-    
+
 // <editor-fold defaultstate="collapsed" desc="Ativar Campos"> 
     public void AtivarCampos(boolean a, boolean b, boolean c, boolean d, boolean e,
             boolean f, boolean g, boolean h, boolean i, boolean j, boolean k, boolean l) {
@@ -500,7 +515,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
 // <editor-fold defaultstate="collapsed" desc="Ativar Botao"> 
     public void AtivarBotao(boolean a, boolean b, boolean c, boolean d, boolean e) {
-        
+
         btnNovoProduto.setEnabled(a);
         btnNovoLote.setEnabled(b);
         btnApagar.setEnabled(c);
@@ -510,7 +525,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     //</editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Limpar Campos">
-    public void LimparCampos(){
+    public void LimparCampos() {
         txtLote.setText("");
         cbFornecedor.setSelectedIndex(-1);
         cbTipoProduto.setSelectedIndex(-1);
@@ -525,7 +540,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         txtLocal.setText("");
     }
 //</editor-fold>
-    
+
 // <editor-fold defaultstate="collapsed" desc="NetBeansProjects - Do not Modify">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -534,7 +549,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnGravar;
     private javax.swing.JButton btnNovoLote;
     private javax.swing.JButton btnNovoProduto;
-    private javax.swing.JComboBox<String> cbFornecedor;
+    private javax.swing.JComboBox<Object> cbFornecedor;
     private javax.swing.JComboBox<String> cbSituacao;
     private javax.swing.JComboBox<String> cbTipoProduto;
     private javax.swing.JLabel jLabel1;

@@ -88,6 +88,11 @@ public class TelaAdmin extends javax.swing.JFrame {
         btnProduto.setMaximumSize(new java.awt.Dimension(115, 115));
         btnProduto.setMinimumSize(new java.awt.Dimension(115, 115));
         btnProduto.setPreferredSize(new java.awt.Dimension(115, 115));
+        btnProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProdutoActionPerformed(evt);
+            }
+        });
 
         btnXXX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/produtos_tela.png"))); // NOI18N
         btnXXX.setToolTipText("Produtos");
@@ -224,6 +229,12 @@ public class TelaAdmin extends javax.swing.JFrame {
             obj.setVisible(true);
         }
     }//GEN-LAST:event_btnFornecedorActionPerformed
+
+    private void btnProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutoActionPerformed
+        TelaPrincipal principal = new TelaPrincipal();
+        principal.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnProdutoActionPerformed
 
     /**
      * @param args the command line arguments

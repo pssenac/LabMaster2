@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class DAO {
@@ -19,6 +21,7 @@ public class DAO {
     public OrdemServiço ordemservico;
     public OrdemProdutos ordemProdutos;
     public Endereco endereco;
+    public Lote lote;
 
     public ConexaoBD bd;
     private PreparedStatement statement;
@@ -61,6 +64,7 @@ public class DAO {
         ordemservico = new OrdemServiço();
         ordemProdutos = new OrdemProdutos();
         endereco = new Endereco();
+        lote = new Lote();
 
         if (!bd.getConnection()) {
             JOptionPane.showMessageDialog(null, "Falha ao conectar, o sistema será fechado");
@@ -115,8 +119,6 @@ public class DAO {
     }
 
     //</editor-fold>
-    
-    
     //<editor-fold defaultstate="collapsed" desc=" EXECUTAR SQL "> 
     public void executaSQL(String sql) {
         try {
@@ -466,11 +468,9 @@ public class DAO {
         try {
             switch (operacao) {
                 // CLIENTE 
-                case INCLUSAOFORNECEDOR:
+                case INCLUSAOPRODUTO:
 
-
-
-                    sql = "insert into produtos values(null,?,?,?,?,?)";
+                    sql = "insert into produtos values(null,?,?,?,?,?,?,?,?,?)";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, produto.getNomeProduto());
@@ -481,8 +481,27 @@ public class DAO {
                     statement.setString(6, produto.getIcms());
                     statement.setString(7, produto.getIss());
                     statement.setString(8, produto.getIpi());
-                    statement.setString(9,produto.getFKfornecedor());
+                    statement.setString(9, produto.getFKfornecedor());
                     statement.executeUpdate();
+                    sql = "SELECT idprodutos FROM produtos ORDER BY idprodutos DESC LIMIT 1";
+                    statement = bd.connection.prepareStatement(sql);
+
+                    ResultSet fk = statement.executeQuery();
+                    while (fk.next()) {
+                        FK = fk.getInt("idprodutos");
+                        sql = "insert into lote values(null,?,?,?,?,?,?,?,?)";
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, lote.getDataCompra());
+                        statement.setString(2, lote.getQuantidade());
+                        statement.setString(3, lote.getValorCusto());
+                        statement.setString(4, lote.getValorVenda());
+                        statement.setString(5, lote.getSituacaoProduto());
+                        statement.setString(6, lote.getMarca());
+                        statement.setString(7, lote.getLote());
+                        statement.setInt(8, fk.getInt("idprodutos"));
+                        statement.executeUpdate();
+                    }
+
                     statement.close();
                     break;
                 case ALTERACAOFORNECEDOR:
@@ -523,6 +542,29 @@ public class DAO {
             JOptionPane.showMessageDialog(null, erro);
         }
         return men;
+    }
+
+    public List<Fornecedor> read() {
+        men = "operação realizada com sucesso";
+        String sql = "SELECT * FROM fornecedor";
+        List<Fornecedor> nomeFor = new ArrayList<>();
+        try {
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Fornecedor nomeFornecedor = new Fornecedor();
+                nomeFornecedor.setIdFornecedor(resultSet.getString("idfornecedor"));
+                nomeFornecedor.setNomeEmpresa(resultSet.getString("nomeEmpresa"));
+                nomeFor.add(nomeFornecedor);
+                statement.close();
+            }
+
+        } catch (SQLException erro) {
+            men = "Falha na operação: \n" + erro.toString();
+
+        }
+        return nomeFor;
     }
 
     //</editor-fold>
@@ -805,7 +847,6 @@ public class DAO {
     }
     //</editor-fold>
 
-    
     public ResultSet RunSQL(String sql) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }

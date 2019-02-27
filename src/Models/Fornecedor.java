@@ -142,6 +142,12 @@ public class Fornecedor {
         this.fkEnderecoFornecedor = fkEnderecoFornecedor;
     }
 
+    @Override
+    public String toString() {
+        return getNomeEmpresa(); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
     private String IdFornecedor;
     private String cnpjcpfFornecedor;
     private String nomeEmpresa;
