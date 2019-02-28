@@ -29,6 +29,9 @@ public class DAO {
     public ResultSet resultSet;
     private String men, sql;
     public String Acesso;
+    
+    public String Perfil;
+     
             
     public static final byte INCLUSAOCLIENTE = 1;
     public static final byte ALTERACAOCLIENTE = 2;
@@ -906,4 +909,35 @@ public class DAO {
         return autenticado;
     }
      //</editor-fold>
+    
+    //<editor-fold defaultstate="collapsed" desc=" METODO LOGAR USUARIO">
+    public boolean LogarUsuario(String login ,String Senha) {
+        boolean autenticado = false;
+       
+        try {
+           
+           sql = "select * from usuario where login= ? and senha=?";
+           bd.getConnection();
+           statement = bd.connection.prepareStatement(sql);
+           statement.setString(1, login);
+           statement.setString(2, Senha);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+               
+               Perfil = rs.getString("perfil");
+               autenticado = true;
+            } else {
+                rs.close();
+                return autenticado;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return autenticado;
+    }
+     //</editor-fold>
+    
+    
+    
+    
 }

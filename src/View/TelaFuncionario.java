@@ -100,6 +100,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         txtConfirmacaoSenha = new javax.swing.JPasswordField();
         cbPerfilFuncionario = new javax.swing.JComboBox<>();
         lblexisteusuario = new javax.swing.JLabel();
+        lblSenhaConfirm = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jFuncionario = new javax.swing.JTable();
@@ -395,6 +396,10 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         lblexisteusuario.setForeground(new java.awt.Color(255, 0, 0));
         lblexisteusuario.setText(".");
 
+        lblSenhaConfirm.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        lblSenhaConfirm.setForeground(new java.awt.Color(255, 0, 0));
+        lblSenhaConfirm.setText(".");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -415,13 +420,15 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(lblexisteusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel18)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtConfirmacaoSenha)
-                                .addGap(28, 28, 28))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblexisteusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblSenhaConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtConfirmacaoSenha))
+                                .addGap(28, 28, 28))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(1, 1, 1)
                         .addComponent(jLabel19)
@@ -445,7 +452,9 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                     .addComponent(txtConfirmacaoSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbPerfilFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbPerfilFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblSenhaConfirm))
                     .addComponent(jLabel19))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
@@ -629,21 +638,18 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
     private void btnGravarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarFuncionarioActionPerformed
        
        boolean cf = DAO.cslcpf(txtCpfFuncionario.getText());
-       boolean cs = DAO.cslEndereco(txtCepFuncionario.getText());
        boolean cuser = DAO.csluser(txtUsuarioFuncionario.getText());
       
         lblexistecep.setText("");
         lblexistecpf.setText("");
         lblexisteusuario.setText("");
+        lblSenhaConfirm.setText("");
        
        
                 if (cf == true){
-                   pesquisaCpf(cs);
-               }else if(cs == true){
-                 
-                    pesquisaCep(cs);
+                   pesquisaCpf(cf);
+               
                }else if(cuser == true){     
-            
                     pesquisaUser(cuser);    
                }
        
@@ -652,13 +658,89 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
              case 1:
               
                 if(txtNomeFuncionario.getText().equals("")){
-                    JOptionPane.showMessageDialog(null, "Preencha o campo Produto.");
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Nome.");
                    txtNomeFuncionario.requestFocus();
                     return;
                 } 
                  
+                if(txtCpfFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo CPF.");
+                   txtCpfFuncionario.requestFocus();
+                    return;
+                }  
+                
+                if(txtRgFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o RG.");
+                   txtRgFuncionario.requestFocus();
+                    return;
+                }  
+                 if(txtDataNasc.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Data de Nascimento.");
+                   txtDataNasc.requestFocus();
+                    return;
+                }  
+                
+                 if(txtCepFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Cep.");
+                   txtCepFuncionario.requestFocus();
+                    return;
+                }  
+                
+                 if(txtBairroFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Bairro.");
+                   txtBairroFuncionario.requestFocus();
+                    return;
+                }   
                  
-               if (cf != true && cs != true && cuser!=true){
+                 if(txtLogradouroFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Logradouro.");
+                    txtLogradouroFuncionario.requestFocus();
+                    return;
+                }   
+                 
+                 
+                 if(txtNumeroFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Numero.");
+                   txtNumeroFuncionario.requestFocus();
+                    return;
+                }   
+                 
+                if(txtCidadeFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Cidade.");
+                    txtCidadeFuncionario.requestFocus();
+                    return;
+                }   
+                 
+                if(txtEstadoFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Estado.");
+                    txtEstadoFuncionario.requestFocus();
+                    return;
+                }    
+                 
+                 if(txtUsuarioFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Usuario.");
+                    txtUsuarioFuncionario.requestFocus();
+                    return;
+                }    
+                
+                  if(txtSenhaFuncionario.getText().equals("")){
+                    JOptionPane.showMessageDialog(null, "Preencha o campo Senha.");
+                    txtSenhaFuncionario.requestFocus();
+                    return;
+                  }  
+                 
+                  
+                String sh =  txtSenhaFuncionario.getText();
+                String csh =  txtConfirmacaoSenha.getText();
+                
+                if(!sh.equals(csh)){
+                   lblSenhaConfirm.setText("Senha diferente");
+                    txtConfirmacaoSenha.requestFocus();
+                    return;
+               }   
+                
+                
+               if (cf != true  && cuser!=true){
                     logFuncionarioController lg = new logFuncionarioController();
                     lg.salvarFuncionario(txtNomeFuncionario.getText(),txtCpfFuncionario.getText(),
                     txtRgFuncionario.getText(), txtTelFuncionario.getText(),txtCelFuncionario.getText(),
@@ -1207,6 +1289,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JTable jUsuario;
     private javax.swing.JLabel lblFuncionario;
     private javax.swing.JLabel lblIdFuncionario;
+    private javax.swing.JLabel lblSenhaConfirm;
     private javax.swing.JLabel lblexistecep;
     private javax.swing.JLabel lblexistecpf;
     private javax.swing.JLabel lblexisteusuario;
