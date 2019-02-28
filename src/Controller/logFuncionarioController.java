@@ -45,7 +45,7 @@ public class logFuncionarioController {
         dao.usuario.setConfirmacaoSenhaUsuario(confirmacaoSenhaUsuario);
         
    
-         String msgInclusao = dao.atualizar(DAO.INCLUSAOFUNCIONARIO);
+         String msgInclusao = dao.atualizarFuncionarioUsuario(DAO.INCLUSAOFUNCIONARIO);
         return msgInclusao;
     }
      
@@ -91,7 +91,7 @@ public class logFuncionarioController {
         dao.usuario.setConfirmacaoSenhaUsuario(confirmacaoSenhaUsuario);
      
        
-        String msgInclusao = dao.atualizar(DAO.ALTERACAOFUNCIONARIO);
+        String msgInclusao = dao.atualizarFuncionarioUsuario(DAO.ALTERACAOFUNCIONARIO);
         return msgInclusao;
     }
     
@@ -102,10 +102,6 @@ public class logFuncionarioController {
          
      }
     
-    public ResultSet fkEstrangeira(String sql){
-        DAO dao = new DAO();
-        return dao.RunSQL(sql);
-    }
     
     
     

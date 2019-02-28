@@ -3,12 +3,12 @@ package Models;
 
 
 public class Usuario {
+    
     private String idUsuario;
     private String loginUsuario;
-    private int perfilUsuario;
+    private String perfilUsuario;
     private String SenhaUsuario;
     private String confirmacaoSenhaUsuario;
-    private int fkFuncionarioUsuario;
 
     public String getIdUsuario() {
         return idUsuario;
@@ -26,11 +26,11 @@ public class Usuario {
         this.loginUsuario = loginUsuario;
     }
 
-    public int getPerfilUsuario() {
+    public String getPerfilUsuario() {
         return perfilUsuario;
     }
 
-    public void setPerfilUsuario(int perfilUsuario) {
+    public void setPerfilUsuario(String perfilUsuario) {
         this.perfilUsuario = perfilUsuario;
     }
 
@@ -50,18 +50,7 @@ public class Usuario {
         this.confirmacaoSenhaUsuario = confirmacaoSenhaUsuario;
     }
 
-    public int getFkFuncionarioUsuario() {
-        return fkFuncionarioUsuario;
-    }
-
-    public void setFkFuncionarioUsuario(int fkFuncionarioUsuario) {
-        this.fkFuncionarioUsuario = fkFuncionarioUsuario;
-    }
-
-    public void setPerfilUsuario(String perfilUsuario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
    
 
     

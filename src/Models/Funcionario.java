@@ -14,8 +14,7 @@ public class Funcionario {
     private String telFuncionario;
     private String celFuncionario;
     private String emailFuncionario;
-    private Date dataNascFuncionario;
-    private int fkEnderecoFuncionario;
+    private String dataNascFuncionario;
 
     public String getIdFuncionario() {
         return idFuncionario;
@@ -73,26 +72,16 @@ public class Funcionario {
         this.emailFuncionario = emailFuncionario;
     }
 
-    public Date getDataNascFuncionario() {
+    public String getDataNascFuncionario() {
         return dataNascFuncionario;
     }
 
-    public void setDataNascFuncionario(Date dataNascFuncionario) {
+    public void setDataNascFuncionario(String dataNascFuncionario) {
         this.dataNascFuncionario = dataNascFuncionario;
     }
+   
 
-    public int getFkEnderecoFuncionario() {
-        return fkEnderecoFuncionario;
-    }
-
-    public void setFkEnderecoFuncionario(int fkEnderecoFuncionario) {
-        this.fkEnderecoFuncionario = fkEnderecoFuncionario;
-    }
-
-    public void setDataNascFuncionario(String dataC) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+   
     
     
     
