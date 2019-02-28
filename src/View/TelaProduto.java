@@ -1,12 +1,19 @@
 package View;
 
+import Controller.ModeloTabela;
 import Controller.ProdutoController;
 import Models.ConexaoBD;
 import Models.DAO;
 import Models.Fornecedor;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 
 public class TelaProduto extends javax.swing.JInternalFrame {
+
+    String sqlTabela = "select * from produtos inner join lote on idprodutos = produtos_idprodutos";
 
     public ConexaoBD bd;
 
@@ -22,6 +29,8 @@ public class TelaProduto extends javax.swing.JInternalFrame {
             cbFornecedor.addItem(m);
         }
         LimparCampos();
+        Dao.carregarTabela();
+        preencherTabela(sqlTabela);
         AtivarCampos(false, false, false, false, false, false, false, false, false, false, false, false);
         AtivarBotao(true, true, false, true, false);
         bd.close();
@@ -55,7 +64,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         jLabel13 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tbListaProdutos = new javax.swing.JTable();
+        jTable1 = new javax.swing.JTable();
         btnNovoProduto = new javax.swing.JButton();
         btnNovoLote = new javax.swing.JButton();
         btnApagar = new javax.swing.JButton();
@@ -81,6 +90,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         txtIcms = new javax.swing.JTextField();
         txtIss = new javax.swing.JTextField();
         txtIpi = new javax.swing.JTextField();
+        lblIdlote = new javax.swing.JLabel();
 
         setClosable(true);
         setTitle("CADASTRO DE PRODUTOS");
@@ -133,7 +143,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Lista de Produtos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 12))); // NOI18N
 
-        tbListaProdutos.setModel(new javax.swing.table.DefaultTableModel(
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -144,7 +154,12 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tbListaProdutos);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -294,6 +309,8 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        lblIdlote.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -362,7 +379,10 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtCusto))))
-                                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addComponent(lblIdlote, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGap(24, 24, 24)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel8)
@@ -442,8 +462,13 @@ public class TelaProduto extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel10)
                                     .addComponent(txtLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnGravar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(41, 41, 41)
+                                        .addComponent(lblIdlote, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addComponent(jpImposto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(42, 113, Short.MAX_VALUE))))
         );
@@ -461,6 +486,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     private void btnNovoLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoLoteActionPerformed
         AtivarCampos(true, true, true, false, false, false, true, true, true, true, true, false);
         AtivarBotao(false, false, true, false, true);
+
     }//GEN-LAST:event_btnNovoLoteActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
@@ -468,8 +494,16 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnApagarActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+
+        ProdutoController prodcontrol = new ProdutoController();
+        Fornecedor f = (Fornecedor) cbFornecedor.getSelectedItem();
+        prodcontrol.alterarProduto(lblIdProduto.getText(), txtNomeProduto.getText(), txtaDescricao.getText(), txtLocal.getText(), cbTipoProduto.getSelectedItem().toString(),
+                txtTotalmposto.getText(), txtIcms.getText(), txtIss.getText(), txtIpi.getText(), f.getIdFornecedor(),
+                txtDataCompra.getText(), txtQtd.getText(), txtCusto.getText(), txtVenda.getText(), cbSituacao.getSelectedItem().toString(),
+                txtMarca.getText(), txtLote.getText());
         AtivarCampos(false, false, false, true, true, true, false, false, false, false, false, true);
         AtivarBotao(false, false, false, false, true);
+        preencherTabela(sqlTabela);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -484,15 +518,37 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         Fornecedor f = (Fornecedor) cbFornecedor.getSelectedItem();
         prodcontrol.salvarProduto(txtNomeProduto.getText(), txtaDescricao.getText(), txtLocal.getText(), cbTipoProduto.getSelectedItem().toString(),
                 txtTotalmposto.getText(), txtIcms.getText(), txtIss.getText(), txtIpi.getText(), f.getIdFornecedor(),
-                
                 txtDataCompra.getText(), txtQtd.getText(), txtCusto.getText(), txtVenda.getText(), cbSituacao.getSelectedItem().toString(),
-                txtMarca.getText(), txtLote.getText()  
-                
+                txtMarca.getText(), txtLote.getText()
         );
-        
+
         AtivarCampos(false, false, false, false, false, false, false, false, false, false, false, false);
         AtivarBotao(true, true, false, false, false);
+        preencherTabela(sqlTabela);
     }//GEN-LAST:event_btnGravarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int linhaSelecionada = jTable1.getSelectedRow();
+        lblIdProduto.setText(jTable1.getValueAt(linhaSelecionada, 0).toString());
+        txtNomeProduto.setText(jTable1.getValueAt(linhaSelecionada, 1).toString());
+        txtaDescricao.setText(jTable1.getValueAt(linhaSelecionada, 2).toString());
+        txtLocal.setText(jTable1.getValueAt(linhaSelecionada, 3).toString());
+        cbTipoProduto.setSelectedItem(jTable1.getValueAt(linhaSelecionada, 4).toString());
+        txtTotalmposto.setText(jTable1.getValueAt(linhaSelecionada, 5).toString());
+        txtIcms.setText(jTable1.getValueAt(linhaSelecionada, 6).toString());
+        txtIss.setText(jTable1.getValueAt(linhaSelecionada, 7).toString());
+        txtIpi.setText(jTable1.getValueAt(linhaSelecionada, 8).toString());
+        cbFornecedor.setSelectedItem(jTable1.getValueAt(linhaSelecionada, 11).toString());
+
+        txtDataCompra.setText(jTable1.getValueAt(linhaSelecionada, 10).toString());
+        txtQtd.setText(jTable1.getValueAt(linhaSelecionada, 9).toString());
+        txtCusto.setText(jTable1.getValueAt(linhaSelecionada, 12).toString());
+        txtVenda.setText(jTable1.getValueAt(linhaSelecionada, 13).toString());
+        cbSituacao.setSelectedItem(jTable1.getValueAt(linhaSelecionada, 14).toString());
+        txtMarca.setText(jTable1.getValueAt(linhaSelecionada, 15).toString());
+        txtLote.setText(jTable1.getValueAt(linhaSelecionada, 16).toString());
+        AtivarBotao(true, true, true, true, true);
+    }//GEN-LAST:event_jTable1MouseClicked
 //</editor-fold>
 
 // <editor-fold defaultstate="collapsed" desc="Ativar Campos"> 
@@ -541,6 +597,73 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     }
 //</editor-fold>
 
+    public void preencherTabela(String SQL) {
+        DAO dao = new DAO();
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"Id", "nome", "descricao", "Local", "tipo", "totalImposto", "icms", "iss", "ipi", "FKlote",
+            "idlote", "dataCompra", "QuantidadeEstoque", "valorCusto", "ValorVenda", "situacaoProduto", "Marca", "lote", "produtos_idprodutos"};
+        dao.executaSQL(SQL);
+        try {
+            dao.resultSet.first();
+            do {
+                dados.add(new Object[]{dao.resultSet.getString("idprodutos"), dao.resultSet.getString("nomeProduto"), dao.resultSet.getString("descricao"),
+                    dao.resultSet.getString("armazemLocal"), dao.resultSet.getString("tipoProduto"), dao.resultSet.getString("totalImposto"),
+                    dao.resultSet.getString("icms"), dao.resultSet.getString("iss"), dao.resultSet.getString("ipi"), dao.resultSet.getString("idLote"),
+                    dao.resultSet.getString("dataCompra"), dao.resultSet.getString("qtdEstoque"), dao.resultSet.getString("valorCusto"),
+                    dao.resultSet.getString("valorVenda"), dao.resultSet.getString("situacaoProduto"), dao.resultSet.getString("marca"),
+                    dao.resultSet.getString("lote")});
+            } while (dao.resultSet.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex + "A tabela Não foi capaz de retornar os dados");
+        }
+
+        ModeloTabela model = new ModeloTabela(dados, colunas);
+        jTable1.setModel(model);
+
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(250);  // define o tamanho das colunas e se será redimensionado ou não
+        jTable1.getColumnModel().getColumn(0).setResizable(true);  // não permite alterar o tamanho da coluna
+        jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jTable1.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(2).setResizable(false);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(4).setResizable(false);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(5).setResizable(false);
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(6).setResizable(false);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(7).setResizable(false);
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(8).setResizable(false);
+        jTable1.getColumnModel().getColumn(9).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(9).setResizable(false);
+        jTable1.getColumnModel().getColumn(10).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(10).setResizable(false);
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(11).setResizable(false);
+        jTable1.getColumnModel().getColumn(12).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(12).setResizable(false);
+        jTable1.getColumnModel().getColumn(13).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(13).setResizable(false);
+        jTable1.getColumnModel().getColumn(14).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(14).setResizable(false);
+        jTable1.getColumnModel().getColumn(15).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(15).setResizable(false);
+        jTable1.getColumnModel().getColumn(16).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(16).setResizable(false);
+        jTable1.getColumnModel().getColumn(17).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(17).setResizable(false);
+        jTable1.getColumnModel().getColumn(18).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(18).setResizable(false);
+
+        jTable1.getTableHeader().setReorderingAllowed(false);  // Não permite reordenar as colunas
+        jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Não permite redimensionar a tabela
+        jTable1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // permite selecionar apenas 1 elemento da tabela
+    }
+
 // <editor-fold defaultstate="collapsed" desc="NetBeansProjects - Do not Modify">     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
@@ -572,9 +695,10 @@ public class TelaProduto extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTable1;
     private javax.swing.JPanel jpImposto;
     private javax.swing.JLabel lblIdProduto;
-    private javax.swing.JTable tbListaProdutos;
+    private javax.swing.JLabel lblIdlote;
     private javax.swing.JTextField txtCusto;
     private javax.swing.JTextField txtDataCompra;
     private javax.swing.JTextField txtIcms;
