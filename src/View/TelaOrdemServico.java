@@ -308,7 +308,7 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
 
         lblValorTotal.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
 
-        btnFinalizarOrdem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/addOrdem.png"))); // NOI18N
+        btnFinalizarOrdem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/ordemServicoConfima.png"))); // NOI18N
         btnFinalizarOrdem.setText("Finalizar");
         btnFinalizarOrdem.setMaximumSize(new java.awt.Dimension(50, 50));
         btnFinalizarOrdem.setMinimumSize(new java.awt.Dimension(50, 50));
