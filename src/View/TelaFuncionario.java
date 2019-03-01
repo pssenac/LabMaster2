@@ -101,6 +101,8 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         cbPerfilFuncionario = new javax.swing.JComboBox<>();
         lblexisteusuario = new javax.swing.JLabel();
         lblSenhaConfirm = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        cbSituaçãoFuncionário = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jFuncionario = new javax.swing.JTable();
@@ -400,6 +402,11 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         lblSenhaConfirm.setForeground(new java.awt.Color(255, 0, 0));
         lblSenhaConfirm.setText(".");
 
+        jLabel20.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        jLabel20.setText("Situação :");
+
+        cbSituaçãoFuncionário.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ativo", "Inativo" }));
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -434,7 +441,12 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                         .addComponent(jLabel19)
                         .addGap(18, 18, 18)
                         .addComponent(cbPerfilFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(4, 4, 4)
+                        .addComponent(cbSituaçãoFuncionário, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -456,7 +468,11 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                         .addComponent(cbPerfilFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(lblSenhaConfirm))
                     .addComponent(jLabel19))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(cbSituaçãoFuncionário, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jFuncionario.setModel(new javax.swing.table.DefaultTableModel(
@@ -495,35 +511,51 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
         });
         jScrollPane2.setViewportView(jUsuario);
 
+        btnNovoFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/adicionar_Cliente.png"))); // NOI18N
         btnNovoFuncionario.setText("Novo Funcionário");
+        btnNovoFuncionario.setMaximumSize(new java.awt.Dimension(50, 50));
+        btnNovoFuncionario.setMinimumSize(new java.awt.Dimension(50, 50));
+        btnNovoFuncionario.setPreferredSize(new java.awt.Dimension(50, 50));
         btnNovoFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoFuncionarioActionPerformed(evt);
             }
         });
 
-        btnGravarFuncionario.setText("Gravar");
+        btnGravarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Salvar.png"))); // NOI18N
+        btnGravarFuncionario.setMaximumSize(new java.awt.Dimension(50, 50));
+        btnGravarFuncionario.setMinimumSize(new java.awt.Dimension(50, 50));
+        btnGravarFuncionario.setPreferredSize(new java.awt.Dimension(50, 50));
         btnGravarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGravarFuncionarioActionPerformed(evt);
             }
         });
 
-        btnLimparFuncionario.setText("Limpar");
+        btnLimparFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/apagar.png"))); // NOI18N
+        btnLimparFuncionario.setMaximumSize(new java.awt.Dimension(50, 50));
+        btnLimparFuncionario.setMinimumSize(new java.awt.Dimension(50, 50));
+        btnLimparFuncionario.setPreferredSize(new java.awt.Dimension(50, 50));
         btnLimparFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLimparFuncionarioActionPerformed(evt);
             }
         });
 
-        btnAlterarFuncionario.setText("Alterar");
+        btnAlterarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/editar.png"))); // NOI18N
+        btnAlterarFuncionario.setMaximumSize(new java.awt.Dimension(50, 50));
+        btnAlterarFuncionario.setMinimumSize(new java.awt.Dimension(50, 50));
+        btnAlterarFuncionario.setPreferredSize(new java.awt.Dimension(50, 50));
         btnAlterarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAlterarFuncionarioActionPerformed(evt);
             }
         });
 
-        btnCancelarFuncionario.setText("Cancelar");
+        btnCancelarFuncionario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/delete03.png"))); // NOI18N
+        btnCancelarFuncionario.setMaximumSize(new java.awt.Dimension(50, 50));
+        btnCancelarFuncionario.setMinimumSize(new java.awt.Dimension(50, 50));
+        btnCancelarFuncionario.setPreferredSize(new java.awt.Dimension(50, 50));
         btnCancelarFuncionario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCancelarFuncionarioActionPerformed(evt);
@@ -542,15 +574,15 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                 .addContainerGap())
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addComponent(btnNovoFuncionario)
+                .addComponent(btnNovoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(btnGravarFuncionario)
+                .addComponent(btnGravarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnLimparFuncionario)
+                .addComponent(btnLimparFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnAlterarFuncionario)
+                .addComponent(btnAlterarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btnCancelarFuncionario)
+                .addComponent(btnCancelarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -560,11 +592,11 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnNovoFuncionario)
-                    .addComponent(btnGravarFuncionario)
-                    .addComponent(btnLimparFuncionario)
-                    .addComponent(btnAlterarFuncionario)
-                    .addComponent(btnCancelarFuncionario))
+                    .addComponent(btnNovoFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGravarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimparFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAlterarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCancelarFuncionario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30))
@@ -596,7 +628,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                         .addGap(38, 38, 38)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(156, Short.MAX_VALUE))
         );
 
         pack();
@@ -1259,6 +1291,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnLimparFuncionario;
     private javax.swing.JButton btnNovoFuncionario;
     private javax.swing.JComboBox<String> cbPerfilFuncionario;
+    private javax.swing.JComboBox<String> cbSituaçãoFuncionário;
     private javax.swing.JTable jFuncionario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1272,6 +1305,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
