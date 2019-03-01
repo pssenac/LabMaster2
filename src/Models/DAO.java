@@ -150,37 +150,22 @@ public class DAO {
     }
 
     public String atualizarCliente(int operacao) {
-        int FK;
+        String FK;
         men = "Operação realizada com sucesso!";
         try {
             switch (operacao) {
                 // CLIENTE 
                 case INCLUSAOCLIENTE:
-
-                    sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
+                    sql = "select * from cliente where cpf = ?";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, endereco.getCep());
-                    statement.setString(2, endereco.getLogradouro());
-                    statement.setString(3, endereco.getNumero());
+                    statement.setString(1, cliente.getCpfCliente());
                     ResultSet fk = statement.executeQuery();
                     if (fk.next()) {
-                        FK = fk.getInt("idendereco");
+                        FK = fk.getString("nomeCliente");
+                        JOptionPane.showMessageDialog(null, "o Cliente já está cadastrado no sistema como:" + FK);
 
                     } else {
-
-                        sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
-                                + "cidade, estado) values(?,?,?,?,?,?,?)";
-
-                        statement = bd.connection.prepareStatement(sql);
-                        statement.setString(1, endereco.getCep());
-                        statement.setString(2, endereco.getBairro());
-                        statement.setString(3, endereco.getLogradouro());
-                        statement.setString(4, endereco.getComplemento());
-                        statement.setString(5, endereco.getNumero());
-                        statement.setString(6, endereco.getCidade());
-                        statement.setString(7, endereco.getEstado());
-                        statement.executeUpdate();
 
                         sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
                         bd.getConnection();
@@ -188,29 +173,54 @@ public class DAO {
                         statement.setString(1, endereco.getCep());
                         statement.setString(2, endereco.getLogradouro());
                         statement.setString(3, endereco.getNumero());
-                        JOptionPane.showMessageDialog(null, endereco.getCep());
                         fk = statement.executeQuery();
-                        fk.first();
+                        if (fk.next()) {
+                           fk.getString("idendereco");
 
-                        FK = fk.getInt("idendereco");
+                        } else {
 
+                            sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
+                                    + "cidade, estado) values(?,?,?,?,?,?,?)";
+
+                            statement = bd.connection.prepareStatement(sql);
+                            statement.setString(1, endereco.getCep());
+                            statement.setString(2, endereco.getBairro());
+                            statement.setString(3, endereco.getLogradouro());
+                            statement.setString(4, endereco.getComplemento());
+                            statement.setString(5, endereco.getNumero());
+                            statement.setString(6, endereco.getCidade());
+                            statement.setString(7, endereco.getEstado());
+                            statement.executeUpdate();
+
+                            sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
+                            bd.getConnection();
+                            statement = bd.connection.prepareStatement(sql);
+                            statement.setString(1, endereco.getCep());
+                            statement.setString(2, endereco.getLogradouro());
+                            statement.setString(3, endereco.getNumero());
+                            JOptionPane.showMessageDialog(null, endereco.getCep());
+                            fk = statement.executeQuery();
+                            fk.first();
+
+                           
+
+                        }
+
+                        String x = fk.getString("idendereco");
+
+                        sql = "insert into cliente (nomeCliente, cpf, rg, telefone, celular, email,FKendereco) values(?,?,?,?,?,?,?)";
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, cliente.getNomeCliente());
+                        statement.setString(2, cliente.getCpfCliente());
+                        statement.setString(3, cliente.getRgCliente());
+                        statement.setString(4, cliente.getTelCliente());
+                        statement.setString(5, cliente.getCelCliente());
+                        statement.setString(6, cliente.getEmailCliente());
+                        statement.setString(7, x);
+                        statement.executeUpdate();
+                        statement.close();
+                        break;
                     }
-
-                    String x = Integer.toString(FK);
-
-                    sql = "insert into cliente (nomeCliente, cpf, rg, telefone, celular, email,FKendereco) values(?,?,?,?,?,?,?)";
-                    statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, cliente.getNomeCliente());
-                    statement.setString(2, cliente.getCpfCliente());
-                    statement.setString(3, cliente.getRgCliente());
-                    statement.setString(4, cliente.getTelCliente());
-                    statement.setString(5, cliente.getCelCliente());
-                    statement.setString(6, cliente.getEmailCliente());
-                    statement.setString(7, x);
-                    statement.executeUpdate();
-                    statement.close();
-                    break;
-
                 case ALTERACAOCLIENTE:
 
                     sql = "update Endereco set cep = ?, bairro = ?,  logradouro = ?"
@@ -243,15 +253,17 @@ public class DAO {
                     statement.executeUpdate();
                     statement.close();
                     break;
+
             }
         } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro);
         }
         return men;
+
     }
 //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
+//<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
     public String atualizarFornecedor(int operacao) {
         int FK;
         men = "Operação realizada com sucesso!";

@@ -21,6 +21,8 @@ import javax.swing.ListSelectionModel;
  */
 public class TelaCliente extends javax.swing.JInternalFrame {
 
+    String sqlTabela = "select * from cliente inner join endereco on FKendereco = idendereco";
+
     /**
      * Creates new form TelaCliente
      */
@@ -28,7 +30,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         initComponents();
         ConexaoBD bd = new ConexaoBD();
         bd.getConnection();
-        String sqlTabela = "select * from cliente inner join endereco on FKendereco = idendereco";
         DAO dao = new DAO();
         dao.carregarTabela();
         preencherTabela(sqlTabela);
@@ -450,7 +451,8 @@ public class TelaCliente extends javax.swing.JInternalFrame {
                 txtCel.getText(), txtEmail.getText(), txtCep.getText(), txtBairro.getText(),
                 txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
                 txtCidade.getText(), txtUf.getText());
-
+        preencherTabela(sqlTabela);
+        LimpaCampo();
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 
@@ -478,36 +480,38 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
 
         ClienteController clicontrol = new ClienteController();
-       
-            int dialogButton = JOptionPane.YES_NO_OPTION;
-            int dialogResult = JOptionPane.showConfirmDialog(this, "Você tem certeza que deseja alterar"
-                    + "o endereço?", "Enderço semelhante", dialogButton);
-            if (dialogResult == 0) {
-                clicontrol.editarCliente(lbIdCliente.getText(), lblIdend.getText(), txtNome.getText(), txtCpf1.getText(), txtCpf1.getText(), txtNumero.getText(),
-                        txtCel.getText(), txtEmail.getText(), txtCep.getText(), txtBairro.getText(),
-                        txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
-                        txtCidade.getText(), txtUf.getText());
-            } else {
-                JOptionPane.showMessageDialog(null, "Operação cancelada");
-            }
-       
+
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(this, "Você tem certeza que deseja alterar"
+                + "o endereço?", "Enderço semelhante", dialogButton);
+        if (dialogResult == 0) {
+            clicontrol.editarCliente(lbIdCliente.getText(), lblIdend.getText(), txtNome.getText(), txtCpf1.getText(), txtCpf1.getText(), txtNumero.getText(),
+                    txtCel.getText(), txtEmail.getText(), txtCep.getText(), txtBairro.getText(),
+                    txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
+                    txtCidade.getText(), txtUf.getText());
+        } else {
+            JOptionPane.showMessageDialog(null, "Operação cancelada");
+        }
+        preencherTabela(sqlTabela);
+        LimpaCampo();
+
 
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     public void LimpaCampo() {
-        txtBairro.setText(null);
-        txtCel.setText(null);
-        txtCep.setText(null);
-        txtUf.setText(null);
-        txtCidade.setText(null);
-        txtComplemento.setText(null);
-        txtCpf1.setText(null);
-        txtEmail.setText(null);
-        txtLogradouro.setText(null);
-        txtNome.setText(null);
-        txtNumero.setText(null);
-        txtCpf1.setText(null);
-        txtTel.setText(null);
+        txtBairro.setText("");
+        txtCel.setText("");
+        txtCep.setText("");
+        txtUf.setText("");
+        txtCidade.setText("");
+        txtComplemento.setText("");
+        txtCpf1.setText("");
+        txtEmail.setText("");
+        txtLogradouro.setText("");
+        txtNome.setText("");
+        txtNumero.setText("");
+        txtCpf1.setText("");
+        txtTel.setText("");
     }
 
     public void AtivarCampos(boolean c1, boolean c2, boolean c3, boolean c4, boolean c5, boolean c6, boolean c7, boolean c8, boolean c9,
