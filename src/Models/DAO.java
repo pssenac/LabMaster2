@@ -219,41 +219,31 @@ public class DAO {
                     statement.setString(3, endereco.getNumero());
                     fk = statement.executeQuery();
                     if (fk.next()) {
-                        JOptionPane.showMessageDialog(null, "o Endereço que deseja alterar já está cadasatrado "
-                                + "no sistema");
-                        int dialogButton = JOptionPane.YES_NO_OPTION;
-                        int dialogResult = JOptionPane.showConfirmDialog(null, "Você deseja inserir "
-                                + "o endereço como um novo registro?", "Enderço semelhante", dialogButton);
-                        if (dialogResult == 0) {
-                            sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
-                                    + "cidade, estado) values(?,?,?,?,?,?,?)";
 
-                            statement = bd.connection.prepareStatement(sql);
-                            statement.setString(1, endereco.getCep());
-                            statement.setString(2, endereco.getBairro());
-                            statement.setString(3, endereco.getLogradouro());
-                            statement.setString(4, endereco.getComplemento());
-                            statement.setString(5, endereco.getNumero());
-                            statement.setString(6, endereco.getCidade());
-                            statement.setString(7, endereco.getEstado());
-                            statement.executeUpdate();
+                        sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
+                                + "cidade, estado) values(?,?,?,?,?,?,?)";
 
-                            sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
-                            bd.getConnection();
-                            statement = bd.connection.prepareStatement(sql);
-                            statement.setString(1, endereco.getCep());
-                            statement.setString(2, endereco.getLogradouro());
-                            statement.setString(3, endereco.getNumero());
-                            JOptionPane.showMessageDialog(null, endereco.getCep());
-                            fk = statement.executeQuery();
-                            fk.first();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, endereco.getCep());
+                        statement.setString(2, endereco.getBairro());
+                        statement.setString(3, endereco.getLogradouro());
+                        statement.setString(4, endereco.getComplemento());
+                        statement.setString(5, endereco.getNumero());
+                        statement.setString(6, endereco.getCidade());
+                        statement.setString(7, endereco.getEstado());
+                        statement.executeUpdate();
 
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Operação Cancelada");
-                            men = "os dados não foram alterados";
-                            return men;
-                        }
-                    } 
+                        sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
+                        bd.getConnection();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, endereco.getCep());
+                        statement.setString(2, endereco.getLogradouro());
+                        statement.setString(3, endereco.getNumero());
+                        JOptionPane.showMessageDialog(null, endereco.getCep());
+                        fk = statement.executeQuery();
+                        fk.first();
+
+                    }
 
                     sql = "update Cliente set nomeCliente = ?, cpf = ?, rg = ?,"
                             + " telefone = ?,celular = ?,email = ?, FKendereco = ? where idcliente = ?";
