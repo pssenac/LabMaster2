@@ -13,7 +13,7 @@ import javax.swing.ListSelectionModel;
 
 public class TelaProduto extends javax.swing.JInternalFrame {
 
-    String sqlTabela = "select * from produtos inner join lote on idprodutos = produtos_idprodutos";
+    String sqlTabela = "select * from produtos inner join lote on idprodutos = FKprodutos";
 
     public ConexaoBD bd;
 
@@ -601,7 +601,7 @@ public class TelaProduto extends javax.swing.JInternalFrame {
         DAO dao = new DAO();
         ArrayList dados = new ArrayList();
         String[] colunas = new String[]{"Id", "nome", "descricao", "Local", "tipo", "totalImposto", "icms", "iss", "ipi", "FKlote",
-            "idlote", "dataCompra", "QuantidadeEstoque", "valorCusto", "ValorVenda", "situacaoProduto", "Marca", "lote", "produtos_idprodutos"};
+            "idlote", "dataCompra", "QuantidadeEstoque", "valorCusto", "ValorVenda", "situacaoProduto", "Marca", "lote", "FKprodutos"};
         dao.executaSQL(SQL);
         try {
             dao.resultSet.first();

@@ -74,85 +74,11 @@ public class Produto {
         this.tipoProduto = tipoProduto;
     }
 
-    /**
-     * @return the totalImposto
-     */
-    public String getTotalImposto() {
-        return totalImposto;
-    }
-
-    /**
-     * @param totalImposto the totalImposto to set
-     */
-    public void setTotalImposto(String totalImposto) {
-        this.totalImposto = totalImposto;
-    }
-
-    /**
-     * @return the icms
-     */
-    public String getIcms() {
-        return icms;
-    }
-
-    /**
-     * @param icms the icms to set
-     */
-    public void setIcms(String icms) {
-        this.icms = icms;
-    }
-
-    /**
-     * @return the iss
-     */
-    public String getIss() {
-        return iss;
-    }
-
-    /**
-     * @param iss the iss to set
-     */
-    public void setIss(String iss) {
-        this.iss = iss;
-    }
-
-    /**
-     * @return the ipi
-     */
-    public String getIpi() {
-        return ipi;
-    }
-
-    /**
-     * @param ipi the ipi to set
-     */
-    public void setIpi(String ipi) {
-        this.ipi = ipi;
-    }
-
-    /**
-     * @return the FKfornecedor
-     */
-    public String getFKfornecedor() {
-        return FKfornecedor;
-    }
-
-    /**
-     * @param FKfornecedor the FKfornecedor to set
-     */
-    public void setFKfornecedor(String FKfornecedor) {
-        this.FKfornecedor = FKfornecedor;
-    }
-
     private String idProduto;
     private String nomeProduto;
     private String descricao;
     private String armazemLocal;
     private String tipoProduto;
-    private String totalImposto;
-    private String icms;
-    private String iss;
-    private String ipi;
-    private String FKfornecedor;
+
 
 }

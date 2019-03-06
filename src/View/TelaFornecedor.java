@@ -20,8 +20,7 @@ import javax.swing.ListSelectionModel;
  */
 public class TelaFornecedor extends javax.swing.JInternalFrame {
 
-    boolean Cpfcnpj;
-
+    boolean Cpfcnpj, a;
     /**
      * Creates new form TelaFornecedor
      */
@@ -56,8 +55,8 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         lblCidade = new javax.swing.JLabel();
         txtCidade = new javax.swing.JTextField();
         lblUf = new javax.swing.JLabel();
-        txtUf = new javax.swing.JFormattedTextField();
         txtCep = new javax.swing.JTextField();
+        txtUf = new javax.swing.JTextField();
         lblCodigo = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
@@ -129,13 +128,9 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         lblUf.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         lblUf.setText("UF :");
 
-        try {
-            txtUf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("UU")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-
         txtCep.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
+
+        txtUf.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
 
         javax.swing.GroupLayout jpEnderecoLayout = new javax.swing.GroupLayout(jpEndereco);
         jpEndereco.setLayout(jpEnderecoLayout);
@@ -172,8 +167,8 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
                                 .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(lblUf)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtUf, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUf, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -555,6 +550,10 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
     private void btnGravarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGravarActionPerformed
 
         FornecedorController forcontroller = new FornecedorController();
+        if(VerificarCamops() == true){
+            JOptionPane.showMessageDialog(null, "Campos Obrigatorios não preenchidos!");
+            a= false;
+        }else{
         forcontroller.salvarFornecedor(txtCpfCnpj.getText(), txtNomeEmpresa.getText(), txtFantasia.getText(),
                 txtRamo.getText(), txtRepresentante.getText(),
                 txtContatoFixo.getText(), txtContatoCel.getText(), txtEmailRepresentante.getText(),
@@ -565,6 +564,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         Limpar();
         AtivarCampos(true, true, true, false, false, false, false, false, false, false, false, false, false, false, false, false, false);
         AtivarBotao(true, false, false, false, true, true);
+        }
     }//GEN-LAST:event_btnGravarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
@@ -705,6 +705,48 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
         txtUf.setText("");
     }
     //</editor-fold>
+    
+    // <editor-fold defaultstate="collapsed" desc="Verificar Campos"> 
+    public boolean VerificarCamops(){
+        if (txtCpfCnpj.getText().equals("")){
+            a=true;
+        }
+        if(txtNomeEmpresa.getText().equals("")){
+            a=true;
+        }
+        if(txtFantasia.getText().equals("")){
+            a=true;
+        }
+        if(txtRamo.getText().equals("")){
+            a=true;
+        }
+        if(txtRepresentante.getText().equals("")){
+            a=true;
+        }
+        if(txtContatoFixo.getText().equals("") && txtContatoCel.getText().equals("")){
+            a=true;
+        }       
+        if(txtCep.getText().equals("")){
+            a=true;
+        }
+        if(txtLogradouro.getText().equals("")){
+            a=true;
+        }
+        if(txtBairro.getText().equals("")){
+            a=true;
+        }
+        if(txtNumero.getText().equals("")){
+            a=true;
+        }        
+        if(txtCidade.getText().equals("")){
+            
+        }
+        if(txtUf.getText().equals("")){
+            a=true;
+        }
+        return a;
+    }
+    //</editor-fold>
 
     // <editor-fold defaultstate="collapsed" desc="Métodos">
     public void CpfCnpj(int a) {
@@ -820,7 +862,7 @@ public class TelaFornecedor extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtRamo;
     private javax.swing.JTextField txtRepresentante;
-    private javax.swing.JFormattedTextField txtUf;
+    private javax.swing.JTextField txtUf;
     // End of variables declaration//GEN-END:variables
 //</editor-fold>
 }

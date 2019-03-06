@@ -5,12 +5,98 @@ public class Lote {
     private String idLote;
     private String dataCompra;
     private String quantidade;
+    private String qtdInicial;
     private String valorCusto;
     private String valorVenda;
     private String situacaoProduto;
     private String marca;
     private String lote;
     private String idProduto;
+    private String icms, iss, ipi, totalImposto, fkFornecedor;
+    
+    /**
+     * @return the qtdInicial
+     */
+    public String getQtdInicial() {
+        return qtdInicial;
+    }
+
+    /**
+     * @param qtdInicial the qtdInicial to set
+     */
+    public void setQtdInicial(String qtdInicial) {
+        this.qtdInicial = qtdInicial;
+    }
+
+    /**
+     * @return the icms
+     */
+    public String getIcms() {
+        return icms;
+    }
+
+    /**
+     * @param icms the icms to set
+     */
+    public void setIcms(String icms) {
+        this.icms = icms;
+    }
+
+    /**
+     * @return the iss
+     */
+    public String getIss() {
+        return iss;
+    }
+
+    /**
+     * @param iss the iss to set
+     */
+    public void setIss(String iss) {
+        this.iss = iss;
+    }
+
+    /**
+     * @return the ipi
+     */
+    public String getIpi() {
+        return ipi;
+    }
+
+    /**
+     * @param ipi the ipi to set
+     */
+    public void setIpi(String ipi) {
+        this.ipi = ipi;
+    }
+
+    /**
+     * @return the totalImposto
+     */
+    public String getTotalImposto() {
+        return totalImposto;
+    }
+
+    /**
+     * @param totalImposto the totalImposto to set
+     */
+    public void setTotalImposto(String totalImposto) {
+        this.totalImposto = totalImposto;
+    }
+
+    /**
+     * @return the fkFornecedor
+     */
+    public String getFkFornecedor() {
+        return fkFornecedor;
+    }
+
+    /**
+     * @param fkFornecedor the fkFornecedor to set
+     */
+    public void setFkFornecedor(String fkFornecedor) {
+        this.fkFornecedor = fkFornecedor;
+    }
 
     /**
      * @return the idLote

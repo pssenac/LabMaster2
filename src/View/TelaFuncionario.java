@@ -778,7 +778,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                     txtRgFuncionario.getText(), txtTelFuncionario.getText(),txtCelFuncionario.getText(),
                     txtEmailFuncionario.getText(),txtDataNasc.getText(),txtCepFuncionario.getText(),txtBairroFuncionario.getText(),
                     txtLogradouroFuncionario.getText(),txtComplementoFuncionario.getText(),txtNumeroFuncionario.getText(),
-                    txtCidadeFuncionario.getText(),txtEstadoFuncionario.getText(), txtUsuarioFuncionario.getText(), (String) cbPerfilFuncionario.getSelectedItem(),txtSenhaFuncionario.getText(),
+                    txtCidadeFuncionario.getText(),txtEstadoFuncionario.getText(), txtUsuarioFuncionario.getText(), cbPerfilFuncionario.getSelectedIndex(),txtSenhaFuncionario.getText(),
                     txtConfirmacaoSenha.getText());
                     habilitaCampos(false,false,false,false,false,false,false,false,false,
                     false,false,false,false,false,false,false,false,false);
@@ -804,7 +804,7 @@ public class TelaFuncionario extends javax.swing.JInternalFrame {
                 txtDataNasc.getText(),txtCepFuncionario.getText(),txtBairroFuncionario.getText(),
                     txtLogradouroFuncionario.getText(),txtComplementoFuncionario.getText(),txtNumeroFuncionario.getText(),
                     txtCidadeFuncionario.getText(),txtEstadoFuncionario.getText(),txtUsuarioFuncionario.getText(), 
-                    (String) cbPerfilFuncionario.getSelectedItem(),txtSenhaFuncionario.getText(), txtConfirmacaoSenha.getText());
+                    cbPerfilFuncionario.getSelectedIndex(),txtSenhaFuncionario.getText(), txtConfirmacaoSenha.getText());
                     habilitaCampos(false,false,false,false,false,false,false,false,false,
                      false,false,false,false,false,false,false,false,false);
                         lblexistecep.setText("");

@@ -6,7 +6,7 @@ public class Usuario {
     
     private String idUsuario;
     private String loginUsuario;
-    private String perfilUsuario;
+    private int perfilUsuario;
     private String SenhaUsuario;
     private String confirmacaoSenhaUsuario;
 
@@ -26,11 +26,11 @@ public class Usuario {
         this.loginUsuario = loginUsuario;
     }
 
-    public String getPerfilUsuario() {
+    public int getPerfilUsuario() {
         return perfilUsuario;
     }
 
-    public void setPerfilUsuario(String perfilUsuario) {
+    public void setPerfilUsuario(int perfilUsuario) {
         this.perfilUsuario = perfilUsuario;
     }
 

@@ -18,11 +18,6 @@ public class ProdutoController {
         dao.produto.setDescricao(descricao);
         dao.produto.setArmazemLocal(armazemLocal);
         dao.produto.setTipoProduto(tipoProduto);
-        dao.produto.setTotalImposto(totalImposto);
-        dao.produto.setIcms(icms);
-        dao.produto.setIss(iss);
-        dao.produto.setIpi(ipi);
-        dao.produto.setFKfornecedor(fkFornecedorProduto);
 
         dao.lote.setDataCompra(dataCompra);
         dao.lote.setQuantidade(qtdEstoque);
@@ -49,11 +44,6 @@ public class ProdutoController {
         dao.produto.setDescricao(descricao);
         dao.produto.setArmazemLocal(armazemLocal);
         dao.produto.setTipoProduto(tipoProduto);
-        dao.produto.setTotalImposto(totalImposto);
-        dao.produto.setIcms(icms);
-        dao.produto.setIss(iss);
-        dao.produto.setIpi(ipi);
-        dao.produto.setFKfornecedor(fkFornecedorProduto);
 
         dao.lote.setDataCompra(dataCompra);
         dao.lote.setQuantidade(qtdEstoque);

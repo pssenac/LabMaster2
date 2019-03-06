@@ -11,7 +11,7 @@ public class logFuncionarioController {
             String rgFuncionario,  String telFuncionario,  String celFuncionario,  String emailFuncionario,  
             String dataNascFuncionario,String cep, String bairro, String logradouro, 
             String complemento, String numero, String cidade, String estado,String loginUsuario, 
-            String perfilUsuario, String SenhaUsuario,String confirmacaoSenhaUsuario ){
+            int perfilUsuario, String SenhaUsuario,String confirmacaoSenhaUsuario ){
         
         DAO dao = new DAO();
         dao.funcionario.setNomeFuncionario(nomeFuncionario);
@@ -53,7 +53,7 @@ public class logFuncionarioController {
             String rgFuncionario,  String telFuncionario,  String celFuncionario,  String emailFuncionario,  
             String dataNascFuncionario,String cep, String bairro, String logradouro, 
             String complemento, String numero, String cidade, String estado, 
-            String loginUsuario, String perfilUsuario, String SenhaUsuario, String confirmacaoSenhaUsuario ){
+            String loginUsuario, int perfilUsuario, String SenhaUsuario, String confirmacaoSenhaUsuario ){
         DAO dao = new DAO();
         
        

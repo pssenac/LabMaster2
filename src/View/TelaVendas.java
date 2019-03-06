@@ -5,17 +5,27 @@
  */
 package View;
 
+import Controller.ModeloTabela;
+import Models.DAO;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
+
 /**
  *
  * @author 03758479100
  */
 public class TelaVendas extends javax.swing.JInternalFrame {
 
+    String sql = "select * from produtos inner join Lote on idprodutos = FKprodutos";
     /**
      * Creates new form TelaOrdemServico
      */
     public TelaVendas() {
         initComponents();
+       // preencherTabela(sql);
     }
 
     /**
@@ -31,7 +41,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         lblIdOrdem = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable29 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         txtPesquisaProdutoVenda = new javax.swing.JTextField();
@@ -87,7 +97,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Lista de Produtos"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable29.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -98,7 +108,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(jTable29);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -126,6 +136,11 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         btnPesquisa1.setMaximumSize(new java.awt.Dimension(30, 30));
         btnPesquisa1.setMinimumSize(new java.awt.Dimension(30, 30));
         btnPesquisa1.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnPesquisa1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisa1ActionPerformed(evt);
+            }
+        });
 
         jLabel11.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel11.setText("Tipo de Produto :");
@@ -137,13 +152,10 @@ public class TelaVendas extends javax.swing.JInternalFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane3.setViewportView(jTable2);
@@ -479,7 +491,54 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnPesquisa1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisa1ActionPerformed
+    sql = "select * from produtos inner join Lote on idprodutos = FKprodutos where nomeProduto like '%"+ txtPesquisaProdutoVenda.getText()+"%'";     
+        
+        preencherTabela(sql);
+    }//GEN-LAST:event_btnPesquisa1ActionPerformed
 
+
+    public void preencherTabela(String SQL) {
+        DAO dao = new DAO();
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"Produto","Descição","Tipo","Data da Compra","Valor de Venda", "icsm", "iss", "ipi", "Estoque", "situação"};
+        dao.executaSQL(SQL);
+        try {
+            dao.resultSet.first();
+            do {
+                dados.add(new Object[]{dao.resultSet.getString("nomeProduto"), dao.resultSet.getString("descricao"), dao.resultSet.getString("tipoProduto"), dao.resultSet.getString("dataCompra"),
+                    dao.resultSet.getString("valorVenda"), dao.resultSet.getString("icms"), dao.resultSet.getString("iss"), dao.resultSet.getString("ipi"),
+                    dao.resultSet.getString("qtdEstoque"), dao.resultSet.getString("situacaoProduto")});
+            } while (dao.resultSet.next());
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex + "Ñ DEU");
+        }
+
+        ModeloTabela model = new ModeloTabela(dados, colunas);
+        jTable2.setModel(model);
+
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(250);  // define o tamanho das colunas e se será redimensionado ou não
+        jTable2.getColumnModel().getColumn(0).setResizable(true);  // não permite alterar o tamanho da coluna
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(1).setResizable(false);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(4).setResizable(false);
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(5).setResizable(false);
+        jTable2.getColumnModel().getColumn(6).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(6).setResizable(false);
+        jTable2.getColumnModel().getColumn(7).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(7).setResizable(false);
+
+        jTable29.getTableHeader().setReorderingAllowed(false);  // Não permite reordenar as colunas
+        jTable29.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Não permite redimensionar a tabela
+        jTable29.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // permite selecionar apenas 1 elemento da tabela
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProduto;
     private javax.swing.JButton btnFinalizarVenda;
@@ -511,8 +570,8 @@ public class TelaVendas extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTable29;
     private javax.swing.JLabel lblIcms;
     private javax.swing.JLabel lblIdOrdem;
     private javax.swing.JLabel lblIpi;

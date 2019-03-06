@@ -60,14 +60,5 @@ public class ClienteController {
         String msgInclusao = "";
         return msgInclusao;
     }
-
-    public boolean verificarEnd(String idendereco) {
-
-        DAO dao = new DAO();
-        boolean vffor = true;
-
-        dao.endereco.setIdendereco(idendereco);        
-        boolean vf = dao.verificarEnderecoFornecedor(vffor);
-        return vf;
-    }
+  
 }
