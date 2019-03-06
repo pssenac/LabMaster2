@@ -73,53 +73,9 @@ public class DAO {
         }
     }
 
-    public Boolean verificarEnderecoFornecedor(boolean id) {
-        men = "deu ceto";
-        boolean verificarFor;
-        try {
-            sql = "select idfornecedor from fornecedor where FKendereco = ?";
-            bd.getConnection();
-            statement = bd.connection.prepareStatement(sql);
-            statement.setString(1, endereco.getIdendereco());
-            ResultSet fk = statement.executeQuery();
-            if (fk.next()) {
-                JOptionPane.showMessageDialog(null, "o endereço que deseja modificar está relacioando a outra tabela");
-                verificarFor = true;
-                return verificarFor;
-            }
-            statement.close();
-
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, erro);
-        }
-        verificarFor = false;
-        return verificarFor;
-    }
-
-    public Boolean verificarEnderecoCliente(boolean id) {
-        men = "deu ceto";
-        boolean verificarFor;
-        try {
-            sql = "select idcliente from cliente where FKendereco = ?";
-            bd.getConnection();
-            statement = bd.connection.prepareStatement(sql);
-            statement.setString(1, endereco.getIdendereco());
-            ResultSet fk = statement.executeQuery();
-            if (fk.next()) {
-                JOptionPane.showMessageDialog(null, "o endereço que deseja modificar está relacioando a outra tabela");
-                verificarFor = true;
-                return verificarFor;
-            }
-            statement.close();
-
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, erro);
-        }
-        verificarFor = false;
-        return verificarFor;
-    }
-
+ 
     //</editor-fold>
+   
     //<editor-fold defaultstate="collapsed" desc=" EXECUTAR SQL "> 
     public void executaSQL(String sql) {
         try {
@@ -263,7 +219,7 @@ public class DAO {
     }
 //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
     public String atualizarFornecedor(int operacao) {
         int FK;
         men = "Operação realizada com sucesso!";
@@ -429,7 +385,7 @@ public class DAO {
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, usuario.getLoginUsuario());
-                    statement.setString(2, usuario.getPerfilUsuario());
+                    statement.setInt(2, usuario.getPerfilUsuario());
                     statement.setString(3, usuario.getSenhaUsuario());
                     statement.setString(4, usuario.getConfirmacaoSenhaUsuario());
                     statement.setString(5, FKfcn);
@@ -486,7 +442,7 @@ public class DAO {
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(5, cvf);
                     statement.setString(1, usuario.getLoginUsuario());
-                    statement.setString(2, usuario.getPerfilUsuario());
+                    statement.setInt(2, usuario.getPerfilUsuario());
                     statement.setString(3, usuario.getSenhaUsuario());
                     statement.setString(4, usuario.getConfirmacaoSenhaUsuario());
 
@@ -525,18 +481,13 @@ public class DAO {
                 // Produto
                 case INCLUSAOPRODUTO:
 
-                    sql = "insert into produtos values(null,?,?,?,?,?,?,?,?,?)";
+                    sql = "insert into produtos values(null,?,?,?,?)";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, produto.getNomeProduto());
                     statement.setString(2, produto.getDescricao());
                     statement.setString(3, produto.getArmazemLocal());
-                    statement.setString(4, produto.getTipoProduto());
-                    statement.setString(5, produto.getTotalImposto());
-                    statement.setString(6, produto.getIcms());
-                    statement.setString(7, produto.getIss());
-                    statement.setString(8, produto.getIpi());
-                    statement.setString(9, produto.getFKfornecedor());
+                    statement.setString(4, produto.getTipoProduto());                    
                     statement.executeUpdate();
                     sql = "SELECT idprodutos FROM produtos ORDER BY idprodutos DESC LIMIT 1";
                     statement = bd.connection.prepareStatement(sql);
@@ -544,16 +495,22 @@ public class DAO {
                     ResultSet fk = statement.executeQuery();
                     while (fk.next()) {
                         FK = fk.getInt("idprodutos");
-                        sql = "insert into lote values(null,?,?,?,?,?,?,?,?)";
+                        sql = "insert into lote values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                         statement = bd.connection.prepareStatement(sql);
                         statement.setString(1, lote.getDataCompra());
                         statement.setString(2, lote.getQuantidade());
-                        statement.setString(3, lote.getValorCusto());
-                        statement.setString(4, lote.getValorVenda());
-                        statement.setString(5, lote.getSituacaoProduto());
-                        statement.setString(6, lote.getMarca());
-                        statement.setString(7, lote.getLote());
-                        statement.setInt(8, fk.getInt("idprodutos"));
+                        statement.setString(3, lote.getQtdInicial());
+                        statement.setString(4, lote.getValorCusto());
+                        statement.setString(5, lote.getValorVenda());
+                        statement.setString(6, lote.getSituacaoProduto());
+                        statement.setString(7, lote.getMarca());
+                        statement.setString(8, lote.getLote());
+                        statement.setInt(9, fk.getInt("idprodutos"));
+                        statement.setString(10, lote.getIcms());
+                        statement.setString(11, lote.getIss());
+                        statement.setString(12, lote.getIpi());
+                        statement.setString(13, lote.getTotalImposto());
+                        statement.setString(14, lote.getFkFornecedor());
                         statement.executeUpdate();
                     }
 
@@ -562,31 +519,32 @@ public class DAO {
                 case ALTERACAOPRODUTO:
 
                     bd.getConnection();
-                    sql = "update lote set dataCompra = ?, qtdEstoque = ?, valorCusto = ?, valorVenda = ?, situacaoProduto = ?,"
-                            + "marca = ?, lote = ? where produtos_idprodutos = ?";
+                    sql = "update lote set dataCompra = ?, qtdEstoque = ?, qtdInicial = ?, valorCusto = ?, valorVenda = ?, situacaoProduto = ?,"
+                            + "marca = ?, lote = ?, icms = ?, iss = ?, ipi = ?, totalImpoasto = ? where FKprodutos = ?";
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, lote.getDataCompra());
-                    statement.setString(2, lote.getQuantidade());
-                    statement.setString(3, lote.getValorCusto());
-                    statement.setString(4, lote.getValorVenda());
-                    statement.setString(5, lote.getSituacaoProduto());
-                    statement.setString(6, lote.getMarca());
-                    statement.setString(7, lote.getLote());
-                    statement.setString(8, produto.getIdProduto());
+                        statement.setString(2, lote.getQuantidade());
+                        statement.setString(3, lote.getQtdInicial());
+                        statement.setString(4, lote.getValorCusto());
+                        statement.setString(5, lote.getValorVenda());
+                        statement.setString(6, lote.getSituacaoProduto());
+                        statement.setString(7, lote.getMarca());
+                        statement.setString(8, lote.getLote());                       
+                        statement.setString(9, lote.getIcms());
+                        statement.setString(10, lote.getIss());
+                        statement.setString(11, lote.getIpi());
+                        statement.setString(12, lote.getTotalImposto());
+                        statement.setString(13, lote.getFkFornecedor());
+                        statement.setString(14, produto.getIdProduto());
                     statement.executeUpdate();
 
-                    sql = "update produtos set nomeProduto = ?, descricao = ?, armazemLocal = ?, tipoProduto = ?, totalImposto = ?, icms = ?, "
-                            + "iss = ?, ipi = ? where idprodutos = ?";
+                    sql = "update produtos set nomeProduto = ?, descricao = ?, armazemLocal = ?, tipoProduto = ? where idprodutos = ?";
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, produto.getNomeProduto());
                     statement.setString(2, produto.getDescricao());
                     statement.setString(3, produto.getArmazemLocal());
                     statement.setString(4, produto.getTipoProduto());
-                    statement.setString(5, produto.getTotalImposto());
-                    statement.setString(6, produto.getIcms());
-                    statement.setString(7, produto.getIss());
-                    statement.setString(8, produto.getIpi());
-                    statement.setString(9, produto.getIdProduto());
+                    statement.setString(5, produto.getIdProduto());
                     statement.executeUpdate();
                     break;
             }
@@ -619,7 +577,7 @@ public class DAO {
         return nomeFor;
     }
 
-    //</editor-fold>
+    //</editor-fold>   
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
     public String atualizar(int operacao) {
         men = "Operação realizada com sucesso!";
