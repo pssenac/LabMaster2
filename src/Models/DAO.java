@@ -156,16 +156,31 @@ public class DAO {
             switch (operacao) {
                 // CLIENTE 
                 case INCLUSAOCLIENTE:
-                    sql = "select * from cliente where cpf = ?";
+
+                    sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, cliente.getCpfCliente());
+                    statement.setString(1, endereco.getCep());
+                    statement.setString(2, endereco.getLogradouro());
+                    statement.setString(3, endereco.getNumero());
                     ResultSet fk = statement.executeQuery();
                     if (fk.next()) {
-                        FK = fk.getString("nomeCliente");
-                        JOptionPane.showMessageDialog(null, "o Cliente já está cadastrado no sistema como:" + FK);
+                        fk.getString("idendereco");
 
                     } else {
+
+                        sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
+                                + "cidade, estado) values(?,?,?,?,?,?,?)";
+
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, endereco.getCep());
+                        statement.setString(2, endereco.getBairro());
+                        statement.setString(3, endereco.getLogradouro());
+                        statement.setString(4, endereco.getComplemento());
+                        statement.setString(5, endereco.getNumero());
+                        statement.setString(6, endereco.getCidade());
+                        statement.setString(7, endereco.getEstado());
+                        statement.executeUpdate();
 
                         sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
                         bd.getConnection();
@@ -173,12 +188,43 @@ public class DAO {
                         statement.setString(1, endereco.getCep());
                         statement.setString(2, endereco.getLogradouro());
                         statement.setString(3, endereco.getNumero());
+                        JOptionPane.showMessageDialog(null, endereco.getCep());
                         fk = statement.executeQuery();
-                        if (fk.next()) {
-                           fk.getString("idendereco");
+                        fk.first();
 
-                        } else {
+                    }
 
+                    String x = fk.getString("idendereco");
+
+                    sql = "insert into cliente (nomeCliente, cpf, rg, telefone, celular, email,FKendereco) values(?,?,?,?,?,?,?)";
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, cliente.getNomeCliente());
+                    statement.setString(2, cliente.getCpfCliente());
+                    statement.setString(3, cliente.getRgCliente());
+                    statement.setString(4, cliente.getTelCliente());
+                    statement.setString(5, cliente.getCelCliente());
+                    statement.setString(6, cliente.getEmailCliente());
+                    statement.setString(7, x);
+                    statement.executeUpdate();
+                    statement.close();
+                    break;
+
+                case ALTERACAOCLIENTE:
+
+                    sql = "select idendereco from endereco where cep = ? or logradouro = ? or numero = ?";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, endereco.getCep());
+                    statement.setString(2, endereco.getLogradouro());
+                    statement.setString(3, endereco.getNumero());
+                    fk = statement.executeQuery();
+                    if (fk.next()) {
+                        JOptionPane.showMessageDialog(null, "o Endereço que deseja alterar já está cadasatrado "
+                                + "no sistema");
+                        int dialogButton = JOptionPane.YES_NO_OPTION;
+                        int dialogResult = JOptionPane.showConfirmDialog(null, "Você deseja inserir "
+                                + "o endereço como um novo registro?", "Enderço semelhante", dialogButton);
+                        if (dialogResult == 0) {
                             sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
                                     + "cidade, estado) values(?,?,?,?,?,?,?)";
 
@@ -202,44 +248,15 @@ public class DAO {
                             fk = statement.executeQuery();
                             fk.first();
 
-                           
-
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Operação Cancelada");
+                            men = "os dados não foram alterados";
+                            return men;
                         }
-
-                        String x = fk.getString("idendereco");
-
-                        sql = "insert into cliente (nomeCliente, cpf, rg, telefone, celular, email,FKendereco) values(?,?,?,?,?,?,?)";
-                        statement = bd.connection.prepareStatement(sql);
-                        statement.setString(1, cliente.getNomeCliente());
-                        statement.setString(2, cliente.getCpfCliente());
-                        statement.setString(3, cliente.getRgCliente());
-                        statement.setString(4, cliente.getTelCliente());
-                        statement.setString(5, cliente.getCelCliente());
-                        statement.setString(6, cliente.getEmailCliente());
-                        statement.setString(7, x);
-                        statement.executeUpdate();
-                        statement.close();
-                        break;
-                    }
-                case ALTERACAOCLIENTE:
-
-                    sql = "update Endereco set cep = ?, bairro = ?,  logradouro = ?"
-                            + ",  complemento = ?,  numero = ?,  cidade = ?,  estado = ?"
-                            + "where idendereco = ?";
-
-                    statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, endereco.getCep());
-                    statement.setString(2, endereco.getBairro());
-                    statement.setString(3, endereco.getLogradouro());
-                    statement.setString(4, endereco.getComplemento());
-                    statement.setString(5, endereco.getNumero());
-                    statement.setString(6, endereco.getCidade());
-                    statement.setString(7, endereco.getEstado());
-                    statement.setString(8, endereco.getIdendereco());
-                    statement.executeUpdate();
+                    } 
 
                     sql = "update Cliente set nomeCliente = ?, cpf = ?, rg = ?,"
-                            + " telefone = ?,celular = ?,email = ? where idcliente = ?";
+                            + " telefone = ?,celular = ?,email = ?, FKendereco = ? where idcliente = ?";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, cliente.getNomeCliente());
@@ -248,7 +265,8 @@ public class DAO {
                     statement.setString(4, cliente.getTelCliente());
                     statement.setString(5, cliente.getCelCliente());
                     statement.setString(6, cliente.getEmailCliente());
-                    statement.setString(7, cliente.getIdCliente());
+                    statement.setString(7, fk.getString("idendereco"));
+                    statement.setString(8, cliente.getIdCliente());
 
                     statement.executeUpdate();
                     statement.close();
@@ -261,9 +279,9 @@ public class DAO {
         return men;
 
     }
-//</editor-fold>
+    //</editor-fold>
 
-//<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
     public String atualizarFornecedor(int operacao) {
         int FK;
         men = "Operação realizada com sucesso!";

@@ -481,17 +481,10 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
         ClienteController clicontrol = new ClienteController();
 
-        int dialogButton = JOptionPane.YES_NO_OPTION;
-        int dialogResult = JOptionPane.showConfirmDialog(this, "Você tem certeza que deseja alterar"
-                + "o endereço?", "Enderço semelhante", dialogButton);
-        if (dialogResult == 0) {
-            clicontrol.editarCliente(lbIdCliente.getText(), lblIdend.getText(), txtNome.getText(), txtCpf1.getText(), txtCpf1.getText(), txtNumero.getText(),
-                    txtCel.getText(), txtEmail.getText(), txtCep.getText(), txtBairro.getText(),
-                    txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
-                    txtCidade.getText(), txtUf.getText());
-        } else {
-            JOptionPane.showMessageDialog(null, "Operação cancelada");
-        }
+        clicontrol.editarCliente(lbIdCliente.getText(), lblIdend.getText(), txtNome.getText(), txtCpf1.getText(), txtCpf1.getText(), txtNumero.getText(),
+                txtCel.getText(), txtEmail.getText(), txtCep.getText(), txtBairro.getText(),
+                txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
+                txtCidade.getText(), txtUf.getText());
         preencherTabela(sqlTabela);
         LimpaCampo();
 
@@ -578,7 +571,7 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         ModeloTabela model = new ModeloTabela(dados, colunas);
         jTable1.setModel(model);
 
-        jTable1.getColumnModel().getColumn(0).setPreferredWidth(250);  // define o tamanho das colunas e se será redimensionado ou não
+        jTable1.getColumnModel().getColumn(0).setPreferredWidth(50);  // define o tamanho das colunas e se será redimensionado ou não
         jTable1.getColumnModel().getColumn(0).setResizable(true);  // não permite alterar o tamanho da coluna
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(50);
         jTable1.getColumnModel().getColumn(1).setResizable(false);
@@ -586,14 +579,31 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(2).setResizable(false);
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(50);
         jTable1.getColumnModel().getColumn(3).setResizable(false);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(110);
         jTable1.getColumnModel().getColumn(4).setResizable(false);
-        jTable1.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(-1);
         jTable1.getColumnModel().getColumn(5).setResizable(false);
-        jTable1.getColumnModel().getColumn(6).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(-1);
         jTable1.getColumnModel().getColumn(6).setResizable(false);
-        jTable1.getColumnModel().getColumn(7).setPreferredWidth(50);
+        jTable1.getColumnModel().getColumn(7).setPreferredWidth(-1);
         jTable1.getColumnModel().getColumn(7).setResizable(false);
+        jTable1.getColumnModel().getColumn(8).setPreferredWidth(-1);
+        jTable1.getColumnModel().getColumn(8).setResizable(false);
+        jTable1.getColumnModel().getColumn(9).setPreferredWidth(-1);
+        jTable1.getColumnModel().getColumn(9).setResizable(false);
+        jTable1.getColumnModel().getColumn(10).setPreferredWidth(-1);
+        jTable1.getColumnModel().getColumn(10).setResizable(false);
+        jTable1.getColumnModel().getColumn(11).setPreferredWidth(-1);
+        jTable1.getColumnModel().getColumn(11).setResizable(false);
+        jTable1.getColumnModel().getColumn(12).setPreferredWidth(-1);
+        jTable1.getColumnModel().getColumn(12).setResizable(false);
+        jTable1.getColumnModel().getColumn(13).setPreferredWidth(-1);
+        jTable1.getColumnModel().getColumn(13).setResizable(false);
+        jTable1.getColumnModel().getColumn(14).setPreferredWidth(-1);
+        jTable1.getColumnModel().getColumn(14).setResizable(false);
+        jTable1.getColumnModel().getColumn(15).setPreferredWidth(-1);
+        jTable1.getColumnModel().getColumn(15).setResizable(false);
+        
 
         jTable1.getTableHeader().setReorderingAllowed(false);  // Não permite reordenar as colunas
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Não permite redimensionar a tabela
