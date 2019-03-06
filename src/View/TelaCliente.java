@@ -22,6 +22,7 @@ import javax.swing.ListSelectionModel;
 public class TelaCliente extends javax.swing.JInternalFrame {
 
     String sqlTabela = "select * from cliente inner join endereco on FKendereco = idendereco";
+    boolean a;
 
     /**
      * Creates new form TelaCliente
@@ -447,13 +448,17 @@ public class TelaCliente extends javax.swing.JInternalFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         ClienteController clicontrol = new ClienteController();
-        clicontrol.salvarCliente(txtNome.getText(), txtCpf1.getText(), txtCpf1.getText(), txtNumero.getText(),
-                txtCel.getText(), txtEmail.getText(), txtCep.getText(), txtBairro.getText(),
-                txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
-                txtCidade.getText(), txtUf.getText());
-        preencherTabela(sqlTabela);
-        LimpaCampo();
-
+        if (VerificarCamposVazios() == true) {
+            JOptionPane.showMessageDialog(null, "Campos obrigatórios estão vazios!");
+            a = false;
+        } else {
+            clicontrol.salvarCliente(txtNome.getText(), txtCpf1.getText(), txtCpf1.getText(), txtNumero.getText(),
+                    txtCel.getText(), txtEmail.getText(), txtCep.getText(), txtBairro.getText(),
+                    txtLogradouro.getText(), txtComplemento.getText(), txtNumero.getText(),
+                    txtCidade.getText(), txtUf.getText());
+            preencherTabela(sqlTabela);
+            LimpaCampo();
+        }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
@@ -528,24 +533,38 @@ public class TelaCliente extends javax.swing.JInternalFrame {
 
     }
 
-    public void VerificarCamposVazios() {
-        if (txtBairro.getText().trim().isEmpty()
-                && txtCel.getText().trim().isEmpty()
-                && txtCep.getText().trim().isEmpty()
-                && txtUf.getText().trim().isEmpty()
-                && txtCidade.getText().trim().isEmpty()
-                && txtComplemento.getText().trim().isEmpty()
-                && txtCpf1.getText().trim().isEmpty()
-                && txtEmail.getText().trim().isEmpty()
-                && txtLogradouro.getText().trim().isEmpty()
-                && txtNome.getText().trim().isEmpty()
-                && txtNumero.getText().trim().isEmpty()
-                && txtCpf1.getText().trim().isEmpty()
-                && txtTel.getText().trim().isEmpty()) {
-            btnSalvar.setEnabled(false);
-        } else {
-            btnSalvar.setEnabled(true);
+    public boolean VerificarCamposVazios() {
+        if (txtBairro.getText().equals("")) {
+            a = true;
         }
+        if (txtCel.getText().equals("") && txtTel.getText().equals("")) {
+            a = true;
+        }
+        if (txtCep.getText().equals("")) {
+            a = true;
+        }
+        if (txtUf.getText().equals("")) {
+            a = true;
+        }
+        if (txtCidade.getText().equals("")) {
+            a = true;
+        }
+        if (txtCpf1.getText().equals("")) {
+            a = true;
+        }
+        if (txtLogradouro.getText().equals("")) {
+            a = true;
+        }
+        if (txtNome.getText().equals("")) {
+            a = true;
+        }
+        if (txtNumero.getText().equals("")) {
+            a = true;
+        }
+        if (txtRg.getText().equals("")) {
+            a = true;
+        }
+        return a;
     }
 
     public void preencherTabela(String SQL) {
@@ -603,7 +622,6 @@ public class TelaCliente extends javax.swing.JInternalFrame {
         jTable1.getColumnModel().getColumn(14).setResizable(false);
         jTable1.getColumnModel().getColumn(15).setPreferredWidth(-1);
         jTable1.getColumnModel().getColumn(15).setResizable(false);
-        
 
         jTable1.getTableHeader().setReorderingAllowed(false);  // Não permite reordenar as colunas
         jTable1.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Não permite redimensionar a tabela
