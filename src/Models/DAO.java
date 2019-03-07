@@ -478,6 +478,86 @@ public class DAO {
         }
         return men;
     }
+    
+    
+    // PESQUISAR  CEP FUNCIONARIO
+    public boolean cslEndereco(String cep) {
+        boolean autenticado = false;
+
+        try {
+
+            sql = "select * from endereco where cep= ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            statement.setString(1, cep);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                Acesso = rs.getString("cep");
+                autenticado = true;
+            } else {
+                rs.close();
+                return autenticado;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return autenticado;
+    }
+    
+
+    //PESQUISA CPF FUNCIONARIO
+    public boolean cslcpf(String cpf) {
+        boolean autenticado = false;
+
+        try {
+
+            sql = "select * from funcionario where cpf= ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            statement.setString(1, cpf);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                Acesso = rs.getString("cpf");
+                autenticado = true;
+            } else {
+                rs.close();
+                return autenticado;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return autenticado;
+    }
+    
+
+    //PESQUISA USUARIO FUNCIONARIO
+    public boolean csluser(String login) {
+        boolean autenticado = false;
+
+        try {
+
+            sql = "select * from usuario where login= ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            statement.setString(1, login);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                Acesso = rs.getString("login");
+                autenticado = true;
+            } else {
+                rs.close();
+                return autenticado;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return autenticado;
+    }
+    
+    
+    
+    
+    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR PRODUTO ">
@@ -586,6 +666,7 @@ public class DAO {
     }
 
     //</editor-fold>   
+    
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
     public String atualizar(int operacao) {
         men = "Operação realizada com sucesso!";
@@ -794,80 +875,8 @@ public class DAO {
     }
     //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" PESQUISAR  CEP FUNCIONARIO ">
-    public boolean cslEndereco(String cep) {
-        boolean autenticado = false;
-
-        try {
-
-            sql = "select * from endereco where cep= ?";
-            bd.getConnection();
-            statement = bd.connection.prepareStatement(sql);
-            statement.setString(1, cep);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                Acesso = rs.getString("cep");
-                autenticado = true;
-            } else {
-                rs.close();
-                return autenticado;
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-        return autenticado;
-    }
-    //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc=" PESQUISA CPF FUNCIONARIO">
-    public boolean cslcpf(String cpf) {
-        boolean autenticado = false;
-
-        try {
-
-            sql = "select * from funcionario where cpf= ?";
-            bd.getConnection();
-            statement = bd.connection.prepareStatement(sql);
-            statement.setString(1, cpf);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                Acesso = rs.getString("cpf");
-                autenticado = true;
-            } else {
-                rs.close();
-                return autenticado;
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-        return autenticado;
-    }
-    //</editor-fold>
-
-    //<editor-fold defaultstate="collapsed" desc=" PESQUISA USUARIO FUNCIONARIO">
-    public boolean csluser(String login) {
-        boolean autenticado = false;
-
-        try {
-
-            sql = "select * from usuario where login= ?";
-            bd.getConnection();
-            statement = bd.connection.prepareStatement(sql);
-            statement.setString(1, login);
-            ResultSet rs = statement.executeQuery();
-            if (rs.next()) {
-                Acesso = rs.getString("login");
-                autenticado = true;
-            } else {
-                rs.close();
-                return autenticado;
-            }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, ex);
-        }
-        return autenticado;
-    }
-    //</editor-fold>
+   
+   
 
     //<editor-fold defaultstate="collapsed" desc=" METODO LOGAR USUARIO">
     public boolean LogarUsuario(String login, String Senha) {
