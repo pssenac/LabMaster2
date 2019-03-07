@@ -73,18 +73,19 @@ public class DAO {
         }
     }
 
- 
     //</editor-fold>
-   
+    
     //<editor-fold defaultstate="collapsed" desc=" EXECUTAR SQL "> 
     public void executaSQL(String sql) {
         try {
             boolean resp;
             resp = bd.getConnection();
             if (resp == true) {
+                JOptionPane.showMessageDialog(null, sql);
                 // tipo case sensitive e pode percorrer tanto do início para o fim quanto do fim para o início
                 stm = bd.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 resultSet = stm.executeQuery(sql);
+                 
             } else {
                 JOptionPane.showMessageDialog(null, "Não conectou.");
             }
@@ -175,59 +176,65 @@ public class DAO {
                     statement.setString(3, endereco.getNumero());
                     fk = statement.executeQuery();
                     if (fk.next()) {
+                        fk.getString("idendereco");
+                    }else{
 
-                        sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
-                                + "cidade, estado) values(?,?,?,?,?,?,?)";
+                    sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
+                            + "cidade, estado) values(?,?,?,?,?,?,?)";
 
-                        statement = bd.connection.prepareStatement(sql);
-                        statement.setString(1, endereco.getCep());
-                        statement.setString(2, endereco.getBairro());
-                        statement.setString(3, endereco.getLogradouro());
-                        statement.setString(4, endereco.getComplemento());
-                        statement.setString(5, endereco.getNumero());
-                        statement.setString(6, endereco.getCidade());
-                        statement.setString(7, endereco.getEstado());
-                        statement.executeUpdate();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, endereco.getCep());
+                    statement.setString(2, endereco.getBairro());
+                    statement.setString(3, endereco.getLogradouro());
+                    statement.setString(4, endereco.getComplemento());
+                    statement.setString(5, endereco.getNumero());
+                    statement.setString(6, endereco.getCidade());
+                    statement.setString(7, endereco.getEstado());
+                    statement.executeUpdate();
 
-                        sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
-                        bd.getConnection();
-                        statement = bd.connection.prepareStatement(sql);
-                        statement.setString(1, endereco.getCep());
-                        statement.setString(2, endereco.getLogradouro());
-                        statement.setString(3, endereco.getNumero());
-                        JOptionPane.showMessageDialog(null, endereco.getCep());
-                        fk = statement.executeQuery();
-                        fk.first();
-
-                    }
-
-                    sql = "update Cliente set nomeCliente = ?, cpf = ?, rg = ?,"
-                            + " telefone = ?,celular = ?,email = ?, FKendereco = ? where idcliente = ?";
+                    sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, cliente.getNomeCliente());
-                    statement.setString(2, cliente.getCpfCliente());
-                    statement.setString(3, cliente.getRgCliente());
-                    statement.setString(4, cliente.getTelCliente());
-                    statement.setString(5, cliente.getCelCliente());
-                    statement.setString(6, cliente.getEmailCliente());
-                    statement.setString(7, fk.getString("idendereco"));
-                    statement.setString(8, cliente.getIdCliente());
-
-                    statement.executeUpdate();
-                    statement.close();
-                    break;
+                    statement.setString(1, endereco.getCep());
+                    statement.setString(2, endereco.getLogradouro());
+                    statement.setString(3, endereco.getNumero());
+                    JOptionPane.showMessageDialog(null, endereco.getCep());
+                    fk = statement.executeQuery();
+                    fk.first();
 
             }
-        } catch (SQLException erro) {
-            JOptionPane.showMessageDialog(null, erro);
-        }
-        return men;
 
+            sql = "update Cliente set nomeCliente = ?, cpf = ?, rg = ?,"
+                    + " telefone = ?,celular = ?,email = ?, FKendereco = ? where idcliente = ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            statement.setString(1, cliente.getNomeCliente());
+            statement.setString(2, cliente.getCpfCliente());
+            statement.setString(3, cliente.getRgCliente());
+            statement.setString(4, cliente.getTelCliente());
+            statement.setString(5, cliente.getCelCliente());
+            statement.setString(6, cliente.getEmailCliente());
+            statement.setString(7, fk.getString("idendereco"));
+            statement.setString(8, cliente.getIdCliente());
+
+            statement.executeUpdate();
+            statement.close();
+            break;
+
+        }
     }
+    catch (SQLException erro
+
     
-    //PESQUISA CPF CLIENTE
-    public boolean clicpf(String cpf) {
+        ) {
+            JOptionPane.showMessageDialog(null, erro);
+    }
+    return men ;
+
+}
+
+//PESQUISA CPF CLIENTE
+public boolean clicpf(String cpf) {
         boolean autenticado = false;
 
         try {
@@ -735,35 +742,7 @@ public class DAO {
                 // FORNECEDOR
                 // PROODUTO
                 // VENDA
-                case INCLUSAOVENDA:
-                    sql = "insert into Vendas values(null,?,?,?,?)";
-                    bd.getConnection();
-                    statement = bd.connection.prepareStatement(sql);
-                    statement.setDouble(1, venda.getDescontoVenda());
-                    statement.setInt(2, venda.getTipoDePagamentoVenda());
-                    statement.setDate(3, (Date) venda.getDataVenda());
-                    statement.setString(4, venda.getObservacaoVenda());
-                    statement.setInt(5, venda.getFkFuncionarioVenda());
-
-                    statement.executeUpdate();
-                    statement.close();
-                    break;
-                case ALTERACAOVENDA:
-                    sql = "update Vendas set   = ?,  = ?,  = ?, "
-                            + "   = ?,   = ? where = ?";
-                    bd.getConnection();
-                    statement = bd.connection.prepareStatement(sql);
-                    statement.setString(6, venda.getIdVenda());
-                    statement.setDouble(1, venda.getDescontoVenda());
-                    statement.setInt(2, venda.getTipoDePagamentoVenda());
-                    statement.setDate(3, (Date) venda.getDataVenda());
-                    statement.setString(4, venda.getObservacaoVenda());
-                    statement.setInt(5, venda.getFkFuncionarioVenda());
-
-                    statement.executeUpdate();
-                    statement.close();
-                    break;
-
+               
                 // VENDA PRODUTO
                 case INCLUSAOVENDAPRODUTO:
                     sql = "insert into VendaProduto values(?,?,?,?,?)";

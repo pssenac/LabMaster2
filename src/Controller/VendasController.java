@@ -4,11 +4,12 @@ package Controller;
 import Models.DAO;
 import java.util.Date;
 
-
+/*
 public class VendasController {
     public String salvarVenda( double descontoVenda, int tipoDePagamentoVenda, 
             Date dataVenda, String observacaoVenda, int fkFuncionarioVenda ){
-        DAO dao = new DAO();
+  
+p      DAO dao = new DAO();
         dao.venda.setDescontoVenda(descontoVenda);
         dao.venda.setTipoDePagamentoVenda(tipoDePagamentoVenda);
         dao.venda.setDataVenda(dataVenda);
@@ -33,5 +34,6 @@ public class VendasController {
         return msgInclusao;
     }
     
-    
+   
 }
+*/

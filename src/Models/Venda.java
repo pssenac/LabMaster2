@@ -5,61 +5,99 @@ import java.util.Date;
 
 
 public class Venda {
-    
-    private String  idVenda;
-    private double   descontoVenda;
-    private int  tipoDePagamentoVenda;
-    private Date  dataVenda;
-    private String  observacaoVenda;
-    private int  fkFuncionarioVenda;
 
+    /**
+     * @return the idVenda
+     */
     public String getIdVenda() {
         return idVenda;
     }
 
+    /**
+     * @param idVenda the idVenda to set
+     */
     public void setIdVenda(String idVenda) {
         this.idVenda = idVenda;
     }
 
-    public double getDescontoVenda() {
+    /**
+     * @return the descontoVenda
+     */
+    public String getDescontoVenda() {
         return descontoVenda;
     }
 
-    public void setDescontoVenda(double descontoVenda) {
+    /**
+     * @param descontoVenda the descontoVenda to set
+     */
+    public void setDescontoVenda(String descontoVenda) {
         this.descontoVenda = descontoVenda;
     }
 
-    public int getTipoDePagamentoVenda() {
+    /**
+     * @return the tipoDePagamentoVenda
+     */
+    public String getTipoDePagamentoVenda() {
         return tipoDePagamentoVenda;
     }
 
-    public void setTipoDePagamentoVenda(int tipoDePagamentoVenda) {
+    /**
+     * @param tipoDePagamentoVenda the tipoDePagamentoVenda to set
+     */
+    public void setTipoDePagamentoVenda(String tipoDePagamentoVenda) {
         this.tipoDePagamentoVenda = tipoDePagamentoVenda;
     }
 
-    public Date getDataVenda() {
+    /**
+     * @return the dataVenda
+     */
+    public String getDataVenda() {
         return dataVenda;
     }
 
-    public void setDataVenda(Date dataVenda) {
+    /**
+     * @param dataVenda the dataVenda to set
+     */
+    public void setDataVenda(String dataVenda) {
         this.dataVenda = dataVenda;
     }
 
+    /**
+     * @return the observacaoVenda
+     */
     public String getObservacaoVenda() {
         return observacaoVenda;
     }
 
+    /**
+     * @param observacaoVenda the observacaoVenda to set
+     */
     public void setObservacaoVenda(String observacaoVenda) {
         this.observacaoVenda = observacaoVenda;
     }
 
-    public int getFkFuncionarioVenda() {
+    /**
+     * @return the fkFuncionarioVenda
+     */
+    public String getFkFuncionarioVenda() {
         return fkFuncionarioVenda;
     }
 
-    public void setFkFuncionarioVenda(int fkFuncionarioVenda) {
+    /**
+     * @param fkFuncionarioVenda the fkFuncionarioVenda to set
+     */
+    public void setFkFuncionarioVenda(String fkFuncionarioVenda) {
         this.fkFuncionarioVenda = fkFuncionarioVenda;
     }
+    
+    private String  idVenda;
+    private String   descontoVenda;
+    private String  tipoDePagamentoVenda;
+    private String  dataVenda;
+    private String  observacaoVenda;
+    private String  fkFuncionarioVenda;
+
+    
 
     
 }
