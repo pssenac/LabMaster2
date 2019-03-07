@@ -225,6 +225,35 @@ public class DAO {
         return men;
 
     }
+    
+    //PESQUISA CPF CLIENTE
+    public boolean clicpf(String cpf) {
+        boolean autenticado = false;
+
+        try {
+
+            sql = "select * from cliente where cpf= ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            statement.setString(1, cpf);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                Acesso = rs.getString("cpf");
+                autenticado = true;
+            } else {
+                rs.close();
+                return autenticado;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return autenticado;
+    }
+    
+    
+    
+    
+    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">

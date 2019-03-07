@@ -61,4 +61,14 @@ public class ClienteController {
         return msgInclusao;
     }
   
+    
+     public boolean logarBD(){
+         DAO dao = new DAO();
+         boolean resp = dao.bd.getConnection();
+         return resp;
+         
+     }
+    
+    
+    
 }
