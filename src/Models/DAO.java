@@ -263,12 +263,27 @@ public boolean clicpf(String cpf) {
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
+    
+     public void carregarTabela2() {
+        String sql = "select * from fornecedor";
+        try {
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            resultSet = statement.executeQuery();
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro);
+        }
+    }
+
+
+
+
     public String atualizarFornecedor(int operacao) {
         int FK;
         men = "Operação realizada com sucesso!";
         try {
             switch (operacao) {
-                // CLIENTE 
+                // FORNECEDOR 
                 case INCLUSAOFORNECEDOR:
 
                     sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
@@ -366,6 +381,32 @@ public boolean clicpf(String cpf) {
         }
         return men;
     }
+    
+     //PESQUISA CNPJ FORNECEDOR
+    public boolean pesquisaCnpj(String cnpj) {
+        boolean autenticado = false;
+
+        try {
+
+            sql = "select * from fornecedor where cnpjCpf= ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            statement.setString(1, cnpj);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                autenticado = true;
+            } else {
+                rs.close();
+                return autenticado;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return autenticado;
+    }
+    
+    
+    
 //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FUNCIONARIO E USUARIO">
@@ -588,11 +629,6 @@ public boolean clicpf(String cpf) {
         }
         return autenticado;
     }
-    
-    
-    
-    
-    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR PRODUTO ">
@@ -881,10 +917,7 @@ public boolean clicpf(String cpf) {
         return men;
     }
     //</editor-fold>
-
-   
-   
-
+    
     //<editor-fold defaultstate="collapsed" desc=" METODO LOGAR USUARIO">
     public boolean LogarUsuario(String login, String Senha) {
         boolean autenticado = false;
@@ -911,5 +944,8 @@ public boolean clicpf(String cpf) {
         return autenticado;
     }
     //</editor-fold>
+    
+    
+    
 
 }
