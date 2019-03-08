@@ -626,6 +626,46 @@ public class TelaVendas extends javax.swing.JInternalFrame {
     }
     //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="LimparTabela pesquisa">
+    public void LimparTabela(){
+         
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"Produto", "Descição", "Tipo", "Data da Compra", "Valor de Venda", "icsm", "iss", "ipi", "Estoque", "situação"};
+        
+        try {
+            
+           dados.add(new Object[]{"", "","", "", "", "", "", ""});
+                        
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex + "Ñ DEU");
+        }
+
+        ModeloTabela model = new ModeloTabela(dados, colunas);
+        jTable2.setModel(model);
+
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(250);  // define o tamanho das colunas e se será redimensionado ou não
+        jTable2.getColumnModel().getColumn(0).setResizable(true);  // não permite alterar o tamanho da coluna
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(1).setResizable(false);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(4).setResizable(false);
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(5).setResizable(false);
+        jTable2.getColumnModel().getColumn(6).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(6).setResizable(false);
+        jTable2.getColumnModel().getColumn(7).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(7).setResizable(false);
+
+        jTable2.getTableHeader().setReorderingAllowed(false);  // Não permite reordenar as colunas
+        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Não permite redimensionar a tabela
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // permite selecionar apenas 1 elemento da tabela
+    }
+    //</editor-fold>
+    
     // <editor-fold defaultstate="collapsed" desc="Limpar campo 1">
     public void Limpar1() {
         txtQtdVenda.setText("");
