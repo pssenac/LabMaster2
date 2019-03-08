@@ -80,8 +80,7 @@ public class DAO {
         try {
             boolean resp;
             resp = bd.getConnection();
-            if (resp == true) {
-                JOptionPane.showMessageDialog(null, sql);
+            if (resp == true) {               
                 // tipo case sensitive e pode percorrer tanto do início para o fim quanto do fim para o início
                 stm = bd.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 resultSet = stm.executeQuery(sql);
