@@ -4,52 +4,102 @@ package Models;
 
 
 public class VendaProdutos {
-   
-   private int fkProdutoVendProduto;
-   private int  fkVendaVendProduto;
-   private int  qtdItensVendProduto;
-   private double descontoItemVendProduto;
-   private double  valorParcialVendProduto;
 
-    public int getFkProdutoVendProduto() {
-        return fkProdutoVendProduto;
+    /**
+     * @return the fkLoteVendas
+     */
+    public String getFkLoteVendas() {
+        return fkLoteVendas;
     }
 
-    public void setFkProdutoVendProduto(int fkProdutoVendProduto) {
-        this.fkProdutoVendProduto = fkProdutoVendProduto;
+    /**
+     * @param fkLoteVendas the fkLoteVendas to set
+     */
+    public void setFkLoteVendas(String fkLoteVendas) {
+        this.fkLoteVendas = fkLoteVendas;
     }
 
-    public int getFkVendaVendProduto() {
-        return fkVendaVendProduto;
+    /**
+     * @return the fkVendas
+     */
+    public String getFkVendas() {
+        return fkVendas;
     }
 
-    public void setFkVendaVendProduto(int fkVendaVendProduto) {
-        this.fkVendaVendProduto = fkVendaVendProduto;
+    /**
+     * @param fkVendas the fkVendas to set
+     */
+    public void setFkVendas(String fkVendas) {
+        this.fkVendas = fkVendas;
     }
 
-    public int getQtdItensVendProduto() {
-        return qtdItensVendProduto;
+    /**
+     * @return the qtd
+     */
+    public String getQtd() {
+        return qtd;
     }
 
-    public void setQtdItensVendProduto(int qtdItensVendProduto) {
-        this.qtdItensVendProduto = qtdItensVendProduto;
+    /**
+     * @param qtd the qtd to set
+     */
+    public void setQtd(String qtd) {
+        this.qtd = qtd;
     }
 
-    public double getDescontoItemVendProduto() {
+    /**
+     * @return the descontoItemVendProduto
+     */
+    public String getDescontoItemVendProduto() {
         return descontoItemVendProduto;
     }
 
-    public void setDescontoItemVendProduto(double descontoItemVendProduto) {
+    /**
+     * @param descontoItemVendProduto the descontoItemVendProduto to set
+     */
+    public void setDescontoItemVendProduto(String descontoItemVendProduto) {
         this.descontoItemVendProduto = descontoItemVendProduto;
     }
 
-    public double getValorParcialVendProduto() {
+    /**
+     * @return the valorParcialVendProduto
+     */
+    public String getValorParcialVendProduto() {
         return valorParcialVendProduto;
     }
 
-    public void setValorParcialVendProduto(double valorParcialVendProduto) {
+    /**
+     * @param valorParcialVendProduto the valorParcialVendProduto to set
+     */
+    public void setValorParcialVendProduto(String valorParcialVendProduto) {
         this.valorParcialVendProduto = valorParcialVendProduto;
     }
+
+    /**
+     * @return the codVenda
+     */
+    public String getCodVenda() {
+        return codVenda;
+    }
+
+    /**
+     * @param codVenda the codVenda to set
+     */
+    public void setCodVenda(String codVenda) {
+        this.codVenda = codVenda;
+    }
+
+   
+
+   
+   private String fkLoteVendas;
+   private String  fkVendas;
+   private String  qtd;
+   private String descontoItemVendProduto;
+   private String  valorParcialVendProduto;
+   private String codVenda;
+
+    
    
    
    

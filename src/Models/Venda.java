@@ -7,96 +7,134 @@ import java.util.Date;
 public class Venda {
 
     /**
-     * @return the idVenda
+     * @return the a
      */
-    public String getIdVenda() {
-        return idVenda;
+    public String getA() {
+        return a;
     }
 
     /**
-     * @param idVenda the idVenda to set
+     * @param a the a to set
      */
-    public void setIdVenda(String idVenda) {
-        this.idVenda = idVenda;
+    public void setA(String a) {
+        this.a = a;
     }
 
     /**
-     * @return the descontoVenda
+     * @return the b
      */
-    public String getDescontoVenda() {
-        return descontoVenda;
+    public String getB() {
+        return b;
     }
 
     /**
-     * @param descontoVenda the descontoVenda to set
+     * @param b the b to set
      */
-    public void setDescontoVenda(String descontoVenda) {
-        this.descontoVenda = descontoVenda;
+    public void setB(String b) {
+        this.b = b;
     }
 
     /**
-     * @return the tipoDePagamentoVenda
+     * @return the c
      */
-    public String getTipoDePagamentoVenda() {
-        return tipoDePagamentoVenda;
+    public String getC() {
+        return c;
     }
 
     /**
-     * @param tipoDePagamentoVenda the tipoDePagamentoVenda to set
+     * @param c the c to set
      */
-    public void setTipoDePagamentoVenda(String tipoDePagamentoVenda) {
-        this.tipoDePagamentoVenda = tipoDePagamentoVenda;
+    public void setC(String c) {
+        this.c = c;
     }
 
     /**
-     * @return the dataVenda
+     * @return the d
      */
-    public String getDataVenda() {
-        return dataVenda;
+    public String getD() {
+        return d;
     }
 
     /**
-     * @param dataVenda the dataVenda to set
+     * @param d the d to set
      */
-    public void setDataVenda(String dataVenda) {
-        this.dataVenda = dataVenda;
+    public void setD(String d) {
+        this.d = d;
     }
 
     /**
-     * @return the observacaoVenda
+     * @return the e
      */
-    public String getObservacaoVenda() {
-        return observacaoVenda;
+    public String getE() {
+        return e;
     }
 
     /**
-     * @param observacaoVenda the observacaoVenda to set
+     * @param e the e to set
      */
-    public void setObservacaoVenda(String observacaoVenda) {
-        this.observacaoVenda = observacaoVenda;
+    public void setE(String e) {
+        this.e = e;
     }
 
     /**
-     * @return the fkFuncionarioVenda
+     * @return the f
      */
-    public String getFkFuncionarioVenda() {
-        return fkFuncionarioVenda;
+    public String getF() {
+        return f;
     }
 
     /**
-     * @param fkFuncionarioVenda the fkFuncionarioVenda to set
+     * @param f the f to set
      */
-    public void setFkFuncionarioVenda(String fkFuncionarioVenda) {
-        this.fkFuncionarioVenda = fkFuncionarioVenda;
+    public void setF(String f) {
+        this.f = f;
+    }
+
+    /**
+     * @return the g
+     */
+    public String getG() {
+        return g;
+    }
+
+    /**
+     * @param g the g to set
+     */
+    public void setG(String g) {
+        this.g = g;
+    }
+
+    /**
+     * @return the h
+     */
+    public String getH() {
+        return h;
+    }
+
+    /**
+     * @param h the h to set
+     */
+    public void setH(String h) {
+        this.h = h;
+    }
+
+    
+    private String  a,b,c,d,e,f,g,h,j;
+
+    /**
+     * @return the j
+     */
+    public String getJ() {
+        return j;
+    }
+
+    /**
+     * @param j the j to set
+     */
+    public void setJ(String j) {
+        this.j = j;
     }
     
-    private String  idVenda;
-    private String   descontoVenda;
-    private String  tipoDePagamentoVenda;
-    private String  dataVenda;
-    private String  observacaoVenda;
-    private String  fkFuncionarioVenda;
-
     
 
     

@@ -6,7 +6,7 @@ import java.util.Date;
 
 
 public class OrdemServicoController {
-    
+    /*
     public String salvarOrdemServico( String tipoServico, double valorServico, int formaDePamementoServico, 
             Date dataEntregaServico, Date dataSolicitacaoServico, int prioridadeServico, String descricaoServico, 
             String respTecnicoServico, String observacaoServico, int fkclienteServico, int fkfuncioanrioServico){
@@ -47,5 +47,5 @@ public class OrdemServicoController {
         String msgInclusao = dao.atualizar(DAO.ALTERACAOORDEMSERVICO);
         return msgInclusao;
     }
-    
+    */
 }

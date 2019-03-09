@@ -5,7 +5,7 @@ import Models.DAO;
 
 
 public class OrdemProdutosController {
-    
+    /*
    public String salvarOrdemProdutos(int fkOrdemServicoOrdProdutos, int fkprodutosOrdProdutos, int qtdProdutoOrdProdutos, 
             double valorParcialOrdProdutos, double descontoParcialOrdProdutos ){
         DAO dao = new DAO();
@@ -31,5 +31,5 @@ public class OrdemProdutosController {
         String msgInclusao = dao.atualizar(DAO.ALTERACAOORDEMPRODUTO);
         return msgInclusao;
     }
-    
+    */
 }

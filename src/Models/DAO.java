@@ -22,6 +22,7 @@ public class DAO {
     public OrdemProdutos ordemProdutos;
     public Endereco endereco;
     public Lote lote;
+    public VendaCarrinho VendaCarrinho;
 
     public ConexaoBD bd;
     private PreparedStatement statement;
@@ -29,7 +30,6 @@ public class DAO {
     public ResultSet resultSet;
     private String men, sql;
     public String Acesso;
-
     public String Perfil;
 
     public static final byte INCLUSAOCLIENTE = 1;
@@ -66,6 +66,7 @@ public class DAO {
         ordemProdutos = new OrdemProdutos();
         endereco = new Endereco();
         lote = new Lote();
+        VendaCarrinho = new VendaCarrinho();
 
         if (!bd.getConnection()) {
             JOptionPane.showMessageDialog(null, "Falha ao conectar, o sistema será fechado");
@@ -74,17 +75,16 @@ public class DAO {
     }
 
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc=" EXECUTAR SQL "> 
     public void executaSQL(String sql) {
         try {
             boolean resp;
             resp = bd.getConnection();
-            if (resp == true) {               
+            if (resp == true) {
                 // tipo case sensitive e pode percorrer tanto do início para o fim quanto do fim para o início
                 stm = bd.connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
                 resultSet = stm.executeQuery(sql);
-                 
+
             } else {
                 JOptionPane.showMessageDialog(null, "Não conectou.");
             }
@@ -176,64 +176,60 @@ public class DAO {
                     fk = statement.executeQuery();
                     if (fk.next()) {
                         fk.getString("idendereco");
-                    }else{
+                    } else {
 
-                    sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
-                            + "cidade, estado) values(?,?,?,?,?,?,?)";
+                        sql = "insert into endereco (cep, bairro, logradouro, complemento, numero, "
+                                + "cidade, estado) values(?,?,?,?,?,?,?)";
 
-                    statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, endereco.getCep());
-                    statement.setString(2, endereco.getBairro());
-                    statement.setString(3, endereco.getLogradouro());
-                    statement.setString(4, endereco.getComplemento());
-                    statement.setString(5, endereco.getNumero());
-                    statement.setString(6, endereco.getCidade());
-                    statement.setString(7, endereco.getEstado());
-                    statement.executeUpdate();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, endereco.getCep());
+                        statement.setString(2, endereco.getBairro());
+                        statement.setString(3, endereco.getLogradouro());
+                        statement.setString(4, endereco.getComplemento());
+                        statement.setString(5, endereco.getNumero());
+                        statement.setString(6, endereco.getCidade());
+                        statement.setString(7, endereco.getEstado());
+                        statement.executeUpdate();
 
-                    sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
+                        sql = "select idendereco from endereco where cep = ? and logradouro = ? and numero = ?";
+                        bd.getConnection();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, endereco.getCep());
+                        statement.setString(2, endereco.getLogradouro());
+                        statement.setString(3, endereco.getNumero());
+                        JOptionPane.showMessageDialog(null, endereco.getCep());
+                        fk = statement.executeQuery();
+                        fk.first();
+
+                    }
+
+                    sql = "update Cliente set nomeCliente = ?, cpf = ?, rg = ?,"
+                            + " telefone = ?,celular = ?,email = ?, FKendereco = ? where idcliente = ?";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, endereco.getCep());
-                    statement.setString(2, endereco.getLogradouro());
-                    statement.setString(3, endereco.getNumero());
-                    JOptionPane.showMessageDialog(null, endereco.getCep());
-                    fk = statement.executeQuery();
-                    fk.first();
+                    statement.setString(1, cliente.getNomeCliente());
+                    statement.setString(2, cliente.getCpfCliente());
+                    statement.setString(3, cliente.getRgCliente());
+                    statement.setString(4, cliente.getTelCliente());
+                    statement.setString(5, cliente.getCelCliente());
+                    statement.setString(6, cliente.getEmailCliente());
+                    statement.setString(7, fk.getString("idendereco"));
+                    statement.setString(8, cliente.getIdCliente());
+
+                    statement.executeUpdate();
+                    statement.close();
+                    break;
 
             }
-
-            sql = "update Cliente set nomeCliente = ?, cpf = ?, rg = ?,"
-                    + " telefone = ?,celular = ?,email = ?, FKendereco = ? where idcliente = ?";
-            bd.getConnection();
-            statement = bd.connection.prepareStatement(sql);
-            statement.setString(1, cliente.getNomeCliente());
-            statement.setString(2, cliente.getCpfCliente());
-            statement.setString(3, cliente.getRgCliente());
-            statement.setString(4, cliente.getTelCliente());
-            statement.setString(5, cliente.getCelCliente());
-            statement.setString(6, cliente.getEmailCliente());
-            statement.setString(7, fk.getString("idendereco"));
-            statement.setString(8, cliente.getIdCliente());
-
-            statement.executeUpdate();
-            statement.close();
-            break;
-
-        }
-    }
-    catch (SQLException erro
-
-    
-        ) {
+        } catch (SQLException erro) {
             JOptionPane.showMessageDialog(null, erro);
-    }
-    return men ;
+        }
+        return men;
 
-}
+    }
 
 //PESQUISA CPF CLIENTE
-public boolean clicpf(String cpf) {
+    public boolean clicpf(String cpf) {
         boolean autenticado = false;
 
         try {
@@ -255,16 +251,11 @@ public boolean clicpf(String cpf) {
         }
         return autenticado;
     }
-    
-    
-    
-    
-    
-    //</editor-fold>
 
-    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
+    //</editor-fold>
     
-     public void carregarTabela2() {
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
+    public void carregarTabela2() {
         String sql = "select * from fornecedor";
         try {
             bd.getConnection();
@@ -274,9 +265,6 @@ public boolean clicpf(String cpf) {
             JOptionPane.showMessageDialog(null, erro);
         }
     }
-
-
-
 
     public String atualizarFornecedor(int operacao) {
         int FK;
@@ -381,8 +369,8 @@ public boolean clicpf(String cpf) {
         }
         return men;
     }
-    
-     //PESQUISA CNPJ FORNECEDOR
+
+    //PESQUISA CNPJ FORNECEDOR
     public boolean pesquisaCnpj(String cnpj) {
         boolean autenticado = false;
 
@@ -404,11 +392,9 @@ public boolean clicpf(String cpf) {
         }
         return autenticado;
     }
-    
-    
-    
-//</editor-fold>
 
+//</editor-fold>
+    
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FUNCIONARIO E USUARIO">
     public String atualizarFuncionarioUsuario(int operacao) {
 
@@ -441,7 +427,7 @@ public boolean clicpf(String cpf) {
                     String FKend = fk.getString("idendereco");
 
                     // FUNCIONARIO
-                    sql = "insert into funcionario values(null,?,?,?,?,?,?,?,?)";
+                    sql = "insert into funcionario values(null,?,?,?,?,?,?,?,?,?)";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, funcionario.getNomeFuncionario());
@@ -452,6 +438,7 @@ public boolean clicpf(String cpf) {
                     statement.setString(6, funcionario.getEmailFuncionario());
                     statement.setString(7, funcionario.getDataNascFuncionario());
                     statement.setString(8, FKend);
+                    statement.setString(9, FKend);
 
                     statement.executeUpdate();
 
@@ -554,8 +541,7 @@ public boolean clicpf(String cpf) {
         }
         return men;
     }
-    
-    
+
     // PESQUISAR  CEP FUNCIONARIO
     public boolean cslEndereco(String cep) {
         boolean autenticado = false;
@@ -579,7 +565,6 @@ public boolean clicpf(String cpf) {
         }
         return autenticado;
     }
-    
 
     //PESQUISA CPF FUNCIONARIO
     public boolean cslcpf(String cpf) {
@@ -604,7 +589,6 @@ public boolean clicpf(String cpf) {
         }
         return autenticado;
     }
-    
 
     //PESQUISA USUARIO FUNCIONARIO
     public boolean csluser(String login) {
@@ -646,7 +630,7 @@ public boolean clicpf(String cpf) {
                     statement.setString(1, produto.getNomeProduto());
                     statement.setString(2, produto.getDescricao());
                     statement.setString(3, produto.getArmazemLocal());
-                    statement.setString(4, produto.getTipoProduto());                    
+                    statement.setString(4, produto.getTipoProduto());
                     statement.executeUpdate();
                     sql = "SELECT idprodutos FROM produtos ORDER BY idprodutos DESC LIMIT 1";
                     statement = bd.connection.prepareStatement(sql);
@@ -654,11 +638,11 @@ public boolean clicpf(String cpf) {
                     ResultSet fk = statement.executeQuery();
                     while (fk.next()) {
                         FK = fk.getInt("idprodutos");
-                        sql = "insert into lote values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        sql = "insert into lote values(null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                         statement = bd.connection.prepareStatement(sql);
                         statement.setString(1, lote.getDataCompra());
                         statement.setString(2, lote.getQuantidade());
-                        statement.setString(3, lote.getQtdInicial());
+                        statement.setString(3, lote.getQuantidade());
                         statement.setString(4, lote.getValorCusto());
                         statement.setString(5, lote.getValorVenda());
                         statement.setString(6, lote.getSituacaoProduto());
@@ -682,19 +666,19 @@ public boolean clicpf(String cpf) {
                             + "marca = ?, lote = ?, icms = ?, iss = ?, ipi = ?, totalImpoasto = ? where FKprodutos = ?";
                     statement = bd.connection.prepareStatement(sql);
                     statement.setString(1, lote.getDataCompra());
-                        statement.setString(2, lote.getQuantidade());
-                        statement.setString(3, lote.getQtdInicial());
-                        statement.setString(4, lote.getValorCusto());
-                        statement.setString(5, lote.getValorVenda());
-                        statement.setString(6, lote.getSituacaoProduto());
-                        statement.setString(7, lote.getMarca());
-                        statement.setString(8, lote.getLote());                       
-                        statement.setString(9, lote.getIcms());
-                        statement.setString(10, lote.getIss());
-                        statement.setString(11, lote.getIpi());
-                        statement.setString(12, lote.getTotalImposto());
-                        statement.setString(13, lote.getFkFornecedor());
-                        statement.setString(14, produto.getIdProduto());
+                    statement.setString(2, lote.getQuantidade());
+                    statement.setString(3, lote.getQtdInicial());
+                    statement.setString(4, lote.getValorCusto());
+                    statement.setString(5, lote.getValorVenda());
+                    statement.setString(6, lote.getSituacaoProduto());
+                    statement.setString(7, lote.getMarca());
+                    statement.setString(8, lote.getLote());
+                    statement.setString(9, lote.getIcms());
+                    statement.setString(10, lote.getIss());
+                    statement.setString(11, lote.getIpi());
+                    statement.setString(12, lote.getTotalImposto());
+                    statement.setString(13, lote.getFkFornecedor());
+                    statement.setString(14, produto.getIdProduto());
                     statement.executeUpdate();
 
                     sql = "update produtos set nomeProduto = ?, descricao = ?, armazemLocal = ?, tipoProduto = ? where idprodutos = ?";
@@ -737,8 +721,89 @@ public boolean clicpf(String cpf) {
     }
 
     //</editor-fold>   
-    
+    //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR VENDAS ">
+    public String PesquisaFuncionario(String CodVend) {
+        String fk;
+        men = "Operação realizada com sucesso!";
+        try {
+            String sql = "select * from funcionario where codigoFuncionario = ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            statement.setString(1, CodVend);
+            resultSet = statement.executeQuery();
+            resultSet.getString("idFuncionario");
+            JOptionPane.showMessageDialog(null, resultSet.getString("idFuncionario"));
+
+            return resultSet.getString("idFuncionario");
+        } catch (SQLException erro) {
+
+        }
+        return "";
+    }
+
+    public String Atualizarvendas(int operacao) {
+        int FK;
+        men = "Operação realizada com sucesso!";
+        try {
+            switch (operacao) {
+                // Produto
+                case INCLUSAOVENDA:
+                    sql = "insert into vendas values (null,?,?,?,?,?,?,?,?,?,?,?)";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, VendaCarrinho.getDesconto());
+                    statement.setString(2, VendaCarrinho.getTipoPagamento());
+                    statement.setString(3, VendaCarrinho.getDataVenda());
+                    statement.setString(4, VendaCarrinho.getObservacao());
+                    statement.setString(5, VendaCarrinho.getEstorno());
+                    statement.setString(6, VendaCarrinho.getIcms());
+                    statement.setString(7, VendaCarrinho.getIss());
+                    statement.setString(8, VendaCarrinho.getIpi());
+                    statement.setString(9, VendaCarrinho.getFKfuncionario());
+                    statement.setString(10, VendaCarrinho.getCodVenda());
+                    statement.setString(11, VendaCarrinho.getCodFuncionário());
+                    statement.executeUpdate();
+                    statement.close();
+
+                    break;
+
+                // Inserção VendaProduto
+                case INCLUSAOVENDAPRODUTO:
+
+                    sql = "select * from venda";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    resultSet = statement.executeQuery();
+                    String fk = resultSet.getString("codVenda");
+
+                    sql = "insert into venda values (?,?,?,?,?)";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, vendaProdutos.getFkLoteVendas());
+                    statement.setString(2, fk);
+                    statement.setString(3, vendaProdutos.getQtd());
+                    statement.setString(4, vendaProdutos.getDescontoItemVendProduto());
+                    statement.setString(5, vendaProdutos.getValorParcialVendProduto());
+                    statement.setString(6, vendaProdutos.getCodVenda());
+                    statement.executeUpdate();
+                    statement.close();
+
+                    break;
+
+                case ALTERACAOVENDA:
+
+                    break;
+
+            }
+        } catch (SQLException erro) {
+JOptionPane.showMessageDialog(null, erro);
+        }
+        return men;
+    }
+    //</editor-fold>
+
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR ">
+/*
     public String atualizar(int operacao) {
         men = "Operação realizada com sucesso!";
         try {
@@ -777,7 +842,6 @@ public boolean clicpf(String cpf) {
                 // FORNECEDOR
                 // PROODUTO
                 // VENDA
-               
                 // VENDA PRODUTO
                 case INCLUSAOVENDAPRODUTO:
                     sql = "insert into VendaProduto values(?,?,?,?,?)";
@@ -915,9 +979,8 @@ public boolean clicpf(String cpf) {
             men = "Falha na operação: \n" + erro.toString();
         }
         return men;
-    }
+    }*/
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc=" METODO LOGAR USUARIO">
     public boolean LogarUsuario(String login, String Senha) {
         boolean autenticado = false;
@@ -943,9 +1006,6 @@ public boolean clicpf(String cpf) {
         }
         return autenticado;
     }
-    //</editor-fold>
-    
-    
-    
-
 }
+//</editor-fold>
+
