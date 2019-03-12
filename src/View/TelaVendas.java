@@ -791,6 +791,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         return Integer.toString(num);
     }
     //</editor-fold>
+   
     // <editor-fold defaultstate="collapsed" desc="Tipo Pagamento">
     public void tipoPagamento(){
         if(cbD.isSelected()){

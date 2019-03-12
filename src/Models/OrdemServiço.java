@@ -5,118 +5,276 @@ import java.util.Date;
 
 
 public class OrdemServiço {
-    
-   private String idServico;
-   private String  tipoServico;
-   private double valorServico;
-   private int  formaDePamementoServico;
-   private Date dataEntregaServico;
-   private Date dataSolicitacaoServico;
-   private int prioridadeServico;
-   private String descricaoServico;
-   private String respTecnicoServico;
-   private String observacaoServico;
-   private int fkclienteServico;
-   private int fkfuncioanrioServico;
 
+    /**
+     * @return the idServico
+     */
     public String getIdServico() {
         return idServico;
     }
 
+    /**
+     * @param idServico the idServico to set
+     */
     public void setIdServico(String idServico) {
         this.idServico = idServico;
     }
 
+    /**
+     * @return the tipoServico
+     */
     public String getTipoServico() {
         return tipoServico;
     }
 
+    /**
+     * @param tipoServico the tipoServico to set
+     */
     public void setTipoServico(String tipoServico) {
         this.tipoServico = tipoServico;
     }
 
-    public double getValorServico() {
+    /**
+     * @return the valorServico
+     */
+    public String getValorServico() {
         return valorServico;
     }
 
-    public void setValorServico(double valorServico) {
+    /**
+     * @param valorServico the valorServico to set
+     */
+    public void setValorServico(String valorServico) {
         this.valorServico = valorServico;
     }
 
-    public int getFormaDePamementoServico() {
-        return formaDePamementoServico;
+    /**
+     * @return the dataEntrega
+     */
+    public String getDataEntrega() {
+        return dataEntrega;
     }
 
-    public void setFormaDePamementoServico(int formaDePamementoServico) {
-        this.formaDePamementoServico = formaDePamementoServico;
+    /**
+     * @param dataEntrega the dataEntrega to set
+     */
+    public void setDataEntrega(String dataEntrega) {
+        this.dataEntrega = dataEntrega;
     }
 
-    public Date getDataEntregaServico() {
-        return dataEntregaServico;
+    /**
+     * @return the dataSolitacao
+     */
+    public String getDataSolitacao() {
+        return dataSolitacao;
     }
 
-    public void setDataEntregaServico(Date dataEntregaServico) {
-        this.dataEntregaServico = dataEntregaServico;
+    /**
+     * @param dataSolitacao the dataSolitacao to set
+     */
+    public void setDataSolitacao(String dataSolitacao) {
+        this.dataSolitacao = dataSolitacao;
     }
 
-    public Date getDataSolicitacaoServico() {
-        return dataSolicitacaoServico;
+    /**
+     * @return the prioridade
+     */
+    public String getPrioridade() {
+        return prioridade;
     }
 
-    public void setDataSolicitacaoServico(Date dataSolicitacaoServico) {
-        this.dataSolicitacaoServico = dataSolicitacaoServico;
+    /**
+     * @param prioridade the prioridade to set
+     */
+    public void setPrioridade(String prioridade) {
+        this.prioridade = prioridade;
     }
 
-    public int getPrioridadeServico() {
-        return prioridadeServico;
+    /**
+     * @return the descricao
+     */
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setPrioridadeServico(int prioridadeServico) {
-        this.prioridadeServico = prioridadeServico;
+    /**
+     * @param descricao the descricao to set
+     */
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
-    public String getDescricaoServico() {
-        return descricaoServico;
+    /**
+     * @return the tipoPagamento
+     */
+    public String getTipoPagamento() {
+        return tipoPagamento;
     }
 
-    public void setDescricaoServico(String descricaoServico) {
-        this.descricaoServico = descricaoServico;
+    /**
+     * @param tipoPagamento the tipoPagamento to set
+     */
+    public void setTipoPagamento(String tipoPagamento) {
+        this.tipoPagamento = tipoPagamento;
     }
 
-    public String getRespTecnicoServico() {
-        return respTecnicoServico;
+    /**
+     * @return the codigoFuncionario
+     */
+    public String getCodigoFuncionario() {
+        return codigoFuncionario;
     }
 
-    public void setRespTecnicoServico(String respTecnicoServico) {
-        this.respTecnicoServico = respTecnicoServico;
+    /**
+     * @param codigoFuncionario the codigoFuncionario to set
+     */
+    public void setCodigoFuncionario(String codigoFuncionario) {
+        this.codigoFuncionario = codigoFuncionario;
     }
 
-    public String getObservacaoServico() {
-        return observacaoServico;
+    /**
+     * @return the icms
+     */
+    public String getIcms() {
+        return icms;
     }
 
-    public void setObservacaoServico(String observacaoServico) {
-        this.observacaoServico = observacaoServico;
+    /**
+     * @param icms the icms to set
+     */
+    public void setIcms(String icms) {
+        this.icms = icms;
     }
 
-    public int getFkclienteServico() {
-        return fkclienteServico;
+    /**
+     * @return the iss
+     */
+    public String getIss() {
+        return iss;
     }
 
-    public void setFkclienteServico(int fkclienteServico) {
-        this.fkclienteServico = fkclienteServico;
+    /**
+     * @param iss the iss to set
+     */
+    public void setIss(String iss) {
+        this.iss = iss;
     }
 
-    public int getFkfuncioanrioServico() {
-        return fkfuncioanrioServico;
+    /**
+     * @return the ipi
+     */
+    public String getIpi() {
+        return ipi;
     }
 
-    public void setFkfuncioanrioServico(int fkfuncioanrioServico) {
-        this.fkfuncioanrioServico = fkfuncioanrioServico;
+    /**
+     * @param ipi the ipi to set
+     */
+    public void setIpi(String ipi) {
+        this.ipi = ipi;
     }
-           
-   
 
+    /**
+     * @return the valorTotal
+     */
+    public String getValorTotal() {
+        return valorTotal;
+    }
+
+    /**
+     * @param valorTotal the valorTotal to set
+     */
+    public void setValorTotal(String valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    /**
+     * @return the cpfCliente
+     */
+    public String getCpfCliente() {
+        return cpfCliente;
+    }
+
+    /**
+     * @param cpfCliente the cpfCliente to set
+     */
+    public void setCpfCliente(String cpfCliente) {
+        this.cpfCliente = cpfCliente;
+    }
+
+    /**
+     * @return the codigoOrdem
+     */
+    public String getCodigoOrdem() {
+        return codigoOrdem;
+    }
+
+    /**
+     * @param codigoOrdem the codigoOrdem to set
+     */
+    public void setCodigoOrdem(String codigoOrdem) {
+        this.codigoOrdem = codigoOrdem;
+    }
+
+    /**
+     * @return the FKcliente
+     */
+    public String getFKcliente() {
+        return FKcliente;
+    }
+
+    /**
+     * @param FKcliente the FKcliente to set
+     */
+    public void setFKcliente(String FKcliente) {
+        this.FKcliente = FKcliente;
+    }
+
+    /**
+     * @return the FKfuncionario
+     */
+    public String getFKfuncionario() {
+        return FKfuncionario;
+    }
+
+    /**
+     * @param FKfuncionario the FKfuncionario to set
+     */
+    public void setFKfuncionario(String FKfuncionario) {
+        this.FKfuncionario = FKfuncionario;
+    }
+
+    /**
+     * @return the observacao
+     */
+    public String getObservacao() {
+        return observacao;
+    }
+
+    /**
+     * @param observacao the observacao to set
+     */
+    public void setObservacao(String observacao) {
+        this.observacao = observacao;
+    }
+
+    /**
+     * @return the estorno
+     */
+    public String getEstorno() {
+        return estorno;
+    }
+
+    /**
+     * @param estorno the estorno to set
+     */
+    public void setEstorno(String estorno) {
+        this.estorno = estorno;
+    }
+    
+   private String idServico, tipoServico, valorServico, dataEntrega, dataSolitacao,
+           prioridade, descricao, tipoPagamento, codigoFuncionario, icms, iss, ipi, 
+           valorTotal, cpfCliente, codigoOrdem, FKcliente, FKfuncionario, observacao, estorno;
     
             
     
