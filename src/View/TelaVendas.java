@@ -822,6 +822,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         try {
 
             dados.add(new Object[]{"", "", "", "", "", "", "", ""});
+            dados.removeAll(dados);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex + "Ñ DEU");

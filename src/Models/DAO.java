@@ -1013,30 +1013,45 @@ public class DAO {
             switch (operacao) {
                 // Produto
                 case INCLUSAOORDEMSERVICO:
-                    sql = "insert into ordemserviço values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+                    sql = "select idFuncionario from funcionario where codigoFuncionario = ?";
                     bd.getConnection();
                     statement = bd.connection.prepareStatement(sql);
-                    statement.setString(1, ordemservico.getTipoServico());
-                    statement.setString(2, ordemservico.getValorServico());
-                    statement.setString(3, ordemservico.getDataEntrega());
-                    statement.setString(4, ordemservico.getDataSolitacao());
-                    statement.setString(5, ordemservico.getPrioridade());
-                    statement.setString(6, ordemservico.getDescricao());
-                    statement.setString(7, ordemservico.getTipoPagamento());
-                    statement.setString(8, ordemservico.getCodigoFuncionario());
-                    statement.setString(9, ordemservico.getIcms());
-                    statement.setString(10, ordemservico.getIss());
-                    statement.setString(11, ordemservico.getIpi());
-                    statement.setString(12, ordemservico.getValorTotal());
-                    statement.setString(13, ordemservico.getCpfCliente());
-                    statement.setString(14, ordemservico.getCodigoOrdem());
-                    statement.setString(15, ordemservico.getFKcliente());
-                    statement.setString(16, ordemservico.getFKfuncionario());
-                    statement.setString(17, ordemservico.getObservacao());
-                    statement.setString(18, ordemservico.getEstorno());
-                    statement.executeUpdate();
-                    statement.close();
+                    statement.setString(1, ordemservico.getCodigoFuncionario());
+                    resultSet = statement.executeQuery();
+                    String FKfun = resultSet.getString("idFuncionario");
+                    if (resultSet.first() == false) {
+                        JOptionPane.showMessageDialog(null, "Funcionário Inválido!");
+                    } else {
+                        sql = "select idcliente from cliente where cpf = ?";
+                        bd.getConnection();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, ordemservico.getCpfCliente());
+                        resultSet = statement.executeQuery();
+                        String FKcli = resultSet.getString("idcliente");
 
+                        sql = "insert into ordemserviço values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        bd.getConnection();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, ordemservico.getTipoServico());
+                        statement.setString(2, ordemservico.getValorServico());
+                        statement.setString(3, ordemservico.getDataEntrega());
+                        statement.setString(4, ordemservico.getDataSolitacao());
+                        statement.setString(5, ordemservico.getPrioridade());
+                        statement.setString(6, ordemservico.getDescricao());
+                        statement.setString(7, ordemservico.getTipoPagamento());
+                        statement.setString(8, ordemservico.getCodigoFuncionario());
+                        statement.setString(9, ordemservico.getIcms());
+                        statement.setString(10, ordemservico.getIss());
+                        statement.setString(11, ordemservico.getIpi());
+                        statement.setString(12, ordemservico.getValorTotal());
+                        statement.setString(13, ordemservico.getCpfCliente());
+                        statement.setString(14, ordemservico.getCodigoOrdem());
+                        statement.setString(15, FKcli);
+                        statement.setString(16, FKfun);
+                        statement.executeUpdate();
+                        statement.close();
+                    }
                     break;
 
                 // Inserção VendaProduto
@@ -1073,22 +1088,27 @@ public class DAO {
         return men;
     }
 
-    public String PesquisaCliente(String cpf) {
-        
+    public boolean PesquisaCliente(String cpf) {
+        boolean autenticado = false;
         try {
-            sql = "select nomeCliente from cliente limit 1";//where cpf = ?";
+            String sql = "select * from cliente where cpf= ?";
             bd.getConnection();
             statement = bd.connection.prepareStatement(sql);
             statement.setString(1, cpf);
-            resultSet = statement.executeQuery();   
-            JOptionPane.showMessageDialog(null, resultSet);
-                  
-            String nc = resultSet.getString("nomeCliente");    
-            
-            return nc;
+            ResultSet rs = statement.executeQuery();
+            if (rs.first()) {
+                Acesso = rs.getString("nomeCliente");
+                cliente.setNomeCliente(Acesso);
+                autenticado = true;
+            } else {
+                rs.close();
+                return autenticado;
+            }
+
         } catch (SQLException erro) {
-            return "";
+
         }
+        return autenticado;
     }
     //</editor-fold>
 }

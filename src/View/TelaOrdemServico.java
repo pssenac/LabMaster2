@@ -16,7 +16,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import Controller.OrdemProdutosController;
+import Controller.vendaProdutosController;
 import Models.Cliente;
+
 /**
  *
  * @author 03758479100
@@ -24,8 +26,8 @@ import Models.Cliente;
 public class TelaOrdemServico extends javax.swing.JInternalFrame {
 
     ArrayList dadosVendas = new ArrayList();
-    String tp, text, sql;
-    boolean txt;
+    String tp, text, sql, a = "", b = "", c = "", d = "", e = "", f = "";
+    boolean txt, verificar;
     ArrayList<Venda> vendas = new ArrayList<>();
 
     /**
@@ -33,6 +35,7 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
      */
     public TelaOrdemServico() {
         initComponents();
+        VerificarCodigo();
     }
 
     /**
@@ -80,6 +83,7 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         lblValorParcial = new javax.swing.JLabel();
         btnAddProduto = new javax.swing.JButton();
+        btnCalcular = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         txtValorDescontoGeral = new javax.swing.JTextField();
@@ -102,8 +106,6 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
         txtValorServico = new javax.swing.JTextField();
         jLabel23 = new javax.swing.JLabel();
         lblSomaParcial = new javax.swing.JLabel();
-        txtDataSolicitacao = new javax.swing.JTextField();
-        txtDataEntrega = new javax.swing.JTextField();
         txtCpfCliente = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lblIcms = new javax.swing.JLabel();
@@ -121,6 +123,9 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
         lbl7 = new javax.swing.JLabel();
         lbl8 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
+        lbl9 = new javax.swing.JLabel();
+        txtDataSolicitacao = new javax.swing.JFormattedTextField();
+        txtDataEntrega = new javax.swing.JFormattedTextField();
 
         setClosable(true);
         setTitle("ORDEM DE SERVIÇO");
@@ -186,6 +191,11 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable29.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable29MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable29);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -241,6 +251,11 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
 
             }
         ));
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(jTable2);
 
         jLabel12.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
@@ -264,42 +279,58 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
             }
         });
 
+        btnCalcular.setText("Calcular");
+        btnCalcular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalcularActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane3)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel10)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(txtPesqusiaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(btnPesquisaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel13)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(txtDencontoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(lblValorParcial, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPesquisaProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(21, 21, 21)
+                                .addComponent(btnCalcular))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtPesqusiaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPesquisaTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnAddProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtQtd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel13)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDencontoProd, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(lblValorParcial, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(31, 31, 31)
+                                .addComponent(btnAddProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -330,9 +361,11 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
                         .addComponent(jLabel13)
                         .addComponent(txtDencontoProd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel14)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnCalcular)
+                .addGap(18, 18, 18)
                 .addComponent(btnAddProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         jLabel15.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -413,10 +446,25 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
         );
 
         cbD.setText("Dinheiro");
+        cbD.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbDMouseClicked(evt);
+            }
+        });
 
         cbCC.setText("Cartão de Crédito");
+        cbCC.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbCCMouseClicked(evt);
+            }
+        });
 
         cbCD.setText("Cartão de Débito");
+        cbCD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCDActionPerformed(evt);
+            }
+        });
 
         jLabel22.setFont(new java.awt.Font("Arial", 0, 12)); // NOI18N
         jLabel22.setText("Código do Vendedor :");
@@ -492,6 +540,18 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
             }
         });
 
+        try {
+            txtDataSolicitacao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            txtDataEntrega.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -504,46 +564,49 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane1)
-                                .addComponent(jLabel8)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(lblNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cbServico, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(jLabel5)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(cbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jLabel9)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(lblTelCli, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addComponent(jLabel1)
+                                        .addComponent(jLabel8)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(lblNomeCli, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel4)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(lblCodOrdem, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(201, 201, 201))
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbServico, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(jLabel5)
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                            .addComponent(btnPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cbPrioridade, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtDataSolicitacao, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jLabel9)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(lblTelCli, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel7)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtDataEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                    .addComponent(jLabel1)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(lblCodOrdem, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addGap(201, 201, 201))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jLabel3)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(txtCpfCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(btnPesquisaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jLabel6)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(txtDataSolicitacao, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jLabel7)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(txtDataEntrega)))))
+                                    .addGap(17, 17, 17)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel22)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -590,7 +653,7 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
                                                     .addComponent(lblValorTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGap(59, 59, 59)
                                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(19, Short.MAX_VALUE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lbl1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -606,8 +669,10 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbl7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbl8)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl9)
+                            .addComponent(lbl8))
+                        .addGap(0, 1131, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -692,6 +757,7 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbl1)
                     .addComponent(lbl2)
@@ -700,7 +766,9 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
                     .addComponent(lbl5)
                     .addComponent(lbl6)
                     .addComponent(lbl7)
-                    .addComponent(lbl8)))
+                    .addComponent(lbl8))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addComponent(lbl9))
         );
 
         pack();
@@ -710,17 +778,18 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
     private void btnPesquisaCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaCpfActionPerformed
         OrdemProdutosController OP = new OrdemProdutosController();
         Cliente cli = new Cliente();
-        
-        
+
         OP.pesquisarCliente(txtCpfCliente.getText());
-        
+
         lblNomeCli.setText(cli.getNomeCliente());
         lblTelCli.setText(cli.getTelCliente());
-        
+
     }//GEN-LAST:event_btnPesquisaCpfActionPerformed
 
     private void btnPesquisaProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaProdutoActionPerformed
-        // TODO add your handling code here:
+        sql = "select * from produtos inner join Lote on idprodutos = FKprodutos where nomeProduto like '%" + txtPesquisaProduto.getText() + "%'";
+
+        preencherTabela(sql);
     }//GEN-LAST:event_btnPesquisaProdutoActionPerformed
 
     private void btnPesquisaTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaTipoActionPerformed
@@ -728,11 +797,31 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPesquisaTipoActionPerformed
 
     private void btnAddProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProdutoActionPerformed
-        // TODO add your handling code here:
+        vendaProdutosController vd = new vendaProdutosController();
+        preencherTabela2(a, txtQtd.getText(), txtDencontoProd.getText(), b, lblValorParcial.getText(), c, d, e, f);
+        vendas.add(vd.preencherCarrinho(a, txtQtd.getText(), txtDencontoProd.getText(), b, lblValorParcial.getText(), c, d, e));
+        Limpar1();
     }//GEN-LAST:event_btnAddProdutoActionPerformed
 
     private void btnFinalizarOrdemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarOrdemActionPerformed
-        // TODO add your handling code here:
+        OrdemProdutosController opc = new OrdemProdutosController();
+        
+        VerificarCampos();
+
+        String A = txtDataEntrega.getText().substring(0, 2);
+        String B = txtDataEntrega.getText().substring(3, 5);
+        String C = txtDataEntrega.getText().substring(6, 10);
+        String Entrega = C + "-" + B + "-" + A;
+
+        String D = txtDataSolicitacao.getText().substring(0, 2);
+        String E = txtDataSolicitacao.getText().substring(3, 5);
+        String F = txtDataSolicitacao.getText().substring(6, 10);
+        String Solicitacao = F + "-" + E + "-" + D;
+
+        opc.salvarOrdemServico(cbServico.getName(), txtValorServico.getText(), Entrega, Solicitacao, cbPrioridade.getName(),
+                txtDescricao.getText(), tp, txtCodVendedor.getText(), lblIcms.getText(), lblIss.getText(), lblIpi.getText(), 
+                lblValorTotal.getText(), txtCpfCliente.getText(), lblCodOrdem.getText(), F, F, F, F);
+
     }//GEN-LAST:event_btnFinalizarOrdemActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -755,6 +844,45 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        int linhaSelecionada = jTable2.getSelectedRow();
+        a = (jTable2.getValueAt(linhaSelecionada, 0).toString());
+        b = (jTable2.getValueAt(linhaSelecionada, 4).toString());
+        c = (jTable2.getValueAt(linhaSelecionada, 5).toString());
+        d = (jTable2.getValueAt(linhaSelecionada, 6).toString());
+        e = (jTable2.getValueAt(linhaSelecionada, 7).toString());
+        f = (jTable2.getValueAt(linhaSelecionada, 10).toString());
+    }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jTable29MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable29MouseClicked
+        int linhaSelecionada = jTable29.getSelectedRow();
+        lbl1.setText(jTable29.getValueAt(linhaSelecionada, 0).toString());
+        lbl2.setText(jTable29.getValueAt(linhaSelecionada, 1).toString());
+        lbl3.setText(jTable29.getValueAt(linhaSelecionada, 2).toString());
+        lbl4.setText(jTable29.getValueAt(linhaSelecionada, 3).toString());
+        lbl5.setText(jTable29.getValueAt(linhaSelecionada, 4).toString());
+        lbl6.setText(jTable29.getValueAt(linhaSelecionada, 5).toString());
+        lbl7.setText(jTable29.getValueAt(linhaSelecionada, 6).toString());
+        lbl8.setText(jTable29.getValueAt(linhaSelecionada, 7).toString());
+//        lbl9.setText(jTable29.getValueAt(linhaSelecionada, 8).toString());
+    }//GEN-LAST:event_jTable29MouseClicked
+
+    private void btnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalcularActionPerformed
+        lblValorParcial.setText(calcular(b, txtQtd.getText(), txtDencontoProd.getText()));
+    }//GEN-LAST:event_btnCalcularActionPerformed
+
+    private void cbDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbDMouseClicked
+        tipoPagamento();
+    }//GEN-LAST:event_cbDMouseClicked
+
+    private void cbCCMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbCCMouseClicked
+        tipoPagamento();
+    }//GEN-LAST:event_cbCCMouseClicked
+
+    private void cbCDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCDActionPerformed
+        tipoPagamento();
+    }//GEN-LAST:event_cbCDActionPerformed
 
     //</editor-fold>
     // <editor-fold defaultstate="collapsed" desc="Tabela 1">
@@ -869,19 +997,41 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
     public void tipoPagamento() {
         if (cbD.isSelected()) {
             tp = "1";
-            panelTipoPag.setEnabled(true);
+            txtDinheiro.setEnabled(true);
+            txtTroco.setEnabled(true);
+            txtCartao.setEnabled(false);
+        } else {
+            tp = "0";
+            txtDinheiro.setEnabled(false);
+            txtTroco.setEnabled(false);
+            txtCartao.setEnabled(false);
         }
         if (cbCC.isSelected()) {
             tp = "2";
-
+            txtDinheiro.setEnabled(false);
+            txtTroco.setEnabled(false);
+            txtCartao.setEnabled(false);
         }
         if (cbCD.isSelected()) {
             tp = "3";
-
+            txtDinheiro.setEnabled(false);
+            txtTroco.setEnabled(false);
+            txtCartao.setEnabled(false);
         }
         if (cbD.isSelected() && cbCC.isSelected() || cbD.isSelected() && cbCD.isSelected()) {
             tp = "1";
-            panelTipoPag.setEnabled(true);
+            txtDinheiro.setEnabled(true);
+            txtTroco.setEnabled(true);
+            txtCartao.setEnabled(true);
+        }
+        if (cbD.isSelected() && cbCC.isSelected() && cbCD.isSelected()) {
+            JOptionPane.showMessageDialog(null, "Opção inválida");
+            cbD.setSelected(false);
+            cbCC.setSelected(false);
+            cbCD.setSelected(false);
+            txtDinheiro.setEnabled(false);
+            txtTroco.setEnabled(false);
+            txtCartao.setEnabled(false);
         }
 
     }
@@ -940,9 +1090,77 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
     }
     //</editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="LimparTabela pesquisa">
+    public void LimparTabela() {
+
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"Produto", "Descição", "Tipo", "Data da Compra", "Valor de Venda", "icsm", "iss", "ipi", "Estoque", "situação", "idProdutos", "idLote"};
+
+        try {
+
+            dados.add(new Object[]{"", "", "", "", "", "", "", ""});
+            dados.removeAll(dados);
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex + "Ñ DEU");
+        }
+
+        ModeloTabela model = new ModeloTabela(dados, colunas);
+        jTable2.setModel(model);
+
+        jTable2.getColumnModel().getColumn(0).setPreferredWidth(250);  // define o tamanho das colunas e se será redimensionado ou não
+        jTable2.getColumnModel().getColumn(0).setResizable(true);  // não permite alterar o tamanho da coluna
+        jTable2.getColumnModel().getColumn(1).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(1).setResizable(false);
+        jTable2.getColumnModel().getColumn(2).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jTable2.getColumnModel().getColumn(3).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(3).setResizable(false);
+        jTable2.getColumnModel().getColumn(4).setPreferredWidth(80);
+        jTable2.getColumnModel().getColumn(4).setResizable(false);
+        jTable2.getColumnModel().getColumn(5).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(5).setResizable(false);
+        jTable2.getColumnModel().getColumn(6).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(6).setResizable(false);
+        jTable2.getColumnModel().getColumn(7).setPreferredWidth(50);
+        jTable2.getColumnModel().getColumn(7).setResizable(false);
+
+        jTable2.getTableHeader().setReorderingAllowed(false);  // Não permite reordenar as colunas
+        jTable2.setAutoResizeMode(JTable.AUTO_RESIZE_OFF); // Não permite redimensionar a tabela
+        jTable2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // permite selecionar apenas 1 elemento da tabela
+    }
+    //</editor-fold>
+
+    // <editor-fold defaultstate="collapsed" desc="Limpar campo 1">
+    public void Limpar1() {
+        txtQtd.setText("");
+        txtDencontoProd.setText("");
+        lblValorParcial.setText("");
+
+        LimparTabela();
+
+    }
+
+    //</editor-fold>
+    // <editor-fold defaultstate="collapsed" desc="Verificar Campos Vazios">
+    public boolean VerificarCampos() {
+        if (txtDataEntrega.getText().equals("")) {
+            verificar = true;
+        }
+        if (txtDataSolicitacao.getText().equals("")) {
+            verificar = true;
+        }
+        if (txtValorServico.getText().equals("")) {
+            verificar = true;
+        }
+        return verificar;
+    }
+    //</editor-fold>
+
     // <editor-fold defaultstate="collapsed" desc="Java-doc - do not modify">   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProduto;
+    private javax.swing.JButton btnCalcular;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFinalizarOrdem;
     private javax.swing.JButton btnPesquisaCpf;
@@ -995,6 +1213,7 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lbl6;
     private javax.swing.JLabel lbl7;
     private javax.swing.JLabel lbl8;
+    private javax.swing.JLabel lbl9;
     private javax.swing.JLabel lblCodOrdem;
     private javax.swing.JLabel lblIcms;
     private javax.swing.JLabel lblIpi;
@@ -1008,8 +1227,8 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCartao;
     private javax.swing.JTextField txtCodVendedor;
     private javax.swing.JTextField txtCpfCliente;
-    private javax.swing.JTextField txtDataEntrega;
-    private javax.swing.JTextField txtDataSolicitacao;
+    private javax.swing.JFormattedTextField txtDataEntrega;
+    private javax.swing.JFormattedTextField txtDataSolicitacao;
     private javax.swing.JTextField txtDencontoProd;
     private javax.swing.JTextArea txtDescricao;
     private javax.swing.JTextField txtDinheiro;

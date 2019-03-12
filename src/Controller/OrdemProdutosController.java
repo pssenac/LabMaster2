@@ -39,11 +39,7 @@ public class OrdemProdutosController {
         dao.ordemservico.setIpi(k);
         dao.ordemservico.setValorTotal(l);
         dao.ordemservico.setCpfCliente(m);
-        dao.ordemservico.setCodigoOrdem(n);
-        dao.ordemservico.setFKcliente(o);
-        dao.ordemservico.setFKfuncionario(p);
-        dao.ordemservico.setObservacao(q);
-        dao.ordemservico.setEstorno(r);
+        dao.ordemservico.setCodigoOrdem(n);      
 
         JOptionPane.showMessageDialog(null, dao.Atualizarvendas(DAO.INCLUSAOVENDA));
     }
@@ -61,8 +57,8 @@ public class OrdemProdutosController {
 
     public void pesquisarCliente(String cpf) {
         DAO dao = new DAO();      
+        dao.PesquisaCliente(cpf);
         
-        dao.cliente.setNomeCliente(dao.PesquisaCliente(cpf));
 
     }
 }
