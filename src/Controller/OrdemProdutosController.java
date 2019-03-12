@@ -55,10 +55,11 @@ public class OrdemProdutosController {
         JOptionPane.showMessageDialog(null, dao.Atualizarvendas(DAO.INCLUSAOVENDAPRODUTO));
     }
 
-    public void pesquisarCliente(String cpf) {
+    public String pesquisarCliente(String cpf) {
+        String aux="";
         DAO dao = new DAO();      
-        dao.PesquisaCliente(cpf);
+        aux = dao.PesquisaCliente(cpf);
         
-
+        return aux;
     }
 }

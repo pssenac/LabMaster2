@@ -781,7 +781,7 @@ public class TelaOrdemServico extends javax.swing.JInternalFrame {
 
         OP.pesquisarCliente(txtCpfCliente.getText());
 
-        lblNomeCli.setText(cli.getNomeCliente());
+        lblNomeCli.setText(OP.pesquisarCliente(txtCpfCliente.getText()));
         lblTelCli.setText(cli.getTelCliente());
 
     }//GEN-LAST:event_btnPesquisaCpfActionPerformed

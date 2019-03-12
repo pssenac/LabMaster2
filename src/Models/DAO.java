@@ -1088,25 +1088,42 @@ public class DAO {
         return men;
     }
 
-    public boolean PesquisaCliente(String cpf) {
-        boolean autenticado = false;
+    public String PesquisaCliente(String cpf) {
+        String aux = "";
         try {
+            sql = "select * from cliente where cpf= ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);            
+            statement.setString(1, cpf);
+            ResultSet nome = statement.executeQuery();
+            JOptionPane.showMessageDialog(null, nome);
+            aux = nome.getString("nomeCliente");
+
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro);
+        }
+        return aux;
+    }
+
+    public boolean Pesquicpf(String cpf) {
+        boolean autenticado = false;
+
+        try {
+
             String sql = "select * from cliente where cpf= ?";
             bd.getConnection();
             statement = bd.connection.prepareStatement(sql);
             statement.setString(1, cpf);
             ResultSet rs = statement.executeQuery();
-            if (rs.first()) {
+            if (rs.next()) {
                 Acesso = rs.getString("nomeCliente");
-                cliente.setNomeCliente(Acesso);
                 autenticado = true;
             } else {
                 rs.close();
                 return autenticado;
             }
-
-        } catch (SQLException erro) {
-
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
         }
         return autenticado;
     }
