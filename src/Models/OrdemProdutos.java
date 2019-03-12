@@ -3,50 +3,91 @@ package Models;
 
 
 public class OrdemProdutos {
-   private int fkOrdemServicoOrdProdutos;
-   private int fkprodutosOrdProdutos;
-   private int qtdProdutoOrdProdutos;
-   private double valorParcialOrdProdutos;
-   private double  descontoParcialOrdProdutos;
+   
+    private String FKordemServico, FKlote, qtd, desconto, valorParcial, codigoOrdem;
 
-    public int getFkOrdemServicoOrdProdutos() {
-        return fkOrdemServicoOrdProdutos;
+    /**
+     * @return the FKordemServico
+     */
+    public String getFKordemServico() {
+        return FKordemServico;
     }
 
-    public void setFkOrdemServicoOrdProdutos(int fkOrdemServicoOrdProdutos) {
-        this.fkOrdemServicoOrdProdutos = fkOrdemServicoOrdProdutos;
+    /**
+     * @param FKordemServico the FKordemServico to set
+     */
+    public void setFKordemServico(String FKordemServico) {
+        this.FKordemServico = FKordemServico;
     }
 
-    public int getFkprodutosOrdProdutos() {
-        return fkprodutosOrdProdutos;
+    /**
+     * @return the FKlote
+     */
+    public String getFKlote() {
+        return FKlote;
     }
 
-    public void setFkprodutosOrdProdutos(int fkprodutosOrdProdutos) {
-        this.fkprodutosOrdProdutos = fkprodutosOrdProdutos;
+    /**
+     * @param FKlote the FKlote to set
+     */
+    public void setFKlote(String FKlote) {
+        this.FKlote = FKlote;
     }
 
-    public int getQtdProdutoOrdProdutos() {
-        return qtdProdutoOrdProdutos;
+    /**
+     * @return the qtd
+     */
+    public String getQtd() {
+        return qtd;
     }
 
-    public void setQtdProdutoOrdProdutos(int qtdProdutoOrdProdutos) {
-        this.qtdProdutoOrdProdutos = qtdProdutoOrdProdutos;
+    /**
+     * @param qtd the qtd to set
+     */
+    public void setQtd(String qtd) {
+        this.qtd = qtd;
     }
 
-    public double getValorParcialOrdProdutos() {
-        return valorParcialOrdProdutos;
+    /**
+     * @return the desconto
+     */
+    public String getDesconto() {
+        return desconto;
     }
 
-    public void setValorParcialOrdProdutos(double valorParcialOrdProdutos) {
-        this.valorParcialOrdProdutos = valorParcialOrdProdutos;
+    /**
+     * @param desconto the desconto to set
+     */
+    public void setDesconto(String desconto) {
+        this.desconto = desconto;
     }
 
-    public double getDescontoParcialOrdProdutos() {
-        return descontoParcialOrdProdutos;
+    /**
+     * @return the valorParcial
+     */
+    public String getValorParcial() {
+        return valorParcial;
     }
 
-    public void setDescontoParcialOrdProdutos(double descontoParcialOrdProdutos) {
-        this.descontoParcialOrdProdutos = descontoParcialOrdProdutos;
+    /**
+     * @param valorParcial the valorParcial to set
+     */
+    public void setValorParcial(String valorParcial) {
+        this.valorParcial = valorParcial;
+    }
+
+    /**
+     * @return the codigoOrdem
+     */
+    public String getCodigoOrdem() {
+        return codigoOrdem;
+    }
+
+    /**
+     * @param codigoOrdem the codigoOrdem to set
+     */
+    public void setCodigoOrdem(String codigoOrdem) {
+        this.codigoOrdem = codigoOrdem;
     }
     
     

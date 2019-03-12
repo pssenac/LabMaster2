@@ -234,7 +234,7 @@ public class DAO {
 
         try {
 
-            sql = "select * from cliente where cpf= ?";
+            String sql = "select * from cliente where cpf= ?";
             bd.getConnection();
             statement = bd.connection.prepareStatement(sql);
             statement.setString(1, cpf);
@@ -253,7 +253,6 @@ public class DAO {
     }
 
     //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FORNECEDOR ">
     public void carregarTabela2() {
         String sql = "select * from fornecedor";
@@ -394,7 +393,6 @@ public class DAO {
     }
 
 //</editor-fold>
-    
     //<editor-fold defaultstate="collapsed" desc=" MÉTODO ATUALIZAR FUNCIONARIO E USUARIO">
     public String atualizarFuncionarioUsuario(int operacao) {
 
@@ -796,7 +794,7 @@ public class DAO {
 
             }
         } catch (SQLException erro) {
-JOptionPane.showMessageDialog(null, erro);
+            JOptionPane.showMessageDialog(null, erro);
         }
         return men;
     }
@@ -1006,6 +1004,111 @@ JOptionPane.showMessageDialog(null, erro);
         }
         return autenticado;
     }
-}
-//</editor-fold>
+    //</editor-fold>
 
+    //<editor-fold defaultstate="collapsed" desc=" METODO ORDEM DE SERVIÇO">
+    public String AtualizarOrdemServico(int operacao) {
+        men = "Operação realizada com sucesso!";
+        try {
+            switch (operacao) {
+                // Produto
+                case INCLUSAOORDEMSERVICO:
+
+                    sql = "select idFuncionario from funcionario where codigoFuncionario = ?";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, ordemservico.getCodigoFuncionario());
+                    resultSet = statement.executeQuery();
+                    String FKfun = resultSet.getString("idFuncionario");
+                    if (resultSet.first() == false) {
+                        JOptionPane.showMessageDialog(null, "Funcionário Inválido!");
+                    } else {
+                        sql = "select idcliente from cliente where cpf = ?";
+                        bd.getConnection();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, ordemservico.getCpfCliente());
+                        resultSet = statement.executeQuery();
+                        String FKcli = resultSet.getString("idcliente");
+
+                        sql = "insert into ordemserviço values (null,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                        bd.getConnection();
+                        statement = bd.connection.prepareStatement(sql);
+                        statement.setString(1, ordemservico.getTipoServico());
+                        statement.setString(2, ordemservico.getValorServico());
+                        statement.setString(3, ordemservico.getDataEntrega());
+                        statement.setString(4, ordemservico.getDataSolitacao());
+                        statement.setString(5, ordemservico.getPrioridade());
+                        statement.setString(6, ordemservico.getDescricao());
+                        statement.setString(7, ordemservico.getTipoPagamento());
+                        statement.setString(8, ordemservico.getCodigoFuncionario());
+                        statement.setString(9, ordemservico.getIcms());
+                        statement.setString(10, ordemservico.getIss());
+                        statement.setString(11, ordemservico.getIpi());
+                        statement.setString(12, ordemservico.getValorTotal());
+                        statement.setString(13, ordemservico.getCpfCliente());
+                        statement.setString(14, ordemservico.getCodigoOrdem());
+                        statement.setString(15, FKcli);
+                        statement.setString(16, FKfun);
+                        statement.executeUpdate();
+                        statement.close();
+                    }
+                    break;
+
+                // Inserção VendaProduto
+                case INCLUSAOORDEMPRODUTO:
+
+                    sql = "select * from ordemserviço";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    resultSet = statement.executeQuery();
+                    String fk = resultSet.getString("IdServico");
+
+                    sql = "insert into ordemlote values (?,?,?,?,?)";
+                    bd.getConnection();
+                    statement = bd.connection.prepareStatement(sql);
+                    statement.setString(1, fk);
+                    statement.setString(2, ordemProdutos.getFKlote());
+                    statement.setString(3, ordemProdutos.getQtd());
+                    statement.setString(4, ordemProdutos.getDesconto());
+                    statement.setString(5, ordemProdutos.getValorParcial());
+                    statement.setString(6, ordemProdutos.getCodigoOrdem());
+                    statement.executeUpdate();
+                    statement.close();
+
+                    break;
+
+                case ALTERACAOVENDA:
+
+                    break;
+
+            }
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro);
+        }
+        return men;
+    }
+
+    public boolean PesquisaCliente(String cpf) {
+        boolean autenticado = false;
+        try {
+            String sql = "select * from cliente where cpf= ?";
+            bd.getConnection();
+            statement = bd.connection.prepareStatement(sql);
+            statement.setString(1, cpf);
+            ResultSet rs = statement.executeQuery();
+            if (rs.first()) {
+                Acesso = rs.getString("nomeCliente");
+                cliente.setNomeCliente(Acesso);
+                autenticado = true;
+            } else {
+                rs.close();
+                return autenticado;
+            }
+
+        } catch (SQLException erro) {
+
+        }
+        return autenticado;
+    }
+    //</editor-fold>
+}

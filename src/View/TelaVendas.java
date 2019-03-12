@@ -791,6 +791,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         return Integer.toString(num);
     }
     //</editor-fold>
+   
     // <editor-fold defaultstate="collapsed" desc="Tipo Pagamento">
     public void tipoPagamento(){
         if(cbD.isSelected()){
@@ -821,6 +822,7 @@ public class TelaVendas extends javax.swing.JInternalFrame {
         try {
 
             dados.add(new Object[]{"", "", "", "", "", "", "", ""});
+            dados.removeAll(dados);
 
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex + "Ñ DEU");

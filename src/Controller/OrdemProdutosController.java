@@ -1,35 +1,64 @@
-
 package Controller;
 
 import Models.DAO;
-
+import javax.swing.JOptionPane;
+import Models.Venda;
 
 public class OrdemProdutosController {
-    /*
-   public String salvarOrdemProdutos(int fkOrdemServicoOrdProdutos, int fkprodutosOrdProdutos, int qtdProdutoOrdProdutos, 
-            double valorParcialOrdProdutos, double descontoParcialOrdProdutos ){
+
+    public Venda preencherCarrinho(String a, String b, String c, String d, String e, String f, String g, String h) {
         DAO dao = new DAO();
-        dao.ordemProdutos.setFkOrdemServicoOrdProdutos(fkOrdemServicoOrdProdutos);
-        dao.ordemProdutos.setFkOrdemServicoOrdProdutos(fkprodutosOrdProdutos);
-        dao.ordemProdutos.setQtdProdutoOrdProdutos(qtdProdutoOrdProdutos);
-        dao.ordemProdutos.setValorParcialOrdProdutos(valorParcialOrdProdutos);
-        dao.ordemProdutos.setDescontoParcialOrdProdutos(descontoParcialOrdProdutos);
-    
-        String msgInclusao = dao.atualizar(DAO.INCLUSAOORDEMPRODUTO);
-        return msgInclusao;
+
+        dao.venda.setA(a);
+        dao.venda.setB(b);
+        dao.venda.setC(c);
+        dao.venda.setD(d);
+        dao.venda.setE(e);
+        dao.venda.setF(f);
+        dao.venda.setG(g);
+        dao.venda.setH(h);
+
+        return dao.venda;
     }
-     
-    public String alterarOrdemProdutos(int fkOrdemServicoOrdProdutos, int fkprodutosOrdProdutos, int qtdProdutoOrdProdutos, 
-            double valorParcialOrdProdutos, double descontoParcialOrdProdutos ){
+
+    public void salvarOrdemServico(String a, String b, String c, String d, String e,
+            String f, String g, String h, String i, String j, String k, String l,
+            String m, String n, String o, String p, String q, String r) {
         DAO dao = new DAO();
-        dao.ordemProdutos.setFkOrdemServicoOrdProdutos(fkOrdemServicoOrdProdutos);
-        dao.ordemProdutos.setFkOrdemServicoOrdProdutos(fkprodutosOrdProdutos);
-        dao.ordemProdutos.setQtdProdutoOrdProdutos(qtdProdutoOrdProdutos);
-        dao.ordemProdutos.setValorParcialOrdProdutos(valorParcialOrdProdutos);
-        dao.ordemProdutos.setDescontoParcialOrdProdutos(descontoParcialOrdProdutos);
-       
-        String msgInclusao = dao.atualizar(DAO.ALTERACAOORDEMPRODUTO);
-        return msgInclusao;
+
+        dao.ordemservico.setTipoServico(a);
+        dao.ordemservico.setValorServico(b);
+        dao.ordemservico.setDataEntrega(c);
+        dao.ordemservico.setDataSolitacao(d);
+        dao.ordemservico.setPrioridade(e);
+        dao.ordemservico.setDescricao(f);
+        dao.ordemservico.setTipoPagamento(g);
+        dao.ordemservico.setCodigoFuncionario(h);
+        dao.ordemservico.setIcms(i);
+        dao.ordemservico.setIss(j);
+        dao.ordemservico.setIpi(k);
+        dao.ordemservico.setValorTotal(l);
+        dao.ordemservico.setCpfCliente(m);
+        dao.ordemservico.setCodigoOrdem(n);      
+
+        JOptionPane.showMessageDialog(null, dao.Atualizarvendas(DAO.INCLUSAOVENDA));
     }
-    */
+
+    public void salvarLoteVenda(String a, String b, String c, String d, String e) {
+        DAO dao = new DAO();
+        dao.vendaProdutos.setFkLoteVendas(a);
+        dao.vendaProdutos.setQtd(b);
+        dao.vendaProdutos.setDescontoItemVendProduto(c);
+        dao.vendaProdutos.setValorParcialVendProduto(d);
+        dao.vendaProdutos.setCodVenda(e);
+
+        JOptionPane.showMessageDialog(null, dao.Atualizarvendas(DAO.INCLUSAOVENDAPRODUTO));
+    }
+
+    public void pesquisarCliente(String cpf) {
+        DAO dao = new DAO();      
+        dao.PesquisaCliente(cpf);
+        
+
+    }
 }
