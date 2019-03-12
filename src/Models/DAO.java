@@ -77,6 +77,7 @@ public class DAO {
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc=" EXECUTAR SQL "> 
     public void executaSQL(String sql) {
+        JOptionPane.showMessageDialog(null, sql);
         try {
             boolean resp;
             resp = bd.getConnection();
